@@ -126,6 +126,8 @@ item_data_table = {
     **minikit_item_table, **hostage_item_table,
 }
 
+lookup_id_to_name: typing.Dict[int, str] = {data.code: item_name for item_name, data in item_table.items() if data.code}
+
 event_item_table: Dict[str, LB1ItemData] = {
     "Completed All Levels":     LegoBatman1ItemData("Event", classification=ItemClassification.progression),
     "Completed Arkham Asylum":  LegoBatman1ItemData("Event", classification=ItemClassification.progression),
@@ -149,5 +151,6 @@ def get_items(world):
     
 
     return item_table
+
 
 
