@@ -123,7 +123,7 @@ hostage_item_table: Dict[str, LB1ItemData] = {
 }
 
 item_data_table = {
-    **minikit_item_table, hostage_item_table,
+    **minikit_item_table, **hostage_item_table,
 }
 
 event_item_table: Dict[str, LB1ItemData] = {
@@ -149,4 +149,5 @@ def get_items(world):
     
 
     return item_table
+
 
