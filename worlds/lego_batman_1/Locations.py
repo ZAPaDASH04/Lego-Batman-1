@@ -4,7 +4,7 @@ class LB1Location(Location):
     game: str = "Lego Batman: The Videogame"
 
 
-base_location_id = 49000000
+base_location_id: int = 49000000
 
 minikit_location_table = {
     "You can Bank on Batman: Minikit 1 - Inside Garage", base_location_id + 100,
