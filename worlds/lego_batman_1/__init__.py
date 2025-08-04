@@ -1,25 +1,23 @@
-import string
-
-from .items import LegoBatman1Item, item_table, item_pool_weights, offset, filler_table
-from .locations import LegoBatman1Location
-from .rules import set_rules
-
-from BaseClasses import Item, ItemClassification, Tutorial
-from .options import ItemWeights, LegoBatman1Options
-from worlds.AutoWorld import World, WebWorld
-from .regions 
 from typing import List, Dict, Any
 
+from BaseClasses import Item, ItemClassification, Tutorial, Region, MultiWorld
+from ..AutoWorld import World, WebWorld
+
+from .Items import LB1Item, item_table
+from .Locations import LB1Location
+from .Options import LB1Options
+from .Regions import create_regions, connect_regions, LB1Region
+from .Rules import set_rules
 
 class LegoBatman1(WebWorld):
-    theme = "stone"
+    theme = "ocean"
     tutorials = [Tutorial(
         "Multiworld Setup Guide",
-        "A guide to setting up the Lego Batman The Videogame integration for Archipelago multiworld games.",
+        "A guide to setting up the Lego Batman: The Videogame for Archipelago.",
         "English",
         "setup_en.md",
         "setup/en",
-        ["Ijwu", "Kindasneaki"]
+        ["ZAPaDASH04", "jrad", "Snolid Ice"]
     )]
 
 

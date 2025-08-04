@@ -8,7 +8,7 @@ class LB1Item(Item):
 
 class LB1ItemData(NamedTuple):
     code: Optional[int] = None
-    classification: ItemClassification = ItemClassification.filler
+    classification: ItemClassification = ItemClassification.progression_skip_balancing
 
 #TODO: add in progression classification based off of win con (look at manual's implementation - need to decide win cons first)
 minikit_item_table: Dict[str, LB1ItemData] = {
@@ -127,13 +127,12 @@ item_table = {
 lookup_id_to_name: Dict[int, str] = {data.code: item_name for item_name, data in item_table.items() if data.code}
 
 event_item_table: Dict[str, LB1ItemData] = {
-    "Completed All Levels": LB1ItemData(None, classification=ItemClassification.progression),
+    # "Completed Wayne Manor": LB1ItemData(None, classification=ItemClassification.progression),
+    # "Completed Arkham Asylum": LB1ItemData(None, classification=ItemClassification.progression),
+    # "Completed All Levels": LB1ItemData(None, classification=ItemClassification.progression),
     "Obtain All Minikits": LB1ItemData(None, classification=ItemClassification.progression),
-    "Completed Arkham Asylum": LB1ItemData(None, classification=ItemClassification.progression),
-    "Completed Wayne Mannor": LB1ItemData(None, classification=ItemClassification.progression),
-    "Ra Sha Guul": LB1ItemData(None, classification=ItemClassification.progression),
-    "Hush": LB1ItemData(None, classification=ItemClassification.progression),
-    "100% Obtained": LB1ItemData(None, classification=ItemClassification.progression),
+    # "Hush": LB1ItemData(None, classification=ItemClassification.progression),
+    # "Ra Sha Guul": LB1ItemData(None, classification=ItemClassification.progression),
 }
 
 
