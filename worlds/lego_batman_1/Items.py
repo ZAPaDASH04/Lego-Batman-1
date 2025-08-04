@@ -1,17 +1,14 @@
 from BaseClasses import Item, ItemClassification
-from typing import NamedTuple, Optional, TypedDict, Dict
+from typing import NamedTuple, Optional, Dict
 
-base_item_id: int = 49000000
+base_item_id: int = 400000
 
 class LB1Item(Item):
     game: str = "Lego Batman: The Video Game"
 
-class LB1temData(NamedTuple):
+class LB1ItemData(NamedTuple):
     code: Optional[int] = None
     classification: ItemClassification = ItemClassification.filler
-
-def get_items_by_category(category: str) -> Dict[str, LB1ItemData]: 
-    return {name: data for name, data in item_table.items() if data.category == category}
 
 #TODO: add in progression classification based off of win con (look at manual's implementation - need to decide win cons first)
 minikit_item_table: Dict[str, LB1ItemData] = {
@@ -94,63 +91,50 @@ minikit_item_table: Dict[str, LB1ItemData] = {
     
 }
 
-hostage_item_table: Dict[str, LB1ItemData] = {
-    "You Can Bank On Batman: Hostage": LB1ItemData(base_item_id + 400),
-    "An Icy Reception: Hostage": LB1ItemData(base_item_id + 401),
-    "A Poisonous Appointment: Hostage": LB1ItemData(base_item_id + 402),
-    "The Face-Off: Hostage": LB1ItemData(base_item_id + 403),
-    "There She Goes Again: Hostage": LB1ItemData(base_item_id + 404),
-    "Under The City: Hostage": LB1ItemData(base_item_id + 405),
-    "Zoo's Company: Hostage": LB1ItemData(base_item_id + 406),
-    "Penguin's Lair: Hostage": LB1ItemData(base_item_id + 407),
-    "Joker's Home Turf: Hostage": LB1ItemData(base_item_id + 408),
-    "Little Fun at the Big Top: Hostage": LB1ItemData(base_item_id + 409),
-    "In the Dark Night: Hostage": LB1ItemData(base_item_id + 410),
-    "To the Top of the Tower: Hostage": LB1ItemData(base_item_id + 411),
-    "The Riddler Makes a Withdrawal: Hostage": LB1ItemData(base_item_id + 412),
-    "On the Rocks: Hostage": LB1ItemData(base_item_id + 413),
-    "Green Fingers: Hostage": LB1ItemData(base_item_id + 414),
-    "An Enterprising Theft: Hostage": LB1ItemData(base_item_id + 415),
-    "Breaking Blocks: Hostage": LB1ItemData(base_item_id + 416),
-    "Rockin' the Docks: Hostage": LB1ItemData(base_item_id + 417),
-    "Stealing the Show: Hostage": LB1ItemData(base_item_id + 418),
-    "A Daring Rescue: Hostage": LB1ItemData(base_item_id + 419),
-    "Arctic World: Hostage": LB1ItemData(base_item_id + 420),
-    "A Surprise for the Commissioner: Hostage": LB1ItemData(base_item_id + 421),
-    "The Joker's Masterpiece: Hostage": LB1ItemData(base_item_id + 422),
-    "The Lure of the Night: Hostage": LB1ItemData(base_item_id + 423),
-    "Dying of Laughter: Hostage": LB1ItemData(base_item_id + 424),
+# hostage_item_table: Dict[str, LB1ItemData] = {
+#     "You Can Bank On Batman: Hostage": LB1ItemData(base_item_id + 400),
+#     "An Icy Reception: Hostage": LB1ItemData(base_item_id + 401),
+#     "A Poisonous Appointment: Hostage": LB1ItemData(base_item_id + 402),
+#     "The Face-Off: Hostage": LB1ItemData(base_item_id + 403),
+#     "There She Goes Again: Hostage": LB1ItemData(base_item_id + 404),
+#     "Under The City: Hostage": LB1ItemData(base_item_id + 405),
+#     "Zoo's Company: Hostage": LB1ItemData(base_item_id + 406),
+#     "Penguin's Lair: Hostage": LB1ItemData(base_item_id + 407),
+#     "Joker's Home Turf: Hostage": LB1ItemData(base_item_id + 408),
+#     "Little Fun at the Big Top: Hostage": LB1ItemData(base_item_id + 409),
+#     "In the Dark Night: Hostage": LB1ItemData(base_item_id + 410),
+#     "To the Top of the Tower: Hostage": LB1ItemData(base_item_id + 411),
+#     "The Riddler Makes a Withdrawal: Hostage": LB1ItemData(base_item_id + 412),
+#     "On the Rocks: Hostage": LB1ItemData(base_item_id + 413),
+#     "Green Fingers: Hostage": LB1ItemData(base_item_id + 414),
+#     "An Enterprising Theft: Hostage": LB1ItemData(base_item_id + 415),
+#     "Breaking Blocks: Hostage": LB1ItemData(base_item_id + 416),
+#     "Rockin' the Docks: Hostage": LB1ItemData(base_item_id + 417),
+#     "Stealing the Show: Hostage": LB1ItemData(base_item_id + 418),
+#     "A Daring Rescue: Hostage": LB1ItemData(base_item_id + 419),
+#     "Arctic World: Hostage": LB1ItemData(base_item_id + 420),
+#     "A Surprise for the Commissioner: Hostage": LB1ItemData(base_item_id + 421),
+#     "The Joker's Masterpiece: Hostage": LB1ItemData(base_item_id + 422),
+#     "The Lure of the Night: Hostage": LB1ItemData(base_item_id + 423),
+#     "Dying of Laughter: Hostage": LB1ItemData(base_item_id + 424),
+# }
+
+item_table = {
+    **minikit_item_table,
+    # **hostage_item_table,
 }
 
-item_data_table = {
-    **minikit_item_table, **hostage_item_table,
-}
-
-lookup_id_to_name: typing.Dict[int, str] = {data.code: item_name for item_name, data in item_table.items() if data.code}
+lookup_id_to_name: Dict[int, str] = {data.code: item_name for item_name, data in item_table.items() if data.code}
 
 event_item_table: Dict[str, LB1ItemData] = {
-    "Completed All Levels":     LegoBatman1ItemData("Event", classification=ItemClassification.progression),
-    "Completed Arkham Asylum":  LegoBatman1ItemData("Event", classification=ItemClassification.progression),
-    "Completed Wayne Mannor":   LegoBatman1ItemData("Event", classification=ItemClassification.progression),
-    "Ra Sha Guul":              LegoBatman1ItemData("Event", classification=ItemClassification.progression),
-    "Hush":                     LegoBatman1ItemData("Event", classification=ItemClassification.progression),
-    "100% Obtained":            LegoBatman1ItemData("Event", classification=ItemClassification.progression),
+    "Completed All Levels": LB1ItemData(None, classification=ItemClassification.progression),
+    "Obtain All Minikits": LB1ItemData(None, classification=ItemClassification.progression),
+    "Completed Arkham Asylum": LB1ItemData(None, classification=ItemClassification.progression),
+    "Completed Wayne Mannor": LB1ItemData(None, classification=ItemClassification.progression),
+    "Ra Sha Guul": LB1ItemData(None, classification=ItemClassification.progression),
+    "Hush": LB1ItemData(None, classification=ItemClassification.progression),
+    "100% Obtained": LB1ItemData(None, classification=ItemClassification.progression),
 }
-
-def get_items(world):
-    item_table = basic_item.copy()
-    
-    if world.options.char_shop_sanity:
-        item_table.update(charshopsanity_item)
-
-    if world.options.hostage_sanity:
-        item_table.update(hostagesanity_item)
-
-    if world.options.kit_sanity:
-        item_table.update(kitsanity_item)
-    
-
-    return item_table
 
 
 
