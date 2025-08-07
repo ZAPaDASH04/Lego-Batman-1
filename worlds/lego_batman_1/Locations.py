@@ -86,7 +86,7 @@ minikit_location_table: dict[str, int] = {
 }
 
 hostage_location_table: dict[str, int] = {
-    "You Can Bank On Batman: Hostage": base_location_id + 400,
+    "You can Bank on Batman: Hostage": base_location_id + 400,
     # "An Icy Reception: Hostage" base_location_id + 401,
     # "A Poisonous Appointment: Hostage", base_location_id + 402,
     # "The Face-Off: Hostage", base_location_id + 403,

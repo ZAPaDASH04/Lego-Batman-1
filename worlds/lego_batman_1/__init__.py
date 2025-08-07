@@ -47,4 +47,4 @@ class LB1World(World):
         return item
 
     def create_items(self):
-        self.multiworld.itempool += [self.create_item(minikit_name) for minikit_name in minikit_item_table]
+        self.multiworld.itempool += [self.create_item(item_name) for item_name in item_table]
