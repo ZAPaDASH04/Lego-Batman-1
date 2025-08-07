@@ -13,12 +13,11 @@ lb1_regions = [
     "Menu",
     "Batcave",
     "Arkham Asylum",
-    "Status Screen"
     "You can Bank on Batman",
-    # "An Icy Reception",
-    # "Two-Face Chase",
-    # "A Poisonous Appointment",
-    # "The Face-Off",
+    "An Icy Reception",
+    "Two-Face Chase",
+    "A Poisonous Appointment",
+    "The Face-Off",
     # "There She Goes Again",
     # "Batboat Battle"
 ]
@@ -34,18 +33,41 @@ def create_regions(world: MultiWorld, options: LB1Options, player: int):
     arkham_asylum = create_region("Arkham Asylum", player, world)
     world.regions.append(arkham_asylum)
 
-    status_screen = create_region("Status Screen", player, world)
-    world.regions.append(status_screen)
-
     you_can_bank_on_batman = create_region("You can Bank on Batman", player, world)
     world.regions.append(you_can_bank_on_batman)
 
-    connect_regions(world, player, "Menu", "You can Bank on Batman")
+    an_icy_reception = create_region("An Icy Reception", player, world)
+    world.regions.append(an_icy_reception)
+
+    two_face_chase = create_region("Two-Face Chase", player, world)
+    world.regions.append(two_face_chase)
+
+    a_poisonous_appointment = create_region("A Poisonous Appointment", player, world)
+    world.regions.append(a_poisonous_appointment)
+
+    the_face_off = create_region("The Face-Off", player, world)
+    world.regions.append(the_face_off)
+
+    connect_regions(world, player, "Menu", "Batcave")
+    connect_regions(world, player, "Batcave", "Arkham Asylum")
+    connect_regions(world, player, "Batcave", "You can Bank on Batman")
+    connect_regions(world, player, "Batcave", "An Icy Reception")
+    connect_regions(world, player, "Batcave", "Two-Face Chase")
+    connect_regions(world, player, "Batcave", "A Poisonous Appointment")
+    connect_regions(world, player, "Batcave", "The Face-Off")
 
 
     for name in location_table:
         if name.startswith("You can Bank on Batman"):
             create_location(you_can_bank_on_batman, name)
+        elif name.startswith("An Icy Reception"):
+            create_location(an_icy_reception, name)
+        elif name.startswith("Two-Face Chase"):
+            create_location(two_face_chase, name)
+        elif name.startswith("A Poisonous Appointment"):
+            create_location(a_poisonous_appointment, name)
+        elif name.startswith("The Face-Off"):
+            create_location(the_face_off, name)
 
 
 def connect_regions(world: MultiWorld, player: int, source: str, target: str, rule=None) -> Entrance:
