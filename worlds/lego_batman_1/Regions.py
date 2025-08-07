@@ -43,7 +43,7 @@ def create_regions(world: MultiWorld, options: LB1Options, player: int):
     connect_regions(world, player, "Menu", "You can Bank on Batman")
 
 
-    for name in minikit_location_table:
+    for name in location_table:
         if name.startswith("You can Bank on Batman"):
             create_location(you_can_bank_on_batman, name)
 

@@ -92,7 +92,7 @@ minikit_item_table: Dict[str, LB1ItemData] = {
 }
 
 hostage_item_table: Dict[str, LB1ItemData] = {
-    "You Can Bank On Batman: Hostage": LB1ItemData(base_item_id + 400),
+    #"You Can Bank On Batman: Hostage": LB1ItemData(base_item_id + 400),
     # "An Icy Reception: Hostage": LB1ItemData(base_item_id + 401),
     # "A Poisonous Appointment: Hostage": LB1ItemData(base_item_id + 402),
     # "The Face-Off: Hostage": LB1ItemData(base_item_id + 403),
