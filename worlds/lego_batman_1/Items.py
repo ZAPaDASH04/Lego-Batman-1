@@ -91,40 +91,40 @@ minikit_item_table: Dict[str, LB1ItemData] = {
     
 }
 
-# hostage_item_table: Dict[str, LB1ItemData] = {
-#     "You Can Bank On Batman: Hostage": LB1ItemData(base_item_id + 400),
-#     "An Icy Reception: Hostage": LB1ItemData(base_item_id + 401),
-#     "A Poisonous Appointment: Hostage": LB1ItemData(base_item_id + 402),
-#     "The Face-Off: Hostage": LB1ItemData(base_item_id + 403),
-#     "There She Goes Again: Hostage": LB1ItemData(base_item_id + 404),
-#     "Under The City: Hostage": LB1ItemData(base_item_id + 405),
-#     "Zoo's Company: Hostage": LB1ItemData(base_item_id + 406),
-#     "Penguin's Lair: Hostage": LB1ItemData(base_item_id + 407),
-#     "Joker's Home Turf: Hostage": LB1ItemData(base_item_id + 408),
-#     "Little Fun at the Big Top: Hostage": LB1ItemData(base_item_id + 409),
-#     "In the Dark Night: Hostage": LB1ItemData(base_item_id + 410),
-#     "To the Top of the Tower: Hostage": LB1ItemData(base_item_id + 411),
-#     "The Riddler Makes a Withdrawal: Hostage": LB1ItemData(base_item_id + 412),
-#     "On the Rocks: Hostage": LB1ItemData(base_item_id + 413),
-#     "Green Fingers: Hostage": LB1ItemData(base_item_id + 414),
-#     "An Enterprising Theft: Hostage": LB1ItemData(base_item_id + 415),
-#     "Breaking Blocks: Hostage": LB1ItemData(base_item_id + 416),
-#     "Rockin' the Docks: Hostage": LB1ItemData(base_item_id + 417),
-#     "Stealing the Show: Hostage": LB1ItemData(base_item_id + 418),
-#     "A Daring Rescue: Hostage": LB1ItemData(base_item_id + 419),
-#     "Arctic World: Hostage": LB1ItemData(base_item_id + 420),
-#     "A Surprise for the Commissioner: Hostage": LB1ItemData(base_item_id + 421),
-#     "The Joker's Masterpiece: Hostage": LB1ItemData(base_item_id + 422),
-#     "The Lure of the Night: Hostage": LB1ItemData(base_item_id + 423),
-#     "Dying of Laughter: Hostage": LB1ItemData(base_item_id + 424),
-# }
-
-item_table = {
-    **minikit_item_table,
-    # **hostage_item_table,
+hostage_item_table: Dict[str, LB1ItemData] = {
+    "You Can Bank On Batman: Hostage": LB1ItemData(base_item_id + 400),
+    # "An Icy Reception: Hostage": LB1ItemData(base_item_id + 401),
+    # "A Poisonous Appointment: Hostage": LB1ItemData(base_item_id + 402),
+    # "The Face-Off: Hostage": LB1ItemData(base_item_id + 403),
+    # "There She Goes Again: Hostage": LB1ItemData(base_item_id + 404),
+    # "Under The City: Hostage": LB1ItemData(base_item_id + 405),
+    # "Zoo's Company: Hostage": LB1ItemData(base_item_id + 406),
+    # "Penguin's Lair: Hostage": LB1ItemData(base_item_id + 407),
+    # "Joker's Home Turf: Hostage": LB1ItemData(base_item_id + 408),
+    # "Little Fun at the Big Top: Hostage": LB1ItemData(base_item_id + 409),
+    # "In the Dark Night: Hostage": LB1ItemData(base_item_id + 410),
+    # "To the Top of the Tower: Hostage": LB1ItemData(base_item_id + 411),
+    # "The Riddler Makes a Withdrawal: Hostage": LB1ItemData(base_item_id + 412),
+    # "On the Rocks: Hostage": LB1ItemData(base_item_id + 413),
+    # "Green Fingers: Hostage": LB1ItemData(base_item_id + 414),
+    # "An Enterprising Theft: Hostage": LB1ItemData(base_item_id + 415),
+    # "Breaking Blocks: Hostage": LB1ItemData(base_item_id + 416),
+    # "Rockin' the Docks: Hostage": LB1ItemData(base_item_id + 417),
+    # "Stealing the Show: Hostage": LB1ItemData(base_item_id + 418),
+    # "A Daring Rescue: Hostage": LB1ItemData(base_item_id + 419),
+    # "Arctic World: Hostage": LB1ItemData(base_item_id + 420),
+    # "A Surprise for the Commissioner: Hostage": LB1ItemData(base_item_id + 421),
+    # "The Joker's Masterpiece: Hostage": LB1ItemData(base_item_id + 422),
+    # "The Lure of the Night: Hostage": LB1ItemData(base_item_id + 423),
+    # "Dying of Laughter: Hostage": LB1ItemData(base_item_id + 424),
 }
 
-lookup_id_to_name: Dict[int, str] = {data.code: item_name for item_name, data in item_table.items() if data.code}
+item_data_table = {
+    **minikit_item_table,
+    **hostage_item_table,
+}
+
+item_table = {name: data.code for name, data in item_data_table.items() if data.code is not None}
 
 event_item_table: Dict[str, LB1ItemData] = {
     # "Completed Wayne Manor": LB1ItemData(None, classification=ItemClassification.progression),

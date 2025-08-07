@@ -3,13 +3,13 @@ from typing import List, Dict, Any
 from BaseClasses import Item, ItemClassification, Tutorial, Region, MultiWorld
 from ..AutoWorld import World, WebWorld
 
-from .Items import LB1Item, item_table
+from .Items import LB1Item, item_table, item_data_table, minikit_item_table
 from .Locations import location_table, LB1Location
 from .Options import LB1Options
 from .Regions import create_regions, connect_regions, LB1Region
 # from .Rules import set_rules
 
-class LB1(WebWorld):
+class LB1Web(WebWorld):
     theme = "ocean"
     tutorials = [Tutorial(
         "Multiworld Setup Guide",
@@ -36,5 +36,15 @@ class LB1World(World):
 
     data_version = 1
     required_client_version = (0, 4, 4)
-    # web = LB1Web()
-   
+    web = LB1Web()
+
+    def create_regions(self):
+        create_regions(self.multiworld, self.options, self.player)
+
+    def create_item(self, name: str) -> Item:
+        data = item_data_table[name]
+        item = LB1Item(name, data.classification, data.code, self.player)
+        return item
+
+    def create_items(self):
+        self.multiworld.itempool += [self.create_item(minikit_name) for minikit_name in minikit_item_table]

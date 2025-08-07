@@ -26,12 +26,21 @@ lb1_regions = [
 
 def create_regions(world: MultiWorld, options: LB1Options, player: int):
     menu = Region("Menu", player, world)
-    batcave = create_region("Batcave", player, world)
-    arkham_asylum = create_region("Arkham Asylum", player, world)
-    status_screen = create_region("Status Screen", player, world)
-    you_can_bank_on_batman = create_region("You Can Bank on Batman", player, world)
+    world.regions.append(menu)
 
-    # connect_regions(world, player, menu, batcave)
+    batcave = create_region("Batcave", player, world)
+    world.regions.append(batcave)
+
+    arkham_asylum = create_region("Arkham Asylum", player, world)
+    world.regions.append(arkham_asylum)
+
+    status_screen = create_region("Status Screen", player, world)
+    world.regions.append(status_screen)
+
+    you_can_bank_on_batman = create_region("You can Bank on Batman", player, world)
+    world.regions.append(you_can_bank_on_batman)
+
+    connect_regions(world, player, "Menu", "You can Bank on Batman")
 
 
     for name in minikit_location_table:
