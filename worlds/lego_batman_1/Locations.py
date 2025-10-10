@@ -131,12 +131,12 @@ minikit_location_table: Dict[str, LocationData] = {
     LocationName.ycbob_min2: LocationData(base_location_id + 101, "You can Bank on Batman"),
     LocationName.ycbob_min3: LocationData(base_location_id + 102, "You can Bank on Batman"),
     LocationName.ycbob_min4: LocationData(base_location_id + 103, "You can Bank on Batman"),
-    LocationName.ycbob_min5: LocationData(base_location_id + 104, "You can Bank on Batman"),
-    LocationName.ycbob_min6: LocationData(base_location_id + 105, "You can Bank on Batman"),
-    LocationName.ycbob_min7: LocationData(base_location_id + 106, "You can Bank on Batman"),
-    LocationName.ycbob_min8: LocationData(base_location_id + 107, "You can Bank on Batman"),
-    LocationName.ycbob_min9: LocationData(base_location_id + 108, "You can Bank on Batman"),
-    LocationName.ycbob_min10: LocationData(base_location_id + 109, "You can Bank on Batman"),
+    LocationName.ycbob_min5: LocationData(base_location_id + 104, "You can Bank on Batman: Freeplay"),
+    LocationName.ycbob_min6: LocationData(base_location_id + 105, "You can Bank on Batman: Freeplay"),
+    LocationName.ycbob_min7: LocationData(base_location_id + 106, "You can Bank on Batman: Freeplay"),
+    LocationName.ycbob_min8: LocationData(base_location_id + 107, "You can Bank on Batman: Freeplay"),
+    LocationName.ycbob_min9: LocationData(base_location_id + 108, "You can Bank on Batman: Freeplay"),
+    LocationName.ycbob_min10: LocationData(base_location_id + 109, "You can Bank on Batman: Freeplay"),
 
     # An Icy Reception
     LocationName.air_min1: LocationData(base_location_id + 110, "An Icy Reception"),
@@ -554,7 +554,7 @@ true_status_location_table: Dict[str, LocationData] = {
 }
 
 red_brick_location_table = {
-    LocationName.ycbob_rb: LocationData(base_location_id + 485, "You can Bank on Batman"),
+    LocationName.ycbob_rb: LocationData(base_location_id + 485, "You can Bank on Batman: Freeplay"),
     LocationName.air_rb: LocationData(base_location_id + 486, "An Icy Reception"),
     LocationName.tfc_rb: LocationData(base_location_id + 487, "Two-Face Chase"),
     LocationName.apa_rb: LocationData(base_location_id + 488, "A Poisonous Appointment"),
