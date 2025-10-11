@@ -373,6 +373,13 @@ def free_access_tfc(state: CollectionState, player: int):
     return auto_has_cable(state, player)
 
 
+def free_access_apa(state: CollectionState, player: int):
+    return (
+            state.has(ItemName.sonicsuit, player)
+            and state.has(ItemName.attractsuit, player)
+    )
+
+
 def free_access_tsga(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
@@ -670,6 +677,98 @@ def can_tfc_min8(state: CollectionState, player: int):
 
 def can_tfc_min10(state: CollectionState, player: int):
     return auto_can_explode(state, player)
+
+
+def can_apa_min2(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_apa(state, player)
+                and char_can_double_jump(state, player)
+                and char_can_glide(state, player)
+        )
+    else:
+        return (
+                char_can_double_jump(state, player)
+                and char_can_glide(state, player)
+        )
+
+
+def can_apa_min3(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_apa(state, player)
+                and char_can_techno(state, player)
+        )
+    else:
+        return (
+                state.has(ItemName.sonicsuit, player)
+                and state.has(ItemName.heatprotectsuit, player)
+                and char_can_techno(state, player)
+        )
+
+
+def can_apa_min4(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_apa(state, player)
+                and char_is_strong(state, player)
+                and char_can_double_jump(state, player)
+        )
+    else:
+        return (
+                char_is_strong(state, player)
+                and char_can_double_jump(state, player)
+        )
+
+
+def can_apa_min5(state: CollectionState, player: int):
+    return state.has(ItemName.sonicsuit, player)
+
+
+def can_apa_min6(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_apa(state, player)
+                and char_can_sink(state, player)
+        )
+    else:
+        return char_can_sink(state, player)
+
+
+def can_apa_min7(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_apa(state, player)
+                and state.has(ItemName.magsuit, player)
+                and char_can_explode(state, player)
+        )
+    else:
+        return (
+                state.has(ItemName.magsuit, player)
+                and char_can_explode(state, player)
+        )
+
+
+def can_apa_min8(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_apa(state, player)
+                and state.has(ItemName.heatprotectsuit, player)
+                and char_can_double_jump(state, player)
+        )
+    else:
+        return (
+                state.has(ItemName.heatprotectsuit, player)
+                and char_can_double_jump(state, player)
+        )
+
+
+def can_apa_min9(state: CollectionState, player: int):
+    return state.has(ItemName.heatprotectsuit, player)
+
+
+def can_apa_min10(state: CollectionState, player: int):
+    return state.has(ItemName.heatprotectsuit, player)
 
 
 def can_tsga_min1(state: CollectionState, options: LB1Options, player: int):
@@ -1345,6 +1444,10 @@ def can_air_host(state: CollectionState, options: LB1Options, player: int):
         return char_can_hypno(state, player)
 
 
+def can_apa_host(state: CollectionState, player: int):
+    return state.has(ItemName.sonicsuit, player)
+
+
 def can_tfo_host(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
@@ -1519,12 +1622,19 @@ def can_air_rb(state: CollectionState, options: LB1Options, player: int):
         return char_is_strong(state, player)
 
 
-def can_apa_rb(state: CollectionState, player: int):
-    return (
-            can_beat_apa(state, player)
-            and char_can_explode(state, player)
-            and char_joker(state, player)
-    )
+def can_apa_rb(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_apa(state, player)
+                and char_can_explode(state, player)
+                and char_joker(state, player)
+        )
+    else:
+        return (
+                char_can_explode(state, player)
+                and char_joker(state, player)
+                and state.has(ItemName.heatprotectsuit, player)
+        )
 
 
 def can_tfo_rb(state: CollectionState, options: LB1Options, player: int):
@@ -1708,7 +1818,9 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_entrance("An Icy Reception -> An Icy Reception: Freeplay", player),
              lambda state: free_access_air(state, player))
     set_rule(world.get_entrance("Two-Face Chase -> Two-Face Chase: Freeplay", player),
-             lambda state: free_access_air(state, player))
+             lambda state: free_access_tfc(state, player))
+    set_rule(world.get_entrance("A Poisonous Appointment -> A Poisonous Appointment: Freeplay", player),
+             lambda state: free_access_apa(state, player))
     set_rule(world.get_entrance("There She Goes Again -> There She Goes Again: Freeplay", player),
              lambda state: free_access_tsga(state, options, player))
     set_rule(world.get_entrance("The Riddler Makes a Withdrawal -> The Riddler Makes a Withdrawal: Freeplay", player),
@@ -1730,7 +1842,7 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_entrance("Arctic World -> Arctic World: Freeplay", player),
              lambda state: free_access_aw(state, player))
     set_rule(world.get_entrance("A Surprise for the Commissioner -> A Surprise for the Commissioner: Freeplay", player),
-             lambda state: free_access_aw(state, player))
+             lambda state: free_access_asftc(state, player))
     set_rule(world.get_entrance("Biplane Blast -> Biplane Blast: Freeplay", player),
              lambda state: free_access_bbpl(state, player))
     set_rule(world.get_entrance("The Joker's Masterpiece -> The Joker's Masterpiece: Freeplay", player),
@@ -1785,6 +1897,16 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.tfc_min7, player), lambda state: can_tfc_min7(state, player))
     set_rule(world.get_location(LocationName.tfc_min8, player), lambda state: can_tfc_min8(state, player))
     set_rule(world.get_location(LocationName.tfc_min10, player), lambda state: can_tfc_min10(state, player))
+    # APA Minikit 1 can be done in story for free
+    set_rule(world.get_location(LocationName.apa_min2, player), lambda state: can_apa_min2(state, options, player))
+    set_rule(world.get_location(LocationName.apa_min3, player), lambda state: can_apa_min3(state, options, player))
+    set_rule(world.get_location(LocationName.apa_min4, player), lambda state: can_apa_min4(state, options, player))
+    set_rule(world.get_location(LocationName.apa_min5, player), lambda state: can_apa_min5(state, player))
+    set_rule(world.get_location(LocationName.apa_min6, player), lambda state: can_apa_min6(state, options, player))
+    set_rule(world.get_location(LocationName.apa_min7, player), lambda state: can_apa_min7(state, options, player))
+    set_rule(world.get_location(LocationName.apa_min8, player), lambda state: can_apa_min8(state, options, player))
+    set_rule(world.get_location(LocationName.apa_min9, player), lambda state: can_apa_min9(state, player))
+    set_rule(world.get_location(LocationName.apa_min10, player), lambda state: can_apa_min10(state, player))
     # TSGA Minikit 6 can be done in story (with Glide/Magnet which is region access logic)
     set_rule(world.get_location(LocationName.tsga_min1, player), lambda state: can_tsga_min1(state, options, player))
     set_rule(world.get_location(LocationName.tsga_min2, player), lambda state: can_tsga_min2(state, options, player))
@@ -1909,7 +2031,7 @@ def set_host_rules(world: MultiWorld, options: LB1Options, player: int):
     # You Can Bank of Batman host can be obtained during story for free
     set_rule(world.get_location(LocationName.air_host, player), lambda state: can_air_host(state, options, player))
     # Two-Face Chase does not have host
-    set_rule(world.get_location(LocationName.apa_host, player), lambda state: state.has(ItemName.sonicsuit, player))
+    set_rule(world.get_location(LocationName.apa_host, player), lambda state: can_apa_host(state, player))
     set_rule(world.get_location(LocationName.tfo_host, player), lambda state: can_tfo_host(state, options, player))
     # There She Goes Again host can be obtained with Region Access
     # Batboat Battle does not have host
@@ -1963,7 +2085,7 @@ def set_red_brick_location_rules(world: MultiWorld, options: LB1Options, player:
     set_rule(world.get_location(LocationName.ycbob_rb, player), lambda state: can_ycbob_rb(state, options, player))
     set_rule(world.get_location(LocationName.air_rb, player), lambda state: can_air_rb(state, options, player))
     # Two-Face Chase Red Brick can be obtained in story
-    set_rule(world.get_location(LocationName.apa_rb, player), lambda state: can_apa_rb(state, player))
+    set_rule(world.get_location(LocationName.apa_rb, player), lambda state: can_apa_rb(state, options, player))
     set_rule(world.get_location(LocationName.tfo_rb, player), lambda state: can_tfo_rb(state, options, player))
     set_rule(world.get_location(LocationName.tsga_rb, player), lambda state: can_tsga_rb(state, options, player))
     set_rule(world.get_location(LocationName.trmaw_rb, player), lambda state: can_trmaw_rb(state, player))
