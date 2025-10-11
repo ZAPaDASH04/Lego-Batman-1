@@ -145,10 +145,10 @@ minikit_location_table: Dict[str, LocationData] = {
     LocationName.air_min4: LocationData(base_location_id + 113, "An Icy Reception"),
     LocationName.air_min5: LocationData(base_location_id + 114, "An Icy Reception"),
     LocationName.air_min6: LocationData(base_location_id + 115, "An Icy Reception"),
-    LocationName.air_min7: LocationData(base_location_id + 116, "An Icy Reception"),
-    LocationName.air_min8: LocationData(base_location_id + 117, "An Icy Reception"),
-    LocationName.air_min9: LocationData(base_location_id + 118, "An Icy Reception"),
-    LocationName.air_min10: LocationData(base_location_id + 119, "An Icy Reception"),
+    LocationName.air_min7: LocationData(base_location_id + 116, "An Icy Reception: Freeplay"),
+    LocationName.air_min8: LocationData(base_location_id + 117, "An Icy Reception: Freeplay"),
+    LocationName.air_min9: LocationData(base_location_id + 118, "An Icy Reception: Freeplay"),
+    LocationName.air_min10: LocationData(base_location_id + 119, "An Icy Reception: Freeplay"),
     # Two-Face Chase
     LocationName.tfc_min1: LocationData(base_location_id + 120, "Two-Face Chase"),
     LocationName.tfc_min2: LocationData(base_location_id + 121, "Two-Face Chase"),
@@ -555,7 +555,7 @@ true_status_location_table: Dict[str, LocationData] = {
 
 red_brick_location_table = {
     LocationName.ycbob_rb: LocationData(base_location_id + 485, "You can Bank on Batman: Freeplay"),
-    LocationName.air_rb: LocationData(base_location_id + 486, "An Icy Reception"),
+    LocationName.air_rb: LocationData(base_location_id + 486, "An Icy Reception: Freeplay"),
     LocationName.tfc_rb: LocationData(base_location_id + 487, "Two-Face Chase"),
     LocationName.apa_rb: LocationData(base_location_id + 488, "A Poisonous Appointment"),
     LocationName.tfo_rb: LocationData(base_location_id + 489, "The Face-Off"),

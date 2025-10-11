@@ -365,6 +365,19 @@ def free_access_ycbob(state: CollectionState, options: LB1Options, player: int):
         return char_can_explode(state, player)
 
 
+def free_access_air(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                state.has(ItemName.magsuit, player)
+                and state.has(ItemName.glidesuit, player)
+        )
+    else:
+        return (
+                state.has(ItemName.magsuit, player)
+                and char_can_glide(state, player)
+        )
+
+
 def free_access_tsga(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
@@ -548,6 +561,108 @@ def can_ycbob_min10(state: CollectionState, options: LB1Options, player: int):
         return state.has(ItemName.attractsuit, player)
     else:
         return char_can_techno(state, player)
+
+
+def can_air_min1(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_air(state, options, player)
+                and char_can_double_jump(state, player)
+        )
+    else:
+        return char_can_double_jump(state, player)
+
+
+def can_air_min2(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_air(state, options, player)
+                and char_can_double_jump(state, player)
+        )
+    else:
+        return char_can_double_jump(state, player)
+
+
+def can_air_min4(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_air(state, options, player)
+                and char_is_strong(state, player)
+        )
+    else:
+        return char_is_strong(state, player)
+
+
+def can_air_min5(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_air(state, options, player)
+                and char_can_double_jump(state, player)
+                and char_can_hypno(state, player)
+        )
+    else:
+        return (
+                char_can_double_jump(state, player)
+                and char_can_hypno(state, player)
+        )
+
+
+def can_air_min6(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_air(state, options, player)
+                and char_can_double_jump(state, player)
+                and char_can_explode(state, player)
+        )
+    else:
+        return (
+                char_can_double_jump(state, player)
+                and char_can_explode(state, player)
+        )
+
+
+def can_air_min7(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_air(state, options, player)
+                and char_can_access_female_room(state, player)
+        )
+    else:
+        return char_can_access_female_room(state, player)
+
+
+def can_air_min8(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_air(state, options, player)
+                and char_can_cross_toxic(state, player)
+                and char_can_explode(state, player)
+        )
+    else:
+        return (
+                char_can_cross_toxic(state, player)
+                and char_can_explode(state, player)
+        )
+
+
+def can_air_min9(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_air(state, options, player)
+                and char_can_explode(state, player)
+        )
+    else:
+        return char_can_explode(state, player)
+
+
+def can_air_min10(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_air(state, options, player)
+                and char_can_hypno(state, player)
+        )
+    else:
+        return char_can_hypno(state, player)
 
 
 def can_tsga_min1(state: CollectionState, options: LB1Options, player: int):
@@ -1394,11 +1509,7 @@ def can_air_rb(state: CollectionState, options: LB1Options, player: int):
                 and char_is_strong(state, player)
         )
     else:
-        return (
-                char_can_glide(state, player)
-                and state.has(ItemName.magsuit, player)
-                and char_is_strong(state, player)
-        )
+        return char_is_strong(state, player)
 
 
 def can_apa_rb(state: CollectionState, player: int):
@@ -1587,6 +1698,8 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
     # Sub Regions
     set_rule(world.get_entrance("You can Bank on Batman -> You can Bank on Batman: Freeplay", player),
              lambda state: free_access_ycbob(state, options, player))
+    set_rule(world.get_entrance("An Icy Reception -> An Icy Reception: Freeplay", player),
+             lambda state: free_access_air(state, options, player))
     set_rule(world.get_entrance("There She Goes Again -> There She Goes Again: Freeplay", player),
              lambda state: free_access_tsga(state, options, player))
     set_rule(world.get_entrance("The Riddler Makes a Withdrawal -> The Riddler Makes a Withdrawal: Freeplay", player),
@@ -1639,7 +1752,7 @@ def set_level_beaten_rules(world: MultiWorld, options: LB1Options, player: int):
 
 
 def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
-    # YCBOB Minikits 1 & 2 can be done for free
+    # YCBOB Minikits 1 & 2 can be done in story for free
     set_rule(world.get_location(LocationName.ycbob_min3, player), lambda state: can_ycbob_min3(state, options, player))
     set_rule(world.get_location(LocationName.ycbob_min4, player), lambda state: can_ycbob_min4(state, options, player))
     set_rule(world.get_location(LocationName.ycbob_min5, player), lambda state: can_ycbob_min5(state, options, player))
@@ -1647,7 +1760,18 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.ycbob_min7, player), lambda state: can_ycbob_min7(state, options, player))
     set_rule(world.get_location(LocationName.ycbob_min8, player), lambda state: can_ycbob_min8(state, options, player))
     set_rule(world.get_location(LocationName.ycbob_min9, player), lambda state: can_ycbob_min9(state, options, player))
-    set_rule(world.get_location(LocationName.ycbob_min10, player), lambda state: can_ycbob_min10(state, options, player))
+    set_rule(world.get_location(LocationName.ycbob_min10, player),
+             lambda state: can_ycbob_min10(state, options, player))
+    # AIR Minikit 3 can be done in story for free
+    set_rule(world.get_location(LocationName.air_min1, player), lambda state: can_air_min1(state, options, player))
+    set_rule(world.get_location(LocationName.air_min2, player), lambda state: can_air_min2(state, options, player))
+    set_rule(world.get_location(LocationName.air_min4, player), lambda state: can_air_min4(state, options, player))
+    set_rule(world.get_location(LocationName.air_min5, player), lambda state: can_air_min5(state, options, player))
+    set_rule(world.get_location(LocationName.air_min6, player), lambda state: can_air_min6(state, options, player))
+    set_rule(world.get_location(LocationName.air_min7, player), lambda state: can_air_min7(state, options, player))
+    set_rule(world.get_location(LocationName.air_min8, player), lambda state: can_air_min8(state, options, player))
+    set_rule(world.get_location(LocationName.air_min9, player), lambda state: can_air_min9(state, options, player))
+    set_rule(world.get_location(LocationName.air_min10, player), lambda state: can_air_min10(state, options, player))
     # TSGA Minikit 6 can be done in story (with Glide/Magnet which is region access logic)
     set_rule(world.get_location(LocationName.tsga_min1, player), lambda state: can_tsga_min1(state, options, player))
     set_rule(world.get_location(LocationName.tsga_min2, player), lambda state: can_tsga_min2(state, options, player))
