@@ -3,7 +3,7 @@ from worlds.generic.Rules import add_rule, set_rule
 from worlds.AutoWorld import CollectionState
 
 from .Locations import level_beaten_event_location_table
-from .Names import LocationName, ItemName
+from .Names import LocationName, ItemName, RegionName
 from .Options import LB1Options, EndGoal
 
 
@@ -1752,104 +1752,104 @@ def can_tlotn_rb(state: CollectionState, player: int):
 
 
 def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
-    set_rule(world.get_entrance("Batcave -> You can Bank on Batman", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.ycbob, player),
              lambda state: state.has(ItemName.ycbob_lvl, player))
-    set_rule(world.get_entrance("Batcave -> An Icy Reception", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.air, player),
              lambda state: state.has(ItemName.air_lvl, player))
-    set_rule(world.get_entrance("Batcave -> Two-Face Chase", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.tfc, player),
              lambda state: state.has(ItemName.tfc_lvl, player))
-    set_rule(world.get_entrance("Batcave -> A Poisonous Appointment", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.apa, player),
              lambda state: state.has(ItemName.apa_lvl, player))
-    set_rule(world.get_entrance("Batcave -> The Face-Off", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.tfo, player),
              lambda state: state.has(ItemName.tfo_lvl, player))
-    set_rule(world.get_entrance("Batcave -> There She Goes Again", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.tsga, player),
              lambda state: state.has(ItemName.tsga_lvl, player))
-    set_rule(world.get_entrance("Batcave -> Batboat Battle", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.bbb, player),
              lambda state: state.has(ItemName.bbb_lvl, player))
-    set_rule(world.get_entrance("Batcave -> Under the City", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.utc, player),
              lambda state: state.has(ItemName.utc_lvl, player))
-    set_rule(world.get_entrance("Batcave -> Zoo's Company", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.zc, player),
              lambda state: state.has(ItemName.zc_lvl, player))
-    set_rule(world.get_entrance("Batcave -> Penguin's Lair", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.pl, player),
              lambda state: state.has(ItemName.pl_lvl, player))
-    set_rule(world.get_entrance("Batcave -> Joker's Home Turf", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.jht, player),
              lambda state: state.has(ItemName.jht_lvl, player))
-    set_rule(world.get_entrance("Batcave -> Little Fun at the Big Top", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.lfabt, player),
              lambda state: state.has(ItemName.lfabt_lvl, player))
-    set_rule(world.get_entrance("Batcave -> Flight of the Bat", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.fotb, player),
              lambda state: state.has(ItemName.fotb_lvl, player))
-    set_rule(world.get_entrance("Batcave -> In the Dark Night", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.itdn, player),
              lambda state: state.has(ItemName.itdn_lvl, player))
-    set_rule(world.get_entrance("Batcave -> To the Top of the Tower", player),
+    set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.tttot, player),
              lambda state: state.has(ItemName.tttot_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> The Riddler Makes a Withdrawal", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.trmaw, player),
              lambda state: state.has(ItemName.trmaw_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> On the Rocks", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.otr, player),
              lambda state: state.has(ItemName.otr_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> Green Fingers", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.gf, player),
              lambda state: state.has(ItemName.gf_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> An Enterprising Theft", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.aet, player),
              lambda state: state.has(ItemName.aet_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> Breaking Blocks", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.bb, player),
              lambda state: state.has(ItemName.bb_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> Rockin' the Docks", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.rtd, player),
              lambda state: state.has(ItemName.rtd_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> Stealing the Show", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.sts, player),
              lambda state: state.has(ItemName.sts_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> Harbouring a Grudge", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.hag, player),
              lambda state: state.has(ItemName.hag_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> A Daring Rescue", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.adr, player),
              lambda state: state.has(ItemName.adr_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> Arctic World", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.aw, player),
              lambda state: state.has(ItemName.aw_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> A Surprise for the Commissioner", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.asftc, player),
              lambda state: state.has(ItemName.asftc_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> Biplane Blast", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.bbpl, player),
              lambda state: state.has(ItemName.bbpl_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> The Joker's Masterpiece", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.tjm, player),
              lambda state: state.has(ItemName.tjm_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> The Lure of the Night", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.tlotn, player),
              lambda state: state.has(ItemName.tlotn_lvl, player))
-    set_rule(world.get_entrance("Arkham Asylum -> Dying of Laughter", player),
+    set_rule(world.get_entrance(RegionName.aa + " -> " + RegionName.dol, player),
              lambda state: state.has(ItemName.dol_lvl, player))
     # Sub Regions
-    set_rule(world.get_entrance("You can Bank on Batman -> You can Bank on Batman: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.ycbob + " -> " + RegionName.ycbobf, player),
              lambda state: free_access_ycbob(state, player))
-    set_rule(world.get_entrance("An Icy Reception -> An Icy Reception: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.air + " -> " + RegionName.airf, player),
              lambda state: free_access_air(state, player))
-    set_rule(world.get_entrance("Two-Face Chase -> Two-Face Chase: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.tfc + " -> " + RegionName.tfcf, player),
              lambda state: free_access_tfc(state, player))
-    set_rule(world.get_entrance("A Poisonous Appointment -> A Poisonous Appointment: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.apa + " -> " + RegionName.apaf, player),
              lambda state: free_access_apa(state, player))
-    set_rule(world.get_entrance("There She Goes Again -> There She Goes Again: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.tsga + " -> " + RegionName.tsgaf, player),
              lambda state: free_access_tsga(state, options, player))
-    set_rule(world.get_entrance("The Riddler Makes a Withdrawal -> The Riddler Makes a Withdrawal: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.trmaw + " -> " + RegionName.trmawf, player),
              lambda state: free_access_trmaw(state, player))
-    set_rule(world.get_entrance("On the Rocks -> On the Rocks: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.otr + " -> " + RegionName.otrf, player),
              lambda state: free_access_otr(state, player))
-    set_rule(world.get_entrance("Green Fingers -> Green Fingers: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.gf + " -> " + RegionName.gff, player),
              lambda state: free_access_gf(state, player))
-    set_rule(world.get_entrance("Breaking Blocks -> Breaking Blocks: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.bb + " -> " + RegionName.bbf, player),
              lambda state: free_access_bb(state, player))
-    set_rule(world.get_entrance("Rockin' the Docks -> Rockin' the Docks: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.rtd + " -> " + RegionName.rtdf, player),
              lambda state: free_access_rtd(state, player))
-    set_rule(world.get_entrance("Stealing the Show -> Stealing the Show: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.sts + " -> " + RegionName.stsf, player),
              lambda state: free_access_sts(state, player))
-    set_rule(world.get_entrance("Harbouring a Grudge -> Harbouring a Grudge: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.hag + " -> " + RegionName.hagf, player),
              lambda state: free_access_hag(state, player))
-    set_rule(world.get_entrance("A Daring Rescue -> A Daring Rescue: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.adr + " -> " + RegionName.adrf, player),
              lambda state: free_access_adr(state, player))
-    set_rule(world.get_entrance("Arctic World -> Arctic World: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.aw + " -> " + RegionName.awf, player),
              lambda state: free_access_aw(state, player))
-    set_rule(world.get_entrance("A Surprise for the Commissioner -> A Surprise for the Commissioner: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.asftc + " -> " + RegionName.asftcf, player),
              lambda state: free_access_asftc(state, player))
-    set_rule(world.get_entrance("Biplane Blast -> Biplane Blast: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.bbpl + " -> " + RegionName.bbplf, player),
              lambda state: free_access_bbpl(state, player))
-    set_rule(world.get_entrance("The Joker's Masterpiece -> The Joker's Masterpiece: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.tjm + " -> " + RegionName.tjmf, player),
              lambda state: free_access_tjm(state, player))
-    set_rule(world.get_entrance("The Lure of the Night -> The Lure of the Night: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.tlotn + " -> " + RegionName.tlotnf, player),
              lambda state: free_access_tlotn(state, player))
-    set_rule(world.get_entrance("Dying of Laughter -> Dying of Laughter: Freeplay", player),
+    set_rule(world.get_entrance(RegionName.dol + " -> " + RegionName.dolf, player),
              lambda state: free_access_dol(state, player))
 
 

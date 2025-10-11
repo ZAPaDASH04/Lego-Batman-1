@@ -1,76 +1,92 @@
 from BaseClasses import MultiWorld, Region, Entrance, Location, ItemClassification
 from .Locations import LB1Location, level_beaten_event_location_table
 from .Items import LB1Item
+from .Names import RegionName
 
 
 lb1_hub_regions = [
-    "Batcave",
-    "Arkham Asylum",
-    "Shop"
+    RegionName.bc,
+    RegionName.aa,
+    RegionName.sh,
 ]
 
 lb1_hero_regions = [
-    "You can Bank on Batman",
-    "An Icy Reception",
-    "Two-Face Chase",
-    "A Poisonous Appointment",
-    "The Face-Off",
-    "There She Goes Again",
-    "Batboat Battle",
-    "Under the City",
-    "Zoo's Company",
-    "Penguin's Lair",
-    "Joker's Home Turf",
-    "Little Fun at the Big Top",
-    "Flight of the Bat",
-    "In the Dark Night",
-    "To the Top of the Tower",
+    RegionName.ycbob,
+    RegionName.air,
+    RegionName.tfc,
+    RegionName.apa,
+    RegionName.tfo,
+    RegionName.tsga,
+    RegionName.bbb,
+    RegionName.utc,
+    RegionName.zc,
+    RegionName.pl,
+    RegionName.jht,
+    RegionName.lfabt,
+    RegionName.fotb,
+    RegionName.itdn,
+    RegionName.tttot,
 ]
 
 lb1_villain_regions = [
-    "The Riddler Makes a Withdrawal",
-    "On the Rocks",
-    "Green Fingers",
-    "An Enterprising Theft",
-    "Breaking Blocks",
-    "Rockin' the Docks",
-    "Stealing the Show",
-    "Harbouring a Grudge",
-    "A Daring Rescue",
-    "Arctic World",
-    "A Surprise for the Commissioner",
-    "Biplane Blast",
-    "The Joker's Masterpiece",
-    "The Lure of the Night",
-    "Dying of Laughter",
+    RegionName.trmaw,
+    RegionName.otr,
+    RegionName.gf,
+    RegionName.aet,
+    RegionName.bb,
+    RegionName.rtd,
+    RegionName.sts,
+    RegionName.hag,
+    RegionName.adr,
+    RegionName.aw,
+    RegionName.asftc,
+    RegionName.bbpl,
+    RegionName.tjm,
+    RegionName.tlotn,
+    RegionName.dol,
+]
+
+lb1_hero_subregions = [
+    RegionName.ycbobf,
+    RegionName.airf,
+    RegionName.tfcf,
+    RegionName.apaf,
+    RegionName.tfof,
+    RegionName.tsgaf,
+    RegionName.bbbf,
+    RegionName.utcf,
+    RegionName.zcf,
+    RegionName.plf,
+    RegionName.jhtf,
+    RegionName.lfabtf,
+    RegionName.fotbf,
+    RegionName.itdnf,
+    RegionName.tttotf,
 ]
 
 lb1_villain_subregions = [
-    "You can Bank on Batman: Freeplay",
-    "An Icy Reception: Freeplay",
-    "Two-Face Chase: Freeplay",
-    "A Poisonous Appointment: Freeplay",
-    "There She Goes Again: Freeplay",
-    "The Riddler Makes a Withdrawal: Freeplay",
-    "On the Rocks: Freeplay",
-    "Green Fingers: Freeplay",
-    "Breaking Blocks: Freeplay",
-    "Rockin' the Docks: Freeplay",
-    "Stealing the Show: Freeplay",
-    "Harbouring a Grudge: Freeplay",
-    "A Daring Rescue: Freeplay",
-    "Arctic World: Freeplay",
-    "A Surprise for the Commissioner: Freeplay",
-    "Biplane Blast: Freeplay",
-    "The Joker's Masterpiece: Freeplay",
-    "The Lure of the Night: Freeplay",
-    "Dying of Laughter: Freeplay",
+    RegionName.trmawf,
+    RegionName.otrf,
+    RegionName.gff,
+    RegionName.aetf,
+    RegionName.bbf,
+    RegionName.rtdf,
+    RegionName.stsf,
+    RegionName.hagf,
+    RegionName.adrf,
+    RegionName.awf,
+    RegionName.asftcf,
+    RegionName.bbplf,
+    RegionName.tjmf,
+    RegionName.tlotnf,
+    RegionName.dolf,
 ]
 
 lb1_all_regions = [
     *lb1_hub_regions,
     *lb1_hero_regions,
     *lb1_villain_regions,
+    *lb1_hero_subregions,
     *lb1_villain_subregions,
 ]
 
@@ -82,36 +98,37 @@ def create_regions(world: MultiWorld, player: int, seed_locations):
     for region in lb1_all_regions:
         create_regions_and_locations(region, player, world, seed_locations)
 
-    connect_regions(world, player, "Menu", "Batcave")
-    connect_regions(world, player, "Batcave", "Arkham Asylum")
-    connect_regions(world, player, "Batcave", "Shop")
+    connect_regions(world, player, "Menu", RegionName.bc)
+    connect_regions(world, player, RegionName.bc, RegionName.aa)
+    connect_regions(world, player, RegionName.bc, RegionName.sh)
 
     for region in lb1_hero_regions:
-        connect_regions(world, player, "Batcave", region)
+        connect_regions(world, player, RegionName.bc, region)
 
     for region in lb1_villain_regions:
-        connect_regions(world, player, "Arkham Asylum", region)
+        connect_regions(world, player, RegionName.aa, region)
 
-    connect_regions(world, player, "You can Bank on Batman", "You can Bank on Batman: Freeplay")
-    connect_regions(world, player, "An Icy Reception", "An Icy Reception: Freeplay")
-    connect_regions(world, player, "Two-Face Chase", "Two-Face Chase: Freeplay")
-    connect_regions(world, player, "A Poisonous Appointment", "A Poisonous Appointment: Freeplay")
-    connect_regions(world, player, "There She Goes Again", "There She Goes Again: Freeplay")
+    connect_regions(world, player, RegionName.ycbob, RegionName.ycbobf)
+    connect_regions(world, player, RegionName.air, RegionName.airf)
+    connect_regions(world, player, RegionName.tfc, RegionName.tfcf)
+    connect_regions(world, player, RegionName.apa, RegionName.apaf)
+    connect_regions(world, player, RegionName.tfo, RegionName.tfof)
+    connect_regions(world, player, RegionName.tsga, RegionName.tsgaf)
 
-    connect_regions(world, player, "The Riddler Makes a Withdrawal", "The Riddler Makes a Withdrawal: Freeplay")
-    connect_regions(world, player, "On the Rocks", "On the Rocks: Freeplay")
-    connect_regions(world, player, "Green Fingers", "Green Fingers: Freeplay")
-    connect_regions(world, player, "Breaking Blocks", "Breaking Blocks: Freeplay")
-    connect_regions(world, player, "Rockin' the Docks", "Rockin' the Docks: Freeplay")
-    connect_regions(world, player, "Stealing the Show", "Stealing the Show: Freeplay")
-    connect_regions(world, player, "Harbouring a Grudge", "Harbouring a Grudge: Freeplay")
-    connect_regions(world, player, "A Daring Rescue", "A Daring Rescue: Freeplay")
-    connect_regions(world, player, "Arctic World", "Arctic World: Freeplay")
-    connect_regions(world, player, "A Surprise for the Commissioner", "A Surprise for the Commissioner: Freeplay")
-    connect_regions(world, player, "Biplane Blast", "Biplane Blast: Freeplay")
-    connect_regions(world, player, "The Joker's Masterpiece", "The Joker's Masterpiece: Freeplay")
-    connect_regions(world, player, "The Lure of the Night", "The Lure of the Night: Freeplay")
-    connect_regions(world, player, "Dying of Laughter", "Dying of Laughter: Freeplay")
+    connect_regions(world, player, RegionName.trmaw, RegionName.trmawf)
+    connect_regions(world, player, RegionName.otr, RegionName.otrf)
+    connect_regions(world, player, RegionName.gf, RegionName.gff)
+    connect_regions(world, player, RegionName.bb, RegionName.bbf)
+    connect_regions(world, player, RegionName.rtd, RegionName.rtdf)
+    connect_regions(world, player, RegionName.sts, RegionName.stsf)
+    connect_regions(world, player, RegionName.hag, RegionName.hagf)
+    connect_regions(world, player, RegionName.adr, RegionName.adrf)
+    connect_regions(world, player, RegionName.aw, RegionName.awf)
+    connect_regions(world, player, RegionName.asftc, RegionName.asftcf)
+    connect_regions(world, player, RegionName.bbpl, RegionName.bbplf)
+    connect_regions(world, player, RegionName.tjm, RegionName.tjmf)
+    connect_regions(world, player, RegionName.tlotn, RegionName.tlotnf)
+    connect_regions(world, player, RegionName.dol, RegionName.dolf)
 
 
 def connect_regions(world: MultiWorld, player: int, source: str, target: str) -> Entrance:

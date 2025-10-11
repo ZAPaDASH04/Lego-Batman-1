@@ -4,7 +4,7 @@ from BaseClasses import Item, Tutorial
 from Options import OptionError
 from .Items import LB1Item, item_data_table, minikit_names_set, setup_items, item_group_table
 from .Locations import all_location_table, LocationData, setup_locations
-from .Names import ItemName
+from .Names import ItemName, RegionName
 from .Options import LB1Options
 from .Regions import create_regions, connect_regions, create_events
 from .Rules import set_rules, set_event_rules
@@ -59,50 +59,69 @@ class LB1World(World):
     }
 
     location_name_groups = {
-        "You can Bank on Batman": {name for name, data in all_location_table.items()
-                                   if data.region == "You can Bank on Batman"},
-        "An Icy Reception": {name for name, data in all_location_table.items() if data.region == "An Icy Reception"},
-        "Two-Face Chase": {name for name, data in all_location_table.items() if data.region == "Two-Face Chase"},
-        "A Poisonous Appointment": {name for name, data in all_location_table.items()
-                                    if data.region == "A Poisonous Appointment"},
-        "The Face-Off": {name for name, data in all_location_table.items() if data.region == "The Face-Off"},
-        "There She Goes Again": {name for name, data in all_location_table.items()
-                                 if data.region == "There She Goes Again"},
-        "Batboat Battle": {name for name, data in all_location_table.items() if data.region == "Batboat Battle"},
-        "Under the City": {name for name, data in all_location_table.items() if data.region == "Under the City"},
-        "Zoo's Company": {name for name, data in all_location_table.items() if data.region == "Zoo's Company"},
-        "Penguin's Lair": {name for name, data in all_location_table.items() if data.region == "Penguin's Lair"},
-        "Joker's Home Turf": {name for name, data in all_location_table.items() if data.region == "Joker's Home Turf"},
-        "Little Fun at the Big Top": {name for name, data in all_location_table.items()
-                                      if data.region == "Little Fun at the Big Top"},
-        "Flight of the Bat": {name for name, data in all_location_table.items() if data.region == "Flight of the Bat"},
-        "In the Dark Night": {name for name, data in all_location_table.items() if data.region == "In the Dark Night"},
-        "To the Top of the Tower": {name for name, data in all_location_table.items()
-                                    if data.region == "To the Top of the Tower"},
-        "The Riddler Makes a Withdrawal": {name for name, data in all_location_table.items()
-                                           if data.region == "The Riddler Makes a Withdrawal"},
-        "On the Rocks": {name for name, data in all_location_table.items() if data.region == "On the Rocks"},
-        "Green Fingers": {name for name, data in all_location_table.items() if data.region == "Green Fingers"},
-        "An Enterprising Theft": {name for name, data in all_location_table.items()
-                                  if data.region == "An Enterprising Theft"},
-        "Breaking Blocks": {name for name, data in all_location_table.items() if data.region == "Breaking Blocks"},
-        "Rockin' the Docks": {name for name, data in all_location_table.items() if data.region == "Rockin' the Docks"},
-        "Stealing the Show": {name for name, data in all_location_table.items() if data.region == "Stealing the Show"},
-        "Harbouring a Grudge": {name for name, data in all_location_table.items()
-                                if data.region == "Harbouring a Grudge"},
-        "A Daring Rescue": {name for name, data in all_location_table.items() if data.region == "A Daring Rescue"},
-        "Arctic World": {name for name, data in all_location_table.items() if data.region == "Arctic World"},
-        "A Surprise for the Commissioner": {name for name, data in all_location_table.items()
-                                            if data.region == "A Surprise for the Commissioner"},
-        "Biplane Blast": {name for name, data in all_location_table.items() if data.region == "Biplane Blast"},
-        "The Joker's Masterpiece": {name for name, data in all_location_table.items()
-                                    if data.region == "The Joker's Masterpiece"},
-        "The Lure of the Night": {name for name, data in all_location_table.items()
-                                  if data.region == "The Lure of the Night"},
-        "Dying of Laughter": {name for name, data in all_location_table.items() if data.region == "Dying of Laughter"},
-        "Shop": {name for name, data in all_location_table.items() if data.region == "Shop"},
-        "Batcave": {name for name, data in all_location_table.items() if data.region == "Batcave"},
-        "Arkham Asylum": {name for name, data in all_location_table.items() if data.region == "Arkham Asylum"},
+        RegionName.ycbob: {name for name, data in all_location_table.items()
+                           if data.region == RegionName.ycbob or data.region == RegionName.ycbobf},
+        RegionName.air: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.air or data.region == RegionName.airf},
+        RegionName.tfc: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.tfc or data.region == RegionName.tfcf},
+        RegionName.apa: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.apa or data.region == RegionName.apaf},
+        RegionName.tfo: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.tfo or data.region == RegionName.tfof},
+        RegionName.tsga: {name for name, data in all_location_table.items()
+                          if data.region == RegionName.tsga or data.region == RegionName.tsgaf},
+        RegionName.bbb: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.bbb or data.region == RegionName.bbbf},
+        RegionName.utc: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.utc or data.region == RegionName.utcf},
+        RegionName.zc: {name for name, data in all_location_table.items()
+                        if data.region == RegionName.zc or data.region == RegionName.zcf},
+        RegionName.pl: {name for name, data in all_location_table.items()
+                        if data.region == RegionName.pl or data.region == RegionName.plf},
+        RegionName.jht: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.jht or data.region == RegionName.jhtf},
+        RegionName.lfabt: {name for name, data in all_location_table.items()
+                           if data.region == RegionName.lfabt or data.region == RegionName.lfabtf},
+        RegionName.fotb: {name for name, data in all_location_table.items()
+                          if data.region == RegionName.fotb or data.region == RegionName.fotbf},
+        RegionName.itdn: {name for name, data in all_location_table.items()
+                          if data.region == RegionName.itdn or data.region == RegionName.itdnf},
+        RegionName.tttot: {name for name, data in all_location_table.items()
+                           if data.region == RegionName.tttot or data.region == RegionName.tttotf},
+        RegionName.trmaw: {name for name, data in all_location_table.items()
+                           if data.region == RegionName.trmaw or data.region == RegionName.trmawf},
+        RegionName.otr: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.otr or data.region == RegionName.otrf},
+        RegionName.gf: {name for name, data in all_location_table.items()
+                        if data.region == RegionName.gf or data.region == RegionName.gff},
+        RegionName.aet: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.aet or data.region == RegionName.aetf},
+        RegionName.bb: {name for name, data in all_location_table.items()
+                        if data.region == RegionName.bb or data.region == RegionName.bbf},
+        RegionName.rtd: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.rtd or data.region == RegionName.rtdf},
+        RegionName.sts: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.sts or data.region == RegionName.stsf},
+        RegionName.hag: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.hag or data.region == RegionName.hagf},
+        RegionName.adr: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.adr or data.region == RegionName.adrf},
+        RegionName.aw: {name for name, data in all_location_table.items()
+                        if data.region == RegionName.aw or data.region == RegionName.awf},
+        RegionName.asftc: {name for name, data in all_location_table.items()
+                           if data.region == RegionName.asftc or data.region == RegionName.asftcf},
+        RegionName.bbpl: {name for name, data in all_location_table.items()
+                          if data.region == RegionName.bbpl or data.region == RegionName.bbplf},
+        RegionName.tjm: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.tjm or data.region == RegionName.tjmf},
+        RegionName.tlotn: {name for name, data in all_location_table.items()
+                           if data.region == RegionName.tlotn or data.region == RegionName.tlotnf},
+        RegionName.dol: {name for name, data in all_location_table.items()
+                         if data.region == RegionName.dol or data.region == RegionName.dolf},
+        RegionName.sh: {name for name, data in all_location_table.items() if data.region == RegionName.sh},
+        RegionName.bc: {name for name, data in all_location_table.items() if data.region == RegionName.bc},
+        RegionName.aa: {name for name, data in all_location_table.items() if data.region == RegionName.aa},
     }
 
     def generate_early(self):
