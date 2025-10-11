@@ -48,6 +48,7 @@ lb1_villain_regions = [
 lb1_villain_subregions = [
     "You can Bank on Batman: Freeplay",
     "An Icy Reception: Freeplay",
+    "Two-Face Chase: Freeplay",
     "There She Goes Again: Freeplay",
     "The Riddler Makes a Withdrawal: Freeplay",
     "On the Rocks: Freeplay",
@@ -92,6 +93,7 @@ def create_regions(world: MultiWorld, player: int, seed_locations):
 
     connect_regions(world, player, "You can Bank on Batman", "You can Bank on Batman: Freeplay")
     connect_regions(world, player, "An Icy Reception", "An Icy Reception: Freeplay")
+    connect_regions(world, player, "Two-Face Chase", "Two-Face Chase: Freeplay")
     connect_regions(world, player, "There She Goes Again", "There She Goes Again: Freeplay")
 
     connect_regions(world, player, "The Riddler Makes a Withdrawal", "The Riddler Makes a Withdrawal: Freeplay")

@@ -358,24 +358,19 @@ def can_beat_tttot(state: CollectionState, options: LB1Options, player: int):
 
 
 # Free Access functions are needed for moving about in freeplay (moves story characters have)
-def free_access_ycbob(state: CollectionState, options: LB1Options, player: int):
-    if options.freeplay_or_story == 0:
-        return state.has(ItemName.demolitionsuit, player)
-    else:
-        return char_can_explode(state, player)
+def free_access_ycbob(state: CollectionState, player: int):
+    return char_can_explode(state, player)
 
 
-def free_access_air(state: CollectionState, options: LB1Options, player: int):
-    if options.freeplay_or_story == 0:
-        return (
-                state.has(ItemName.magsuit, player)
-                and state.has(ItemName.glidesuit, player)
-        )
-    else:
-        return (
-                state.has(ItemName.magsuit, player)
-                and char_can_glide(state, player)
-        )
+def free_access_air(state: CollectionState, player: int):
+    return (
+            state.has(ItemName.magsuit, player)
+            and char_can_glide(state, player)
+    )
+
+
+def free_access_tfc(state: CollectionState, player: int):
+    return auto_has_cable(state, player)
 
 
 def free_access_tsga(state: CollectionState, options: LB1Options, player: int):
@@ -663,6 +658,18 @@ def can_air_min10(state: CollectionState, options: LB1Options, player: int):
         )
     else:
         return char_can_hypno(state, player)
+
+
+def can_tfc_min7(state: CollectionState, player: int):
+    return state.has(ItemName.jokervan_unlocked, player)
+
+
+def can_tfc_min8(state: CollectionState, player: int):
+    return state.has(ItemName.hammertruck_unlocked, player)
+
+
+def can_tfc_min10(state: CollectionState, player: int):
+    return auto_can_explode(state, player)
 
 
 def can_tsga_min1(state: CollectionState, options: LB1Options, player: int):
@@ -1697,9 +1704,11 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
              lambda state: state.has(ItemName.dol_lvl, player))
     # Sub Regions
     set_rule(world.get_entrance("You can Bank on Batman -> You can Bank on Batman: Freeplay", player),
-             lambda state: free_access_ycbob(state, options, player))
+             lambda state: free_access_ycbob(state, player))
     set_rule(world.get_entrance("An Icy Reception -> An Icy Reception: Freeplay", player),
-             lambda state: free_access_air(state, options, player))
+             lambda state: free_access_air(state, player))
+    set_rule(world.get_entrance("Two-Face Chase -> Two-Face Chase: Freeplay", player),
+             lambda state: free_access_air(state, player))
     set_rule(world.get_entrance("There She Goes Again -> There She Goes Again: Freeplay", player),
              lambda state: free_access_tsga(state, options, player))
     set_rule(world.get_entrance("The Riddler Makes a Withdrawal -> The Riddler Makes a Withdrawal: Freeplay", player),
@@ -1772,6 +1781,10 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.air_min8, player), lambda state: can_air_min8(state, options, player))
     set_rule(world.get_location(LocationName.air_min9, player), lambda state: can_air_min9(state, options, player))
     set_rule(world.get_location(LocationName.air_min10, player), lambda state: can_air_min10(state, options, player))
+    # TFC Minikits 1, 2, 3, 4, 5, 6, 9 can be done in story for free
+    set_rule(world.get_location(LocationName.tfc_min7, player), lambda state: can_tfc_min7(state, player))
+    set_rule(world.get_location(LocationName.tfc_min8, player), lambda state: can_tfc_min8(state, player))
+    set_rule(world.get_location(LocationName.tfc_min10, player), lambda state: can_tfc_min10(state, player))
     # TSGA Minikit 6 can be done in story (with Glide/Magnet which is region access logic)
     set_rule(world.get_location(LocationName.tsga_min1, player), lambda state: can_tsga_min1(state, options, player))
     set_rule(world.get_location(LocationName.tsga_min2, player), lambda state: can_tsga_min2(state, options, player))

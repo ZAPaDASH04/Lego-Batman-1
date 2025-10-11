@@ -156,10 +156,10 @@ minikit_location_table: Dict[str, LocationData] = {
     LocationName.tfc_min4: LocationData(base_location_id + 123, "Two-Face Chase"),
     LocationName.tfc_min5: LocationData(base_location_id + 124, "Two-Face Chase"),
     LocationName.tfc_min6: LocationData(base_location_id + 125, "Two-Face Chase"),
-    LocationName.tfc_min7: LocationData(base_location_id + 126, "Two-Face Chase"),
-    LocationName.tfc_min8: LocationData(base_location_id + 127, "Two-Face Chase"),
+    LocationName.tfc_min7: LocationData(base_location_id + 126, "Two-Face Chase: Freeplay"),
+    LocationName.tfc_min8: LocationData(base_location_id + 127, "Two-Face Chase: Freeplay"),
     LocationName.tfc_min9: LocationData(base_location_id + 128, "Two-Face Chase"),
-    LocationName.tfc_min10: LocationData(base_location_id + 129, "Two-Face Chase"),
+    LocationName.tfc_min10: LocationData(base_location_id + 129, "Two-Face Chase: Freeplay"),
     # A Poisonous Appointment
     LocationName.apa_min1: LocationData(base_location_id + 130, "A Poisonous Appointment"),
     LocationName.apa_min2: LocationData(base_location_id + 131, "A Poisonous Appointment"),
