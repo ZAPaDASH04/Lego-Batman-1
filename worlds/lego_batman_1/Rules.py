@@ -221,15 +221,13 @@ def can_beat_apa(state: CollectionState, player: int):
 def can_beat_tfo(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.glidesuit, player)
-                and state.has(ItemName.magsuit, player)
+                state.has(ItemName.magsuit, player)
                 and state.has(ItemName.attractsuit, player)
         )
     else:
         return (
-                char_can_glide(state, player)
-                and state.has(ItemName.magsuit, player)
-                and state.has(ItemName.attractsuit, player)
+                state.has(ItemName.magsuit, player)
+                and (state.has(ItemName.attractsuit, player) or char_can_cross_toxic(state, player))
         )
 
 
@@ -357,6 +355,20 @@ def can_beat_tttot(state: CollectionState, options: LB1Options, player: int):
         )
 
 
+# Whole level locked by glide
+def level_access_tfo(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                state.has(ItemName.glidesuit, player)
+                and state.has(ItemName.tfo_lvl, player)
+        )
+    else:
+        return (
+                char_can_glide(state, player)
+                and state.has(ItemName.tfo_lvl, player)
+        )
+
+
 # Free Access functions are needed for moving about in freeplay (moves story characters have)
 def free_access_ycbob(state: CollectionState, player: int):
     return char_can_explode(state, player)
@@ -378,6 +390,10 @@ def free_access_apa(state: CollectionState, player: int):
             state.has(ItemName.sonicsuit, player)
             and state.has(ItemName.attractsuit, player)
     )
+
+
+def free_access_tfo(state: CollectionState, player: int):
+    return state.has(ItemName.magsuit, player)
 
 
 def free_access_tsga(state: CollectionState, options: LB1Options, player: int):
@@ -769,6 +785,78 @@ def can_apa_min9(state: CollectionState, player: int):
 
 def can_apa_min10(state: CollectionState, player: int):
     return state.has(ItemName.heatprotectsuit, player)
+
+
+def can_tfo_min4(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_tfo(state, options, player)
+                and char_can_techno(state, player)
+        )
+    else:
+        return char_can_techno(state, player)
+
+
+def can_tfo_min5(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_tfo(state, options, player)
+                and char_can_double_jump(state, player)
+                # Attract suit part of can beat level
+        )
+    else:
+        return (
+                char_can_double_jump(state, player)
+                and state.has(ItemName.attractsuit, player)
+        )
+
+
+def can_tfo_min6(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_tfo(state, options, player)
+                and char_can_cross_toxic(state, player)
+        )
+    else:
+        return char_can_cross_toxic(state, player)
+
+
+def can_tfo_min7(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_tfo(state, options, player)
+                and char_can_cross_toxic(state, player)
+        )
+    else:
+        return char_can_cross_toxic(state, player)
+
+
+def can_tfo_min8(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_tfo(state, options, player)
+                and state.has(ItemName.mrfreeze_unlocked, player)
+                and state.has(ItemName.poisonivy_unlocked, player)
+        )
+    else:
+        return (
+                state.has(ItemName.mrfreeze_unlocked, player)
+                and state.has(ItemName.poisonivy_unlocked, player)
+        )
+
+
+def can_tfo_min9(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return state.has(ItemName.attractsuit, player)
+    else:
+        return state.has(ItemName.attractsuit, player) or char_can_cross_toxic(state, player)
+
+
+def can_tfo_min10(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return state.has(ItemName.attractsuit, player)
+    else:
+        return state.has(ItemName.attractsuit, player) or char_can_cross_toxic(state, player)
 
 
 def can_tsga_min1(state: CollectionState, options: LB1Options, player: int):
@@ -1452,14 +1540,12 @@ def can_tfo_host(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 can_beat_tfo(state, options, player)
-                and char_can_glide(state, player)
-                and state.has(ItemName.attractsuit, player)
                 and char_can_double_jump(state, player)
+                # Attract Suit Tested as part of Level Beaten
         )
     else:
         return (
-                char_can_glide(state, player)
-                and state.has(ItemName.attractsuit, player)
+                state.has(ItemName.attractsuit, player)
                 and char_can_double_jump(state, player)
         )
 
@@ -1644,11 +1730,7 @@ def can_tfo_rb(state: CollectionState, options: LB1Options, player: int):
                 and char_can_cross_toxic(state, player)
         )
     else:
-        return (
-                char_can_glide(state, player)
-                and state.has(ItemName.magsuit, player)
-                and char_can_cross_toxic(state, player)
-        )
+        return char_can_cross_toxic(state, player)
 
 
 def can_tsga_rb(state: CollectionState, options: LB1Options, player: int):
@@ -1761,7 +1843,7 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.apa, player),
              lambda state: state.has(ItemName.apa_lvl, player))
     set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.tfo, player),
-             lambda state: state.has(ItemName.tfo_lvl, player))
+             lambda state: level_access_tfo(state, options, player))
     set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.tsga, player),
              lambda state: state.has(ItemName.tsga_lvl, player))
     set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.bbb, player),
@@ -1821,6 +1903,8 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
              lambda state: free_access_tfc(state, player))
     set_rule(world.get_entrance(RegionName.apa + " -> " + RegionName.apaf, player),
              lambda state: free_access_apa(state, player))
+    set_rule(world.get_entrance(RegionName.tfo + " -> " + RegionName.tfof, player),
+             lambda state: free_access_tfo(state, player))
     set_rule(world.get_entrance(RegionName.tsga + " -> " + RegionName.tsgaf, player),
              lambda state: free_access_tsga(state, options, player))
     set_rule(world.get_entrance(RegionName.trmaw + " -> " + RegionName.trmawf, player),
@@ -1907,6 +1991,14 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.apa_min8, player), lambda state: can_apa_min8(state, options, player))
     set_rule(world.get_location(LocationName.apa_min9, player), lambda state: can_apa_min9(state, player))
     set_rule(world.get_location(LocationName.apa_min10, player), lambda state: can_apa_min10(state, player))
+    # TFO Minikits 1, 2, 3 can be done with region access in story
+    set_rule(world.get_location(LocationName.tfo_min4, player), lambda state: can_tfo_min4(state, options, player))
+    set_rule(world.get_location(LocationName.tfo_min5, player), lambda state: can_tfo_min5(state, options, player))
+    set_rule(world.get_location(LocationName.tfo_min6, player), lambda state: can_tfo_min6(state, options, player))
+    set_rule(world.get_location(LocationName.tfo_min7, player), lambda state: can_tfo_min7(state, options, player))
+    set_rule(world.get_location(LocationName.tfo_min8, player), lambda state: can_tfo_min8(state, options, player))
+    set_rule(world.get_location(LocationName.tfo_min9, player), lambda state: can_tfo_min9(state, options, player))
+    set_rule(world.get_location(LocationName.tfo_min10, player), lambda state: can_tfo_min10(state, options, player))
     # TSGA Minikit 6 can be done in story (with Glide/Magnet which is region access logic)
     set_rule(world.get_location(LocationName.tsga_min1, player), lambda state: can_tsga_min1(state, options, player))
     set_rule(world.get_location(LocationName.tsga_min2, player), lambda state: can_tsga_min2(state, options, player))
