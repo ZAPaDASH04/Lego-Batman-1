@@ -409,6 +409,10 @@ def free_access_tsga(state: CollectionState, options: LB1Options, player: int):
         )
 
 
+def free_access_bbb(state: CollectionState, player: int):
+    return state.has(ItemName.batboat_unlocked, player)
+
+
 def free_access_trmaw(state: CollectionState, player: int):
     return (
             char_can_explode(state, player)
@@ -971,6 +975,36 @@ def can_tsga_min10(state: CollectionState, options: LB1Options, player: int):
             and state.has(ItemName.sonicsuit, player)
             # Explosives checked for as part of can beat tsga
             # Techno checked for as part of can beat tsga
+    )
+
+
+def can_bbb_min3(state: CollectionState, player: int):
+    return (
+            state.has(ItemName.robinswatercraft_unlocked, player)
+            and water_can_sink(state, player)
+    )
+
+
+def can_bbb_min5(state: CollectionState, player: int):
+    return water_can_sink(state, player)
+
+
+def can_bbb_min6(state: CollectionState, player: int):
+    return water_can_cross_toxic(state, player)
+
+
+def can_bbb_min9(state: CollectionState, player: int):
+    return (
+            state.has(ItemName.robinswatercraft_unlocked, player)
+            and state.has(ItemName.penguinsubmarine_unlocked, player)
+    )
+
+
+def can_bbb_min10(state: CollectionState, player: int):
+    return (
+            state.has(ItemName.robinswatercraft_unlocked, player)
+            and state.has(ItemName.penguinsubmarine_unlocked, player)
+            and water_can_cross_toxic(state, player)
     )
 
 
@@ -1742,6 +1776,13 @@ def can_tsga_rb(state: CollectionState, options: LB1Options, player: int):
     )
 
 
+def can_bbb_rb(state: CollectionState, player: int):
+    return (
+            state.has(ItemName.penguinsubmarine_unlocked, player)
+            and state.has(ItemName.robinswatercraft_unlocked, player)
+    )
+
+
 def can_trmaw_rb(state: CollectionState, player: int):
     return (
             char_can_double_jump(state, player)
@@ -1907,6 +1948,8 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
              lambda state: free_access_tfo(state, player))
     set_rule(world.get_entrance(RegionName.tsga + " -> " + RegionName.tsgaf, player),
              lambda state: free_access_tsga(state, options, player))
+    set_rule(world.get_entrance(RegionName.bbb + " -> " + RegionName.bbbf, player),
+             lambda state: free_access_bbb(state, player))
     set_rule(world.get_entrance(RegionName.trmaw + " -> " + RegionName.trmawf, player),
              lambda state: free_access_trmaw(state, player))
     set_rule(world.get_entrance(RegionName.otr + " -> " + RegionName.otrf, player),
@@ -2009,6 +2052,12 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.tsga_min8, player), lambda state: can_tsga_min8(state, options, player))
     set_rule(world.get_location(LocationName.tsga_min9, player), lambda state: can_tsga_min9(state, options, player))
     set_rule(world.get_location(LocationName.tsga_min10, player), lambda state: can_tsga_min10(state, options, player))
+    # BBB Minikits 1, 2, 4, 7, 8 can be done in story
+    set_rule(world.get_location(LocationName.bbb_min3, player), lambda state: can_bbb_min3(state, player))
+    set_rule(world.get_location(LocationName.bbb_min5, player), lambda state: can_bbb_min5(state, player))
+    set_rule(world.get_location(LocationName.bbb_min6, player), lambda state: can_bbb_min6(state, player))
+    set_rule(world.get_location(LocationName.bbb_min9, player), lambda state: can_bbb_min9(state, player))
+    set_rule(world.get_location(LocationName.bbb_min10, player), lambda state: can_bbb_min10(state, player))
     # TRMAW Minikits 1-3, 5, 7, 8, 10 can be done in story
     set_rule(world.get_location(LocationName.trmaw_min4, player), lambda state: can_trmaw_min4(state, player))
     set_rule(world.get_location(LocationName.trmaw_min6, player), lambda state: can_trmaw_min6_and_9(state, player))
@@ -2180,6 +2229,8 @@ def set_red_brick_location_rules(world: MultiWorld, options: LB1Options, player:
     set_rule(world.get_location(LocationName.apa_rb, player), lambda state: can_apa_rb(state, options, player))
     set_rule(world.get_location(LocationName.tfo_rb, player), lambda state: can_tfo_rb(state, options, player))
     set_rule(world.get_location(LocationName.tsga_rb, player), lambda state: can_tsga_rb(state, options, player))
+    set_rule(world.get_location(LocationName.bbb_rb, player), lambda state: can_bbb_rb(state, player))
+
     set_rule(world.get_location(LocationName.trmaw_rb, player), lambda state: can_trmaw_rb(state, player))
     set_rule(world.get_location(LocationName.otr_rb, player), lambda state: can_otr_rb(state, player))
     set_rule(world.get_location(LocationName.gf_rb, player), lambda state: can_gf_rb(state, player))
@@ -2255,7 +2306,6 @@ def set_rules(world: MultiWorld, options: LB1Options, player: int):
             lambda state: state.has("Level Beaten Token", player, options.levels_to_win)
 
 
-# TODO: can probably clean this up a bit
 def set_event_rules(world: MultiWorld, player: int):
     for (name, data) in level_beaten_event_location_table.items():
         event: Location = world.get_location(name, player)
