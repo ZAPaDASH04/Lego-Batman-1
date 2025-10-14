@@ -413,6 +413,14 @@ def free_access_bbb(state: CollectionState, player: int):
     return state.has(ItemName.batboat_unlocked, player)
 
 
+def free_access_utc(state: CollectionState, player: int):
+    return (
+            char_can_explode(state, player)
+            and char_can_sink(state, player)
+            and (state.has(ItemName.magsuit, player) or char_can_glide(state, player))
+    )
+
+
 def free_access_trmaw(state: CollectionState, player: int):
     return (
             char_can_explode(state, player)
@@ -1006,6 +1014,127 @@ def can_bbb_min10(state: CollectionState, player: int):
             and state.has(ItemName.penguinsubmarine_unlocked, player)
             and water_can_cross_toxic(state, player)
     )
+
+
+def can_utc_min1(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_utc(state, options, player)
+                and char_can_double_jump(state, player)
+                # Explosives checked for as part of level clear
+        )
+    else:
+        return (
+                char_can_double_jump(state, player)
+                and char_can_explode(state, player)
+        )
+
+
+def can_utc_min2(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_utc(state, options, player)
+                and char_can_hypno(state, player)
+                and (state.has(ItemName.mrfreeze_unlocked, player) or state.has(ItemName.bane_unlocked, player)
+                     or state.has(ItemName.killercroc_unlocked, player))
+                # Explosives and glide checked for as part of level clear
+        )
+    else:
+        return (
+                char_can_hypno(state, player)
+                and char_can_explode(state, player)
+                and char_can_glide(state, player)
+                and (state.has(ItemName.mrfreeze_unlocked, player) or state.has(ItemName.bane_unlocked, player)
+                     or state.has(ItemName.killercroc_unlocked, player))
+        )
+
+
+def can_utc_min3(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_utc(state, options, player)
+                and state.has(ItemName.sonicsuit, player)
+                and char_is_strong(state, player)
+                # Explosives and sink checked for as part of level clear
+        )
+    else:
+        return (
+                char_can_explode(state, player)
+                and char_can_sink(state, player)
+                and char_is_strong(state, player)
+                and state.has(ItemName.sonicsuit, player)
+        )
+
+
+def can_utc_min4(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_utc(state, options, player)
+                and char_can_double_jump(state, player)
+                # Explosives and sink checked for as part of level clear
+        )
+    else:
+        return (
+                char_can_double_jump(state, player)
+                and char_can_explode(state, player)
+                and char_can_sink(state, player)
+        )
+
+
+def can_utc_min5(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_utc(state, options, player)
+                and state.has(ItemName.attractsuit, player)
+        )
+    else:
+        return state.has(ItemName.attractsuit, player)
+
+
+def can_utc_min6(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_utc(state, options, player)
+                and char_can_cross_toxic(state, player)
+        )
+    else:
+        return char_can_cross_toxic(state, player)
+
+
+def can_utc_min7(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_utc(state, options, player)
+                and char_is_strong(state, player)
+        )
+    else:
+        return char_is_strong(state, player)
+
+
+def can_utc_min8(state: CollectionState, options: LB1Options, player: int):
+    # Obtainable with Region Access
+    if options.freeplay_or_story == 0:
+        return can_beat_utc(state, options, player)
+    else:
+        return True
+
+
+def can_utc_min9(state: CollectionState, options: LB1Options, player: int):
+    # Obtainable with Region Access
+    if options.freeplay_or_story == 0:
+        return can_beat_utc(state, options, player)
+    else:
+        return True
+
+
+def can_utc_min10(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_utc(state, options, player)
+                and char_joker(state, player)
+        )
+    else:
+        return char_joker(state, player)
 
 
 def can_trmaw_min4(state: CollectionState, player: int):
@@ -1783,6 +1912,16 @@ def can_bbb_rb(state: CollectionState, player: int):
     )
 
 
+def can_utc_rb(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_utc(state, options, player)
+                and char_can_techno(state, player)
+        )
+    else:
+        return char_can_techno(state, player)
+
+
 def can_trmaw_rb(state: CollectionState, player: int):
     return (
             char_can_double_jump(state, player)
@@ -1950,6 +2089,8 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
              lambda state: free_access_tsga(state, options, player))
     set_rule(world.get_entrance(RegionName.bbb + " -> " + RegionName.bbbf, player),
              lambda state: free_access_bbb(state, player))
+    set_rule(world.get_entrance(RegionName.utc + " -> " + RegionName.utcf, player),
+             lambda state: free_access_utc(state, player))
     set_rule(world.get_entrance(RegionName.trmaw + " -> " + RegionName.trmawf, player),
              lambda state: free_access_trmaw(state, player))
     set_rule(world.get_entrance(RegionName.otr + " -> " + RegionName.otrf, player),
@@ -2058,6 +2199,17 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.bbb_min6, player), lambda state: can_bbb_min6(state, player))
     set_rule(world.get_location(LocationName.bbb_min9, player), lambda state: can_bbb_min9(state, player))
     set_rule(world.get_location(LocationName.bbb_min10, player), lambda state: can_bbb_min10(state, player))
+    # UTC Minikits
+    set_rule(world.get_location(LocationName.utc_min1, player), lambda state: can_utc_min1(state, options, player))
+    set_rule(world.get_location(LocationName.utc_min2, player), lambda state: can_utc_min2(state, options, player))
+    set_rule(world.get_location(LocationName.utc_min3, player), lambda state: can_utc_min3(state, options, player))
+    set_rule(world.get_location(LocationName.utc_min4, player), lambda state: can_utc_min4(state, options, player))
+    set_rule(world.get_location(LocationName.utc_min5, player), lambda state: can_utc_min5(state, options, player))
+    set_rule(world.get_location(LocationName.utc_min6, player), lambda state: can_utc_min6(state, options, player))
+    set_rule(world.get_location(LocationName.utc_min7, player), lambda state: can_utc_min7(state, options, player))
+    set_rule(world.get_location(LocationName.utc_min8, player), lambda state: can_utc_min8(state, options, player))
+    set_rule(world.get_location(LocationName.utc_min9, player), lambda state: can_utc_min9(state, options, player))
+    set_rule(world.get_location(LocationName.utc_min10, player), lambda state: can_utc_min10(state, options, player))
     # TRMAW Minikits 1-3, 5, 7, 8, 10 can be done in story
     set_rule(world.get_location(LocationName.trmaw_min4, player), lambda state: can_trmaw_min4(state, player))
     set_rule(world.get_location(LocationName.trmaw_min6, player), lambda state: can_trmaw_min6_and_9(state, player))
@@ -2230,6 +2382,7 @@ def set_red_brick_location_rules(world: MultiWorld, options: LB1Options, player:
     set_rule(world.get_location(LocationName.tfo_rb, player), lambda state: can_tfo_rb(state, options, player))
     set_rule(world.get_location(LocationName.tsga_rb, player), lambda state: can_tsga_rb(state, options, player))
     set_rule(world.get_location(LocationName.bbb_rb, player), lambda state: can_bbb_rb(state, player))
+    set_rule(world.get_location(LocationName.utc_rb, player), lambda state: can_utc_rb(state, options, player))
 
     set_rule(world.get_location(LocationName.trmaw_rb, player), lambda state: can_trmaw_rb(state, player))
     set_rule(world.get_location(LocationName.otr_rb, player), lambda state: can_otr_rb(state, player))
