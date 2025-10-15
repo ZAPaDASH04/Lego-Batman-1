@@ -116,6 +116,7 @@ def create_regions(world: MultiWorld, player: int, seed_locations):
     connect_regions(world, player, RegionName.tsga, RegionName.tsgaf)
     connect_regions(world, player, RegionName.bbb, RegionName.bbbf)
     connect_regions(world, player, RegionName.utc, RegionName.utcf)
+    connect_regions(world, player, RegionName.zc, RegionName.zcf)
 
     connect_regions(world, player, RegionName.trmaw, RegionName.trmawf)
     connect_regions(world, player, RegionName.otr, RegionName.otrf)
