@@ -375,6 +375,22 @@ def level_access_tfo(state: CollectionState, options: LB1Options, player: int):
         )
 
 
+# Whole level locked by Attract Suit & Glide
+def level_access_jht(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                state.has(ItemName.glidesuit, player)
+                and state.has(ItemName.attractsuit, player)
+                and state.has(ItemName.jht_lvl, player)
+        )
+    else:
+        return (
+                char_can_glide(state, player)
+                and state.has(ItemName.attractsuit, player)
+                and state.has(ItemName.jht_lvl, player)
+        )
+
+
 # Free Access functions are needed for moving about in freeplay (moves story characters have)
 def free_access_ycbob(state: CollectionState, player: int):
     return char_can_explode(state, player)
@@ -1336,6 +1352,118 @@ def can_pl_min10(state: CollectionState, player: int):
     )
 
 
+def can_jht_min1(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_jht(state, options, player)
+                and char_can_explode(state, player)
+        )
+    else:
+        return char_can_explode(state, player)
+
+
+def can_jht_min3(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_jht(state, options, player)
+                and char_can_hypno(state, player)
+                and char_can_explode(state, player)
+                and state.has(ItemName.heatprotectsuit, player)
+        )
+    else:
+        return (
+                char_can_hypno(state, player)
+                and char_can_explode(state, player)
+                and state.has(ItemName.heatprotectsuit, player)
+        )
+
+
+def can_jht_min4(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_jht(state, options, player)
+                and char_joker(state, player)
+                and char_can_double_jump(state, player)
+        )
+    else:
+        return (
+                char_joker(state, player)
+                and char_can_double_jump(state, player)
+        )
+
+
+def can_jht_min5(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_jht(state, options, player)
+                and char_can_techno(state, player)
+        )
+    else:
+        return char_can_techno(state, player)
+
+
+def can_jht_min6(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_jht(state, options, player)
+                and char_can_cross_toxic(state, player)
+        )
+    else:
+        return char_can_cross_toxic(state, player)
+
+
+def can_jht_min7(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_jht(state, options, player)
+                and char_is_strong(state, player)
+                and char_can_double_jump(state, player)
+        )
+    else:
+        return (
+                char_is_strong(state, player)
+                and char_can_double_jump(state, player)
+        )
+
+
+def can_jht_min8(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_jht(state, options, player)
+                and char_can_cross_toxic(state, player)
+        )
+    else:
+        return char_can_cross_toxic(state, player)
+
+
+def can_jht_min9(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_jht(state, options, player)
+                and char_joker(state, player)
+                # Mag suit checked for as part of beat story
+        )
+    else:
+        return (
+                char_joker(state, player)
+                and state.has(ItemName.magsuit, player)
+        )
+
+
+def can_jht_min10(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_jht(state, options, player)
+                and char_can_explode(state, player)
+                # Mag suit checked for as part of beat story
+        )
+    else:
+        return (
+                char_can_explode(state, player)
+                and state.has(ItemName.magsuit, player)
+        )
+
+
 def can_trmaw_min4(state: CollectionState, player: int):
     return char_can_explode(state, player)
 
@@ -2119,6 +2247,22 @@ def can_pl_rb(state: CollectionState, player: int):
     return state.has(ItemName.sonicsuit, player)
 
 
+def can_jht_rb(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_jht(state, options, player)
+                and state.has(ItemName.mrfreeze_unlocked, player)
+                and state.has(ItemName.sonicsuit, player)
+                and char_can_double_jump(state, player)
+        )
+    else:
+        return (
+                state.has(ItemName.mrfreeze_unlocked, player)
+                and state.has(ItemName.sonicsuit, player)
+                and char_can_double_jump(state, player)
+        )
+
+
 def can_trmaw_rb(state: CollectionState, player: int):
     return (
             char_can_double_jump(state, player)
@@ -2232,7 +2376,7 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.pl, player),
              lambda state: state.has(ItemName.pl_lvl, player))
     set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.jht, player),
-             lambda state: state.has(ItemName.jht_lvl, player))
+             lambda state: level_access_jht(state, options, player))
     set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.lfabt, player),
              lambda state: state.has(ItemName.lfabt_lvl, player))
     set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.fotb, player),
@@ -2429,6 +2573,16 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.pl_min7, player), lambda state: can_pl_min7(state, player))
     set_rule(world.get_location(LocationName.pl_min8, player), lambda state: can_pl_min8(state, player))
     set_rule(world.get_location(LocationName.pl_min10, player), lambda state: can_pl_min10(state, player))
+    # JHT Minikit 2 can be done with region access
+    set_rule(world.get_location(LocationName.jht_min1, player), lambda state: can_jht_min1(state, options, player))
+    set_rule(world.get_location(LocationName.jht_min3, player), lambda state: can_jht_min3(state, options, player))
+    set_rule(world.get_location(LocationName.jht_min4, player), lambda state: can_jht_min4(state, options, player))
+    set_rule(world.get_location(LocationName.jht_min5, player), lambda state: can_jht_min5(state, options, player))
+    set_rule(world.get_location(LocationName.jht_min6, player), lambda state: can_jht_min6(state, options, player))
+    set_rule(world.get_location(LocationName.jht_min7, player), lambda state: can_jht_min7(state, options, player))
+    set_rule(world.get_location(LocationName.jht_min8, player), lambda state: can_jht_min8(state, options, player))
+    set_rule(world.get_location(LocationName.jht_min9, player), lambda state: can_jht_min9(state, options, player))
+    set_rule(world.get_location(LocationName.jht_min10, player), lambda state: can_jht_min10(state, options, player))
     # TRMAW Minikits 1-3, 5, 7, 8, 10 can be done in story
     set_rule(world.get_location(LocationName.trmaw_min4, player), lambda state: can_trmaw_min4(state, player))
     set_rule(world.get_location(LocationName.trmaw_min6, player), lambda state: can_trmaw_min6_and_9(state, player))
@@ -2604,6 +2758,7 @@ def set_red_brick_location_rules(world: MultiWorld, options: LB1Options, player:
     set_rule(world.get_location(LocationName.utc_rb, player), lambda state: can_utc_rb(state, options, player))
     set_rule(world.get_location(LocationName.zc_rb, player), lambda state: can_zc_rb(state, options, player))
     set_rule(world.get_location(LocationName.pl_rb, player), lambda state: can_pl_rb(state, player))
+    set_rule(world.get_location(LocationName.jht_rb, player), lambda state: can_jht_rb(state, options, player))
 
     set_rule(world.get_location(LocationName.trmaw_rb, player), lambda state: can_trmaw_rb(state, player))
     set_rule(world.get_location(LocationName.otr_rb, player), lambda state: can_otr_rb(state, player))
