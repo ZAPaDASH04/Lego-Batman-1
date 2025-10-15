@@ -439,6 +439,19 @@ def free_access_zc(state: CollectionState, options: LB1Options, player: int):
     )
 
 
+def free_access_pl(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                state.has(ItemName.glidesuit, player)
+                and state.has(ItemName.watersuit, player)
+        )
+    else:
+        return (
+                char_can_glide(state, player)
+                and char_can_sink(state, player)
+        )
+
+
 def free_access_trmaw(state: CollectionState, player: int):
     return (
             char_can_explode(state, player)
@@ -1267,6 +1280,62 @@ def can_zc_min10(state: CollectionState, options: LB1Options, player: int):
         )
 
 
+def can_pl_min1(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_zc(state, options, player)
+                and state.has(ItemName.sonicsuit, player)
+        )
+    else:
+        return state.has(ItemName.sonicsuit, player)
+
+
+def can_pl_min2(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_zc(state, options, player)
+                and state.has(ItemName.mrfreeze_unlocked, player)
+                and char_can_explode(state, player)
+        )
+    else:
+        return (
+                state.has(ItemName.mrfreeze_unlocked, player)
+                and char_can_explode(state, player)
+        )
+
+
+def can_pl_min3(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_zc(state, options, player)
+                and char_can_double_jump(state, player)
+        )
+    else:
+        return (
+                char_can_glide(state, player)
+                and char_can_double_jump(state, player)
+        )
+
+
+# with region access, can beat level in story
+def can_pl_min7(state: CollectionState, player: int):
+    return char_can_double_jump(state, player)
+
+
+def can_pl_min8(state: CollectionState, player: int):
+    return (
+            char_can_cross_toxic(state, player)
+            and state.has(ItemName.penguin_unlocked, player)
+    )
+
+
+def can_pl_min10(state: CollectionState, player: int):
+    return (
+            state.has(ItemName.heatprotectsuit, player)
+            and state.has(ItemName.sonicsuit, player)
+    )
+
+
 def can_trmaw_min4(state: CollectionState, player: int):
     return char_can_explode(state, player)
 
@@ -1863,19 +1932,6 @@ def can_zc_host(state: CollectionState, options: LB1Options, player: int):
         )
 
 
-def can_pl_host(state: CollectionState, options: LB1Options, player: int):
-    if options.freeplay_or_story == 0:
-        return (
-                state.has(ItemName.glidesuit, player)
-                and state.has(ItemName.watersuit, player)
-        )
-    else:
-        return (
-                char_can_glide(state, player)
-                and char_can_sink(state, player)
-        )
-
-
 def can_jht_host(state: CollectionState, options: LB1Options, player: int):
     return (
             can_beat_jht(state, options, player)
@@ -2059,6 +2115,10 @@ def can_zc_rb(state: CollectionState, options: LB1Options, player: int):
         )
 
 
+def can_pl_rb(state: CollectionState, player: int):
+    return state.has(ItemName.sonicsuit, player)
+
+
 def can_trmaw_rb(state: CollectionState, player: int):
     return (
             char_can_double_jump(state, player)
@@ -2230,6 +2290,9 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
              lambda state: free_access_utc(state, player))
     set_rule(world.get_entrance(RegionName.zc + " -> " + RegionName.zcf, player),
              lambda state: free_access_zc(state, options, player))
+    set_rule(world.get_entrance(RegionName.pl + " -> " + RegionName.plf, player),
+             lambda state: free_access_pl(state, options, player))
+
     set_rule(world.get_entrance(RegionName.trmaw + " -> " + RegionName.trmawf, player),
              lambda state: free_access_trmaw(state, player))
     set_rule(world.get_entrance(RegionName.otr + " -> " + RegionName.otrf, player),
@@ -2359,6 +2422,13 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.zc_min8, player), lambda state: can_zc_min8(state, options, player))
     set_rule(world.get_location(LocationName.zc_min9, player), lambda state: can_zc_min9(state, options, player))
     set_rule(world.get_location(LocationName.zc_min10, player), lambda state: can_zc_min10(state, options, player))
+    # PL Minikits 4, 5, 6, 9 can be done with region access
+    set_rule(world.get_location(LocationName.pl_min1, player), lambda state: can_pl_min1(state, options, player))
+    set_rule(world.get_location(LocationName.pl_min2, player), lambda state: can_pl_min2(state, options, player))
+    set_rule(world.get_location(LocationName.pl_min3, player), lambda state: can_pl_min3(state, options, player))
+    set_rule(world.get_location(LocationName.pl_min7, player), lambda state: can_pl_min7(state, player))
+    set_rule(world.get_location(LocationName.pl_min8, player), lambda state: can_pl_min8(state, player))
+    set_rule(world.get_location(LocationName.pl_min10, player), lambda state: can_pl_min10(state, player))
     # TRMAW Minikits 1-3, 5, 7, 8, 10 can be done in story
     set_rule(world.get_location(LocationName.trmaw_min4, player), lambda state: can_trmaw_min4(state, player))
     set_rule(world.get_location(LocationName.trmaw_min6, player), lambda state: can_trmaw_min6_and_9(state, player))
@@ -2479,7 +2549,7 @@ def set_host_rules(world: MultiWorld, options: LB1Options, player: int):
     # Batboat Battle does not have host
     set_rule(world.get_location(LocationName.utc_host, player), lambda state: can_utc_host(state, options, player))
     set_rule(world.get_location(LocationName.zc_host, player), lambda state: can_zc_host(state, options, player))
-    set_rule(world.get_location(LocationName.pl_host, player), lambda state: can_pl_host(state, options, player))
+    # Penguin's Lair host can be done with Region Access
     set_rule(world.get_location(LocationName.jht_host, player), lambda state: can_jht_host(state, options, player))
     set_rule(world.get_location(LocationName.lfabt_host, player), lambda state: can_lfabt_host(state, options, player))
     # Flight of the Bat does not have host
@@ -2533,6 +2603,7 @@ def set_red_brick_location_rules(world: MultiWorld, options: LB1Options, player:
     set_rule(world.get_location(LocationName.bbb_rb, player), lambda state: can_bbb_rb(state, player))
     set_rule(world.get_location(LocationName.utc_rb, player), lambda state: can_utc_rb(state, options, player))
     set_rule(world.get_location(LocationName.zc_rb, player), lambda state: can_zc_rb(state, options, player))
+    set_rule(world.get_location(LocationName.pl_rb, player), lambda state: can_pl_rb(state, player))
 
     set_rule(world.get_location(LocationName.trmaw_rb, player), lambda state: can_trmaw_rb(state, player))
     set_rule(world.get_location(LocationName.otr_rb, player), lambda state: can_otr_rb(state, player))
