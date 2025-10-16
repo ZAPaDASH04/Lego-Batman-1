@@ -326,7 +326,6 @@ def can_beat_lfabt(state: CollectionState, options: LB1Options, player: int):
         return (
                 char_can_explode(state, player)
                 and state.has(ItemName.magsuit, player)
-                and state.has(ItemName.sonicsuit, player)
                 and state.has(ItemName.attractsuit, player)
         )
 
@@ -466,6 +465,13 @@ def free_access_pl(state: CollectionState, options: LB1Options, player: int):
                 char_can_glide(state, player)
                 and char_can_sink(state, player)
         )
+
+
+def free_access_lfabt(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return state.has(ItemName.demolitionsuit, player)
+    else:
+        return char_can_explode(state, player)
 
 
 def free_access_trmaw(state: CollectionState, player: int):
@@ -1464,6 +1470,132 @@ def can_jht_min10(state: CollectionState, options: LB1Options, player: int):
         )
 
 
+def can_lfabt_min1(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_lfabt(state, options, player)
+                and char_is_strong(state, player)
+                and char_can_double_jump(state, player)
+        )
+    else:
+        return (
+                char_is_strong(state, player)
+                and char_can_double_jump(state, player)
+        )
+
+
+def can_lfabt_min2(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_lfabt(state, options, player)
+                and char_can_long_jump(state, player)
+                # Sonic Suit checked as part of can beat
+        )
+    else:
+        return (
+                char_can_long_jump(state, player)
+                and state.has(ItemName.sonicsuit, player)
+        )
+
+
+def can_lfabt_min3(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_lfabt(state, options, player)
+                and char_can_sink(state, player)
+        )
+    else:
+        return char_can_sink(state, player)
+
+
+def can_lfabt_min4(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_lfabt(state, options, player)
+                and char_can_techno(state, player)
+        )
+    else:
+        return char_can_techno(state, player)
+
+
+def can_lfabt_min5(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return state.has(ItemName.sonicsuit, player)
+    else:
+        return (
+                char_can_explode(state, player)
+                and state.has(ItemName.sonicsuit, player)
+        )
+
+
+def can_lfabt_min6(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_lfabt(state, options, player)
+                and char_joker(state, player)
+        )
+    else:
+        return (
+                char_joker(state, player)
+                and state.has(ItemName.sonicsuit, player)
+                and state.has(ItemName.magsuit, player)
+        )
+
+
+def can_lfabt_min7(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return can_beat_lfabt(state, options, player)
+    else:
+        return (
+                state.has(ItemName.magsuit, player)
+                and state.has(ItemName.attractsuit, player)
+        )
+
+
+def can_lfabt_min8(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_lfabt(state, options, player)
+                and char_can_techno(state, player)
+                and char_can_cross_toxic(state, player)
+        )
+    else:
+        return (
+                state.has(ItemName.attractsuit, player)
+                and state.has(ItemName.magsuit, player)
+                and char_can_techno(state, player)
+                and char_can_cross_toxic(state, player)
+        )
+
+
+def can_lfabt_min9(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_lfabt(state, options, player)
+                and char_is_strong(state, player)
+        )
+    else:
+        return (
+                state.has(ItemName.attractsuit, player)
+                and state.has(ItemName.magsuit, player)
+                and char_is_strong(state, player)
+        )
+
+
+def can_lfabt_min10(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_lfabt(state, options, player)
+                and char_can_cross_toxic(state, player)
+        )
+    else:
+        return (
+                state.has(ItemName.attractsuit, player)
+                and state.has(ItemName.magsuit, player)
+                and char_can_cross_toxic(state, player)
+        )
+
+
 def can_trmaw_min4(state: CollectionState, player: int):
     return char_can_explode(state, player)
 
@@ -2071,15 +2203,10 @@ def can_lfabt_host(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 state.has(ItemName.magsuit, player)
-                and state.has(ItemName.demolitionsuit, player)
                 and state.has(ItemName.sonicsuit, player)
         )
     else:
-        return (
-                state.has(ItemName.magsuit, player)
-                and char_can_explode(state, player)
-                and state.has(ItemName.sonicsuit, player)
-        )
+        return state.has(ItemName.magsuit, player)
 
 
 def can_itdn_host(state: CollectionState, options: LB1Options, player: int):
@@ -2263,6 +2390,20 @@ def can_jht_rb(state: CollectionState, options: LB1Options, player: int):
         )
 
 
+def can_lfabt_rb(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_lfabt(state, options, player)
+                and char_can_glide(state, player)
+                and char_can_techno(state, player)
+        )
+    else:
+        return (
+                char_can_glide(state, player)
+                and char_can_techno(state, player)
+        )
+
+
 def can_trmaw_rb(state: CollectionState, player: int):
     return (
             char_can_double_jump(state, player)
@@ -2436,6 +2577,8 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
              lambda state: free_access_zc(state, options, player))
     set_rule(world.get_entrance(RegionName.pl + " -> " + RegionName.plf, player),
              lambda state: free_access_pl(state, options, player))
+    set_rule(world.get_entrance(RegionName.lfabt + " -> " + RegionName.lfabtf, player),
+             lambda state: free_access_pl(state, options, player))
 
     set_rule(world.get_entrance(RegionName.trmaw + " -> " + RegionName.trmawf, player),
              lambda state: free_access_trmaw(state, player))
@@ -2583,6 +2726,18 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.jht_min8, player), lambda state: can_jht_min8(state, options, player))
     set_rule(world.get_location(LocationName.jht_min9, player), lambda state: can_jht_min9(state, options, player))
     set_rule(world.get_location(LocationName.jht_min10, player), lambda state: can_jht_min10(state, options, player))
+    # LFABT Minikits
+    set_rule(world.get_location(LocationName.lfabt_min1, player), lambda state: can_lfabt_min1(state, options, player))
+    set_rule(world.get_location(LocationName.lfabt_min2, player), lambda state: can_lfabt_min2(state, options, player))
+    set_rule(world.get_location(LocationName.lfabt_min3, player), lambda state: can_lfabt_min3(state, options, player))
+    set_rule(world.get_location(LocationName.lfabt_min4, player), lambda state: can_lfabt_min4(state, options, player))
+    set_rule(world.get_location(LocationName.lfabt_min5, player), lambda state: can_lfabt_min5(state, options, player))
+    set_rule(world.get_location(LocationName.lfabt_min6, player), lambda state: can_lfabt_min6(state, options, player))
+    set_rule(world.get_location(LocationName.lfabt_min7, player), lambda state: can_lfabt_min7(state, options, player))
+    set_rule(world.get_location(LocationName.lfabt_min8, player), lambda state: can_lfabt_min8(state, options, player))
+    set_rule(world.get_location(LocationName.lfabt_min9, player), lambda state: can_lfabt_min9(state, options, player))
+    set_rule(world.get_location(LocationName.lfabt_min10, player),
+             lambda state: can_lfabt_min10(state, options, player))
     # TRMAW Minikits 1-3, 5, 7, 8, 10 can be done in story
     set_rule(world.get_location(LocationName.trmaw_min4, player), lambda state: can_trmaw_min4(state, player))
     set_rule(world.get_location(LocationName.trmaw_min6, player), lambda state: can_trmaw_min6_and_9(state, player))
@@ -2759,6 +2914,7 @@ def set_red_brick_location_rules(world: MultiWorld, options: LB1Options, player:
     set_rule(world.get_location(LocationName.zc_rb, player), lambda state: can_zc_rb(state, options, player))
     set_rule(world.get_location(LocationName.pl_rb, player), lambda state: can_pl_rb(state, player))
     set_rule(world.get_location(LocationName.jht_rb, player), lambda state: can_jht_rb(state, options, player))
+    set_rule(world.get_location(LocationName.lfabt_rb, player), lambda state: can_lfabt_rb(state, options, player))
 
     set_rule(world.get_location(LocationName.trmaw_rb, player), lambda state: can_trmaw_rb(state, player))
     set_rule(world.get_location(LocationName.otr_rb, player), lambda state: can_otr_rb(state, player))
