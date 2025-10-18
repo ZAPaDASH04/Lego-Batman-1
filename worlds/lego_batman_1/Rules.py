@@ -1596,6 +1596,22 @@ def can_lfabt_min10(state: CollectionState, options: LB1Options, player: int):
         )
 
 
+def can_fotb_min7(state: CollectionState, player: int):
+    return (
+            air_can_cross_toxic(state, player)
+            and state.has(ItemName.batwing_unlocked, player)
+            and air_has_cable(state, player)
+    )
+
+
+def can_fotb_min9(state: CollectionState, player: int):
+    return (
+            air_can_cross_toxic(state, player)
+            and state.has(ItemName.batwing_unlocked, player)
+            and air_has_cable(state, player)
+    )
+
+
 def can_trmaw_min4(state: CollectionState, player: int):
     return char_can_explode(state, player)
 
@@ -2404,6 +2420,14 @@ def can_lfabt_rb(state: CollectionState, options: LB1Options, player: int):
         )
 
 
+def can_fotb_rb(state: CollectionState, player: int):
+    return (
+            air_can_cross_toxic(state, player)
+            and state.has(ItemName.batwing_unlocked, player)
+            and air_has_cable(state, player)
+    )
+
+
 def can_trmaw_rb(state: CollectionState, player: int):
     return (
             char_can_double_jump(state, player)
@@ -2738,6 +2762,9 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.lfabt_min9, player), lambda state: can_lfabt_min9(state, options, player))
     set_rule(world.get_location(LocationName.lfabt_min10, player),
              lambda state: can_lfabt_min10(state, options, player))
+    # FOTB Minikits 1, 2, 3, 4, 5, 6, 8, 10 can be done in story
+    set_rule(world.get_location(LocationName.fotb_min7, player), lambda state: can_fotb_min7(state, player))
+    set_rule(world.get_location(LocationName.fotb_min9, player), lambda state: can_fotb_min9(state, player))
     # TRMAW Minikits 1-3, 5, 7, 8, 10 can be done in story
     set_rule(world.get_location(LocationName.trmaw_min4, player), lambda state: can_trmaw_min4(state, player))
     set_rule(world.get_location(LocationName.trmaw_min6, player), lambda state: can_trmaw_min6_and_9(state, player))
@@ -2915,6 +2942,7 @@ def set_red_brick_location_rules(world: MultiWorld, options: LB1Options, player:
     set_rule(world.get_location(LocationName.pl_rb, player), lambda state: can_pl_rb(state, player))
     set_rule(world.get_location(LocationName.jht_rb, player), lambda state: can_jht_rb(state, options, player))
     set_rule(world.get_location(LocationName.lfabt_rb, player), lambda state: can_lfabt_rb(state, options, player))
+    set_rule(world.get_location(LocationName.fotb_rb, player), lambda state: can_fotb_rb(state, player))
 
     set_rule(world.get_location(LocationName.trmaw_rb, player), lambda state: can_trmaw_rb(state, player))
     set_rule(world.get_location(LocationName.otr_rb, player), lambda state: can_otr_rb(state, player))

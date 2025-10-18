@@ -59,7 +59,7 @@ lb1_hero_subregions = [
     RegionName.plf,
     # RegionName.jhtf,
     RegionName.lfabtf,
-    RegionName.fotbf,
+    # RegionName.fotbf,
     RegionName.itdnf,
     RegionName.tttotf,
 ]
