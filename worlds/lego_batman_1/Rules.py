@@ -1,5 +1,5 @@
 from BaseClasses import MultiWorld, Location
-from worlds.generic.Rules import add_rule, set_rule
+from worlds.generic.Rules import set_rule
 from worlds.AutoWorld import CollectionState
 
 from .Locations import level_beaten_event_location_table
@@ -2968,7 +2968,8 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.tttot_min5, player), lambda state: can_tttot_min5(state, options, player))
     set_rule(world.get_location(LocationName.tttot_min6, player), lambda state: can_tttot_min6(state, options, player))
     set_rule(world.get_location(LocationName.tttot_min9, player), lambda state: can_tttot_min9(state, options, player))
-    set_rule(world.get_location(LocationName.tttot_min10, player), lambda state: can_tttot_min10(state, options, player))
+    set_rule(world.get_location(LocationName.tttot_min10, player),
+             lambda state: can_tttot_min10(state, options, player))
     # TRMAW Minikits 1-3, 5, 7, 8, 10 can be done in story
     set_rule(world.get_location(LocationName.trmaw_min4, player), lambda state: can_trmaw_min4(state, player))
     set_rule(world.get_location(LocationName.trmaw_min6, player), lambda state: can_trmaw_min6_and_9(state, player))
