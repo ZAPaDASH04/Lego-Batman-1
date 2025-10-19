@@ -120,19 +120,6 @@ def auto_can_explode(state: CollectionState, player: int):
     )
 
 
-def auto_can_shoot(state: CollectionState, player: int):
-    return (
-            state.has(ItemName.batmobile_unlocked, player)
-            or state.has(ItemName.batcycle_unlocked, player)
-            or state.has(ItemName.policebike_unlocked, player)
-            or state.has(ItemName.battank_unlocked, player)
-            or state.has(ItemName.catmotorcycle_unlocked, player)
-            or state.has(ItemName.armouredtruck_unlocked, player)
-            or state.has(ItemName.hammertruck_unlocked, player)
-            or state.has(ItemName.jokervan_unlocked, player)
-    )
-
-
 def water_has_torpedo(state: CollectionState, player: int):
     return (
             state.has(ItemName.robinswatercraft_unlocked, player)
@@ -156,13 +143,6 @@ def water_can_cross_toxic(state: CollectionState, player: int):
     )
 
 
-def water_can_boost(state: CollectionState, player: int):
-    return (
-            state.has(ItemName.batboat_unlocked, player)
-            or state.has(ItemName.swamprider_unlocked, player)
-    )
-
-
 def air_has_cable(state: CollectionState, player: int):
     return (
             state.has(ItemName.batcopter_unlocked, player)
@@ -170,14 +150,6 @@ def air_has_cable(state: CollectionState, player: int):
             or state.has(ItemName.policehelicopter_unlocked, player)
             or state.has(ItemName.jokerhelicopter_unlocked, player)
             or state.has(ItemName.goonhelicopter_unlocked, player)
-    )
-
-
-def air_has_torpedo(state: CollectionState, player: int):
-    return (
-            state.has(ItemName.batwing_unlocked, player)
-            or state.has(ItemName.scarecrowbiplane_unlocked, player)
-            or state.has(ItemName.riddlerjet_unlocked, player)
     )
 
 
@@ -355,7 +327,6 @@ def can_beat_tttot(state: CollectionState, options: LB1Options, player: int):
     else:
         return (
                 state.has(ItemName.magsuit, player)
-                and char_can_explode(state, player)
                 and char_can_glide(state, player)
         )
 
@@ -479,6 +450,10 @@ def free_access_itdn(state: CollectionState, options: LB1Options, player: int):
         return state.has(ItemName.demolitionsuit, player)
     else:
         return char_can_explode(state, player)
+
+
+def free_access_tttot(state: CollectionState, player: int):
+    return state.has(ItemName.magsuit, player)
 
 
 def free_access_trmaw(state: CollectionState, player: int):
@@ -1735,6 +1710,79 @@ def can_itdn_min10(state: CollectionState, options: LB1Options, player: int):
         )
 
 
+def can_tttot_min1(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_tttot(state, options, player)
+                and char_can_explode(state, player)
+        )
+    else:
+        return char_can_explode(state, player)
+
+
+def can_tttot_min3(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_tttot(state, options, player)
+                and state.has(ItemName.sonicsuit, player)
+        )
+    else:
+        return state.has(ItemName.sonicsuit, player)
+
+
+def can_tttot_min4(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_tttot(state, options, player)
+                and state.has(ItemName.attractsuit, player)
+        )
+    else:
+        return state.has(ItemName.attractsuit, player)
+
+
+def can_tttot_min5(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_tttot(state, options, player)
+                and char_can_long_jump(state, player)
+        )
+    else:
+        return char_can_long_jump(state, player)
+
+
+def can_tttot_min6(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_tttot(state, options, player)
+                and char_joker(state, player)
+        )
+    else:
+        return char_joker(state, player)
+
+
+def can_tttot_min9(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                can_beat_tttot(state, options, player)
+                and char_can_double_jump(state, player)
+        )
+    else:
+        return (
+                char_can_glide(state, player)
+                and char_can_double_jump(state, player)
+        )
+
+
+def can_tttot_min10(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return can_beat_tttot(state, options, player)
+    else:
+        return (
+                can_beat_tttot(state, options, player)
+                and char_can_explode(state, player)
+        )
+
+
 def can_trmaw_min4(state: CollectionState, player: int):
     return char_can_explode(state, player)
 
@@ -2555,6 +2603,13 @@ def can_itdn_rb(state: CollectionState, options: LB1Options, player: int):
     )
 
 
+def can_tttot_rb(state: CollectionState, options: LB1Options, player: int):
+    return (
+            can_beat_tttot(state, options, player)
+            and char_is_strong(state, player)
+    )
+
+
 def can_trmaw_rb(state: CollectionState, player: int):
     return (
             char_can_double_jump(state, player)
@@ -2732,7 +2787,8 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
              lambda state: free_access_lfabt(state, options, player))
     set_rule(world.get_entrance(RegionName.itdn + " -> " + RegionName.itdnf, player),
              lambda state: free_access_itdn(state, options, player))
-
+    set_rule(world.get_entrance(RegionName.tttot + " -> " + RegionName.tttotf, player),
+             lambda state: free_access_tttot(state, player))
     set_rule(world.get_entrance(RegionName.trmaw + " -> " + RegionName.trmawf, player),
              lambda state: free_access_trmaw(state, player))
     set_rule(world.get_entrance(RegionName.otr + " -> " + RegionName.otrf, player),
@@ -2905,6 +2961,14 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.itdn_min8, player), lambda state: can_itdn_min8(state, options, player))
     set_rule(world.get_location(LocationName.itdn_min9, player), lambda state: can_itdn_min9(state, options, player))
     set_rule(world.get_location(LocationName.itdn_min10, player), lambda state: can_itdn_min10(state, options, player))
+    # TTTOT Minikits 2, 7, 8 can be done with region access
+    set_rule(world.get_location(LocationName.tttot_min1, player), lambda state: can_tttot_min1(state, options, player))
+    set_rule(world.get_location(LocationName.tttot_min3, player), lambda state: can_tttot_min3(state, options, player))
+    set_rule(world.get_location(LocationName.tttot_min4, player), lambda state: can_tttot_min4(state, options, player))
+    set_rule(world.get_location(LocationName.tttot_min5, player), lambda state: can_tttot_min5(state, options, player))
+    set_rule(world.get_location(LocationName.tttot_min6, player), lambda state: can_tttot_min6(state, options, player))
+    set_rule(world.get_location(LocationName.tttot_min9, player), lambda state: can_tttot_min9(state, options, player))
+    set_rule(world.get_location(LocationName.tttot_min10, player), lambda state: can_tttot_min10(state, options, player))
     # TRMAW Minikits 1-3, 5, 7, 8, 10 can be done in story
     set_rule(world.get_location(LocationName.trmaw_min4, player), lambda state: can_trmaw_min4(state, player))
     set_rule(world.get_location(LocationName.trmaw_min6, player), lambda state: can_trmaw_min6_and_9(state, player))
@@ -3084,7 +3148,7 @@ def set_red_brick_location_rules(world: MultiWorld, options: LB1Options, player:
     set_rule(world.get_location(LocationName.lfabt_rb, player), lambda state: can_lfabt_rb(state, options, player))
     set_rule(world.get_location(LocationName.fotb_rb, player), lambda state: can_fotb_rb(state, player))
     set_rule(world.get_location(LocationName.itdn_rb, player), lambda state: can_itdn_rb(state, options, player))
-
+    set_rule(world.get_location(LocationName.tttot_rb, player), lambda state: can_tttot_rb(state, options, player))
     set_rule(world.get_location(LocationName.trmaw_rb, player), lambda state: can_trmaw_rb(state, player))
     set_rule(world.get_location(LocationName.otr_rb, player), lambda state: can_otr_rb(state, player))
     set_rule(world.get_location(LocationName.gf_rb, player), lambda state: can_gf_rb(state, player))
