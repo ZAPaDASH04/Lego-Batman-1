@@ -71,8 +71,37 @@ class FreeplayOrStoryUnlocked(DefaultOnToggle):
     display_name = "Unlock Story or Story and Freeplay"
 
 
-# TODO: look into what option groups are
+class ShopPurchasesRequireMultiplier(DefaultOnToggle):
+    """
+    Determines if shop purchases require a score multiplier.
+    """
+    display_name = "Shop Purchases Require Multiplier"
 
+
+class LowMultiplierPriceMinimum(Range):
+    """
+    Determines the starting price for a low multiplier. Does nothing if Shop Purchases Require Multiplier is disabled.
+    A low multiplier is defined as Score x2 or Score x4.
+    """
+    display_name = "Low Multiplier Price Minimum"
+    range_start = 10
+    range_end = 10000000
+    default = 50000
+
+
+class HighMultiplierMinimum(Range):
+    """
+    Determines the starting price for a high multiplier. Does nothing if Shop Purchases Require Multiplier is disabled.
+    Must be larger than Low Multiplier Price.
+    A high multiplier is defined as Score x6, Score x8, Score x10 or both Score x2 and Score x4.
+    """
+    display_name = "High Multiplier Price Minimum"
+    range_start = 10
+    range_end = 10000000
+    default = 100000
+
+
+# TODO: look into what option groups are
 @dataclass
 class LB1Options(PerGameCommonOptions):
     EndGoal: EndGoal
@@ -82,4 +111,7 @@ class LB1Options(PerGameCommonOptions):
     true_status_sanity: TrueStatusSanity
     decouple_character_tokens: DecoupleCharacterTokens
     freeplay_or_story: FreeplayOrStoryUnlocked
+    shop_purchases_required_multiplier: ShopPurchasesRequireMultiplier
+    low_multiplier_minimum: LowMultiplierPriceMinimum
+    high_multiplier_minimum: HighMultiplierMinimum
     # hostage_sanity: HostageSanity

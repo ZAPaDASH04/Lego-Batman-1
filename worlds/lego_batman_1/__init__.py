@@ -135,6 +135,8 @@ class LB1World(World):
     def validate_yaml(self):
         if self.options.EndGoal.value == 0 and self.options.minikit_sanity.value == 0:
             raise OptionError("Minikit Win Con Requires Minikit Sanity to be enabled.")
+        if self.options.high_multiplier_minimum.value < self.options.low_multiplier_minimum.value:
+            raise OptionError("High Multiplier Minimum must be greater than Low Multiplier Minimum.")
 
     def create_regions(self):
         self.seed_location_table = setup_locations(self.options)
