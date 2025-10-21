@@ -49,6 +49,14 @@ class TrueStatusSanity(DefaultOnToggle):
     display_name = "True Status Sanity"
 
 
+class DecoupleCharacterTokens(DefaultOnToggle):
+    """
+    This setting shuffles character tokens into the multiworld. Character tokens are required for any character
+    purchases.
+    """
+    display_name = "Decouple Character Tokens"
+
+
 # class HostageSanity(Toggle):
 #     """
 #     Puts all 25 Hostages into the pool.
@@ -72,5 +80,6 @@ class LB1Options(PerGameCommonOptions):
     minikits_to_win: MinikitsToWin
     levels_to_win: LevelsToWin
     true_status_sanity: TrueStatusSanity
+    decouple_character_tokens: DecoupleCharacterTokens
     freeplay_or_story: FreeplayOrStoryUnlocked
     # hostage_sanity: HostageSanity

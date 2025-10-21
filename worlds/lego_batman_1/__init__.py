@@ -45,7 +45,7 @@ class LB1World(World):
 
     item_name_groups = {
         "Character": item_group_table["character"],
-        "Hard Character": item_group_table["hard character"],
+        # "Hard Character": item_group_table["hard character"],
         "Automobile": item_group_table["automobile"],
         "Watercraft": item_group_table["watercraft"],
         "Aircraft": item_group_table["aircraft"],
@@ -56,6 +56,7 @@ class LB1World(World):
         "True Status": item_group_table["true status"],
         "Red Brick Collected": item_group_table["red brick collected"],
         "Red Brick Unlocked": item_group_table["red brick unlocked"],
+        "Character Token": item_group_table["character token"],
     }
 
     location_name_groups = {
@@ -181,4 +182,5 @@ class LB1World(World):
             "LevelsToWin": self.options.levels_to_win.value,
             "TrueStatusSanity": self.options.true_status_sanity.value,
             "FreeplayOrStory": self.options.freeplay_or_story.value,
+            "DecoupledTokens": self.options.decouple_character_tokens.value,
         }
