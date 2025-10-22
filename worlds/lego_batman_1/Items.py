@@ -94,7 +94,7 @@ watercraft_item_table: Dict[str, LB1ItemData] = {
     ItemName.iceberg_unlocked: LB1ItemData(base_item_id + 44, ItemClassification.progression),
     ItemName.policewatercraft_unlocked: LB1ItemData(base_item_id + 56, ItemClassification.progression),
     ItemName.policeboat_unlocked: LB1ItemData(base_item_id + 57, ItemClassification.filler),
-    ItemName.penguinsubmarine_unlocked: LB1ItemData(base_item_id + ItemClassification.progression),
+    ItemName.penguinsubmarine_unlocked: LB1ItemData(base_item_id + 58, ItemClassification.progression),
     ItemName.swamprider_unlocked: LB1ItemData(base_item_id + 59, ItemClassification.progression),
 }
 
