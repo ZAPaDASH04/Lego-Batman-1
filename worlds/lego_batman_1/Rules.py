@@ -849,7 +849,6 @@ def can_tfo_min5(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_tfo(state, options, player)
                 and char_can_double_jump(state, player)
-                # Attract suit part of can beat level
         )
     else:
         return (
@@ -939,8 +938,7 @@ def can_tsga_min3(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_tsga(state, options, player)
                 and char_can_sink(state, player)
-                # Explosives checked for as part of can beat tsga
-            )
+        )
     else:
         return (
                 char_can_sink(state, player)
@@ -953,7 +951,6 @@ def can_tsga_min4(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_tsga(state, options, player)
                 and char_is_strong(state, player)
-                # Explosives checked for as part of can beat tsga
         )
     else:
         return (
@@ -992,7 +989,6 @@ def can_tsga_min8(state: CollectionState, options: LB1Options, player: int):
                 can_beat_tsga(state, options, player)
                 and char_is_strong(state, player)
                 and char_can_double_jump(state, player)
-                # Explosives checked for as part of can beat tsga
         )
     else:
         return (
@@ -1006,8 +1002,6 @@ def can_tsga_min9(state: CollectionState, options: LB1Options, player: int):
     return (
             can_beat_tsga(state, options, player)
             and state.has(ItemName.sonicsuit, player)
-            # Explosives checked for as part of can beat tsga
-            # Techno checked for as part of can beat tsga
     )
 
 
@@ -1016,8 +1010,6 @@ def can_tsga_min10(state: CollectionState, options: LB1Options, player: int):
             can_beat_tsga(state, options, player)
             and char_can_sink(state, player)
             and state.has(ItemName.sonicsuit, player)
-            # Explosives checked for as part of can beat tsga
-            # Techno checked for as part of can beat tsga
     )
 
 
@@ -1056,7 +1048,6 @@ def can_utc_min1(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_utc(state, options, player)
                 and char_can_double_jump(state, player)
-                # Explosives checked for as part of level clear
         )
     else:
         return (
@@ -1072,7 +1063,6 @@ def can_utc_min2(state: CollectionState, options: LB1Options, player: int):
                 and char_can_hypno(state, player)
                 and (state.has(ItemName.mrfreeze_unlocked, player) or state.has(ItemName.bane_unlocked, player)
                      or state.has(ItemName.killercroc_unlocked, player))
-                # Explosives and glide checked for as part of level clear
         )
     else:
         return (
@@ -1090,7 +1080,6 @@ def can_utc_min3(state: CollectionState, options: LB1Options, player: int):
                 can_beat_utc(state, options, player)
                 and state.has(ItemName.sonicsuit, player)
                 and char_is_strong(state, player)
-                # Explosives and sink checked for as part of level clear
         )
     else:
         return (
@@ -1106,7 +1095,6 @@ def can_utc_min4(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_utc(state, options, player)
                 and char_can_double_jump(state, player)
-                # Explosives and sink checked for as part of level clear
         )
     else:
         return (
@@ -1147,7 +1135,6 @@ def can_utc_min7(state: CollectionState, options: LB1Options, player: int):
 
 
 def can_utc_min8(state: CollectionState, options: LB1Options, player: int):
-    # Obtainable with Region Access
     if options.freeplay_or_story == 0:
         return can_beat_utc(state, options, player)
     else:
@@ -1155,7 +1142,6 @@ def can_utc_min8(state: CollectionState, options: LB1Options, player: int):
 
 
 def can_utc_min9(state: CollectionState, options: LB1Options, player: int):
-    # Obtainable with Region Access
     if options.freeplay_or_story == 0:
         return can_beat_utc(state, options, player)
     else:
@@ -1177,7 +1163,6 @@ def can_zc_min1(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_zc(state, options, player)
                 and char_can_access_female_room(state, player)
-                # Explosives part of can beat level
         )
     else:
         return (
@@ -1217,7 +1202,6 @@ def can_zc_min4(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_zc(state, options, player)
                 and char_can_double_jump(state, player)
-                # Explosive checked for as part of beat level
         )
     else:
         return (
@@ -1321,7 +1305,6 @@ def can_pl_min3(state: CollectionState, options: LB1Options, player: int):
         )
 
 
-# with region access, can beat level in story
 def can_pl_min7(state: CollectionState, player: int):
     return char_can_double_jump(state, player)
 
@@ -1429,7 +1412,6 @@ def can_jht_min9(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_jht(state, options, player)
                 and char_joker(state, player)
-                # Mag suit checked for as part of beat story
         )
     else:
         return (
@@ -1443,7 +1425,6 @@ def can_jht_min10(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_jht(state, options, player)
                 and char_can_explode(state, player)
-                # Mag suit checked for as part of beat story
         )
     else:
         return (
@@ -1471,7 +1452,6 @@ def can_lfabt_min2(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_lfabt(state, options, player)
                 and char_can_long_jump(state, player)
-                # Sonic Suit checked as part of can beat
         )
     else:
         return (
@@ -2146,8 +2126,8 @@ def can_aw_min5(state: CollectionState, player: int):
 
 def can_aw_min6(state: CollectionState, player: int):
     return (
-        char_is_strong(state, player)
-        and char_can_cross_toxic(state, player)
+            char_is_strong(state, player)
+            and char_can_cross_toxic(state, player)
     )
 
 
@@ -2350,7 +2330,6 @@ def can_tfo_host(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_tfo(state, options, player)
                 and char_can_double_jump(state, player)
-                # Attract Suit Tested as part of Level Beaten
         )
     else:
         return (
@@ -2517,8 +2496,6 @@ def can_tsga_rb(state: CollectionState, options: LB1Options, player: int):
     return (
             can_beat_tsga(state, options, player)
             and state.has(ItemName.sonicsuit, player)
-            # Explosives checked for as part of can beat tsga
-            # Techno checked for as part of can beat tsga
     )
 
 
@@ -2698,6 +2675,46 @@ def can_tlotn_rb(state: CollectionState, player: int):
             state.has(ItemName.poisonivy_unlocked, player)
             and char_can_double_jump(state, player)
             and state.has(ItemName.attractsuit, player)
+    )
+
+
+def can_complete_any_hero_episode(state: CollectionState, options: LB1Options, player: int):
+    return (
+            (state.has(ItemName.ycbob_lvl, player) and can_beat_ycbob(state, options, player)
+             and state.has(ItemName.air_lvl, player) and can_beat_air(state, options, player)
+             and state.has(ItemName.tfc_lvl, player)
+             and state.has(ItemName.apa_lvl, player) and can_beat_apa(state, player)
+             and state.has(ItemName.tfo_lvl, player) and can_beat_tfo(state, options, player))
+            or (state.has(ItemName.tsga_lvl, player) and can_beat_tsga(state, options, player)
+                and state.has(ItemName.bbb_lvl, player)
+                and state.has(ItemName.utc_lvl, player) and can_beat_utc(state, options, player)
+                and state.has(ItemName.zc_lvl, player) and can_beat_zc(state, options, player)
+                and state.has(ItemName.pl_lvl, player) and can_beat_pl(state, options, player))
+            or (state.has(ItemName.jht_lvl, player) and can_beat_jht(state, options, player)
+                and state.has(ItemName.lfabt_lvl, player) and can_beat_lfabt(state, options, player)
+                and state.has(ItemName.fotb_lvl, player)
+                and state.has(ItemName.itdn_lvl, player) and can_beat_itdn(state, options, player)
+                and state.has(ItemName.tttot_lvl, player) and can_beat_tttot(state, options, player))
+    )
+
+
+def can_complete_all_hero_episode(state: CollectionState, options: LB1Options, player: int):
+    return (
+            state.has(ItemName.ycbob_lvl, player) and can_beat_ycbob(state, options, player)
+            and state.has(ItemName.air_lvl, player) and can_beat_air(state, options, player)
+            and state.has(ItemName.tfc_lvl, player)
+            and state.has(ItemName.apa_lvl, player) and can_beat_apa(state, player)
+            and state.has(ItemName.tfo_lvl, player) and can_beat_tfo(state, options, player)
+            and state.has(ItemName.tsga_lvl, player) and can_beat_tsga(state, options, player)
+            and state.has(ItemName.bbb_lvl, player)
+            and state.has(ItemName.utc_lvl, player) and can_beat_utc(state, options, player)
+            and state.has(ItemName.zc_lvl, player) and can_beat_zc(state, options, player)
+            and state.has(ItemName.pl_lvl, player) and can_beat_pl(state, options, player)
+            and state.has(ItemName.jht_lvl, player) and can_beat_jht(state, options, player)
+            and state.has(ItemName.lfabt_lvl, player) and can_beat_lfabt(state, options, player)
+            and state.has(ItemName.fotb_lvl, player)
+            and state.has(ItemName.itdn_lvl, player) and can_beat_itdn(state, options, player)
+            and state.has(ItemName.tttot_lvl, player) and can_beat_tttot(state, options, player)
     )
 
 
@@ -3113,8 +3130,6 @@ def set_host_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.dol_host, player), lambda state: can_dol_host(state, player))
 
 
-# Current logic implementation is that multiplier/can beat level. In separate function since always score multiply \
-# is a starting item
 def set_true_status_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.ycbob_ts, player), lambda state: can_beat_ycbob(state, options, player))
     set_rule(world.get_location(LocationName.air_ts, player), lambda state: can_beat_air(state, options, player))
@@ -3200,6 +3215,64 @@ def set_red_brick_purchase_rules(world: MultiWorld, player: int):
     set_rule(world.get_location(LocationName.piecedetect, player), lambda state: state.has(ItemName.tttot_rbc, player))
 
 
+def set_token_rules(world: MultiWorld, options: LB1Options, player: int):
+    set_rule(world.get_location(LocationName.riddlergoon_token, player),
+             lambda state: can_beat_ycbob(state, options, player))
+    set_rule(world.get_location(LocationName.riddlerhenchman_token, player),
+             lambda state: can_beat_ycbob(state, options, player))
+    set_rule(world.get_location(LocationName.freezegirl_token, player),
+             lambda state: can_beat_air(state, options, player))
+    # TFC can be completed in story - police car, bike, van, joker van don't require anything besides region logic
+    set_rule(world.get_location(LocationName.poisonivygoon_token, player),
+             lambda state: can_beat_apa(state, player))
+    set_rule(world.get_location(LocationName.fishmonger_token, player),
+             lambda state: can_beat_tsga(state, options, player))
+    set_rule(world.get_location(LocationName.penguingoon_token, player),
+             lambda state: can_beat_tsga(state, options, player))
+    set_rule(world.get_location(LocationName.penguinhenchman_token, player),
+             lambda state: can_beat_tsga(state, options, player))
+    # BBB can be completed in story - robin sub, penguin goon sub, harbour helicopter don't require anything besides
+    # region logic
+    set_rule(world.get_location(LocationName.zoosweeper_token, player),
+             lambda state: can_beat_zc(state, options, player))
+    set_rule(world.get_location(LocationName.manbat_token, player),
+             lambda state: can_beat_pl(state, options, player))
+    set_rule(world.get_location(LocationName.yeti_token, player),
+             lambda state: can_beat_pl(state, options, player))
+    set_rule(world.get_location(LocationName.penguinminion_token, player),
+             lambda state: can_beat_pl(state, options, player))
+    set_rule(world.get_location(LocationName.madhatter_token, player),
+             lambda state: can_beat_jht(state, options, player))
+    set_rule(world.get_location(LocationName.jokergoon_token, player),
+             lambda state: can_beat_jht(state, options, player))
+    set_rule(world.get_location(LocationName.jokerhenchman_token, player),
+             lambda state: can_beat_jht(state, options, player))
+    set_rule(world.get_location(LocationName.steamboat_token, player),
+             lambda state: can_beat_jht(state, options, player))
+    set_rule(world.get_location(LocationName.glider_token, player),
+             lambda state: can_beat_jht(state, options, player))
+    set_rule(world.get_location(LocationName.clowngoon_token, player),
+             lambda state: can_beat_lfabt(state, options, player))
+    # FOTB can be completed in story - private jet doesn't require anything besides region logic
+    set_rule(world.get_location(LocationName.brucewayne_token, player),
+             lambda state: can_complete_any_hero_episode(state, options, player))
+    set_rule(world.get_location(LocationName.alfred_token, player),
+             lambda state: can_complete_any_hero_episode(state, options, player))
+    set_rule(world.get_location(LocationName.batgirl_token, player),
+             lambda state: can_complete_any_hero_episode(state, options, player))
+    set_rule(world.get_location(LocationName.nightwing_token, player),
+             lambda state: can_complete_any_hero_episode(state, options, player))
+    set_rule(world.get_location(LocationName.policeofficer_token, player),
+             lambda state: can_complete_any_hero_episode(state, options, player))
+    set_rule(world.get_location(LocationName.militarypoliceman_token, player),
+             lambda state: can_complete_any_hero_episode(state, options, player))
+    set_rule(world.get_location(LocationName.securityguard_token, player),
+             lambda state: can_complete_any_hero_episode(state, options, player))
+    set_rule(world.get_location(LocationName.battank_token, player),
+             lambda state: can_complete_all_hero_episode(state, options, player))
+    # All villain levels can be completed in story - no additional logic needed besides region
+
+
 def set_rules(world: MultiWorld, options: LB1Options, player: int):
     set_entrance_rules(world, options, player)
     set_level_beaten_rules(world, options, player)
@@ -3216,6 +3289,8 @@ def set_rules(world: MultiWorld, options: LB1Options, player: int):
         set_true_status_rules(world, options, player)
     set_red_brick_location_rules(world, options, player)
     set_red_brick_purchase_rules(world, player)
+    if options.decouple_character_tokens == 1:
+        set_token_rules(world, options, player)
 
     # Set End Goal
     if options.EndGoal == EndGoal.option_minikits:

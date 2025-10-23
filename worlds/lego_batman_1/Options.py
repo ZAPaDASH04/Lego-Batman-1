@@ -51,8 +51,7 @@ class TrueStatusSanity(DefaultOnToggle):
 
 class DecoupleCharacterTokens(DefaultOnToggle):
     """
-    This setting shuffles character tokens into the multiworld. Character tokens are required for any character
-    purchases.
+    This setting adds character tokens into the multiworld. Character tokens are required for any character purchase.
     """
     display_name = "Decouple Character Tokens"
 
