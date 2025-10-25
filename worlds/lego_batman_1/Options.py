@@ -80,7 +80,7 @@ class ShopPurchasesRequireMultiplier(DefaultOnToggle):
 class LowMultiplierPriceMinimum(Range):
     """
     Determines the starting price for a low multiplier. Does nothing if Shop Purchases Require Multiplier is disabled.
-    A low multiplier is defined as Score x2 or Score x4.
+    A low multiplier is defined as any multiplier.
     """
     display_name = "Low Multiplier Price Minimum"
     range_start = 10
