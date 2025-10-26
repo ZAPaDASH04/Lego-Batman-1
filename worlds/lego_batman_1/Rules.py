@@ -2,7 +2,7 @@ from BaseClasses import MultiWorld, Location
 from worlds.generic.Rules import set_rule
 from worlds.AutoWorld import CollectionState
 
-from .Locations import level_beaten_event_location_table
+from .Locations import level_beaten_event_location_table, red_brick_purchase_table
 from .Names import LocationName, ItemName, RegionName
 from .Options import LB1Options, EndGoal
 
@@ -160,6 +160,23 @@ def air_can_cross_toxic(state: CollectionState, player: int):
             or state.has(ItemName.jokerhelicopter_unlocked, player)
             or state.has(ItemName.scarecrowbiplane_unlocked, player)
             or state.has(ItemName.goonhelicopter_unlocked, player)
+    )
+
+
+def has_low_multiplier(state: CollectionState, player: int):
+    return (
+            state.has(ItemName.scorex2_un, player)
+            or state.has(ItemName.scorex4_un, player)
+            or has_high_multiplier(state, player)
+    )
+
+
+def has_high_multiplier(state: CollectionState, player: int):
+    return (
+            state.has(ItemName.scorex6_un, player)
+            or state.has(ItemName.scorex8_un, player)
+            or state.has(ItemName.scorex10_un, player)
+            or (state.has(ItemName.scorex2_un, player) and state.has(ItemName.scorex4_un, player))
     )
 
 
@@ -2678,6 +2695,461 @@ def can_tlotn_rb(state: CollectionState, player: int):
     )
 
 
+def can_purchase_silhouettes(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.silhouettes].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player)
+        else:
+            return True
+    else:
+        return True
+
+
+def can_purchase_beepbeep(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.beepbeep].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player)
+        else:
+            return True
+    else:
+        return True
+
+
+def can_purchase_ice_rink(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.icerink].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player)
+        else:
+            return True
+    else:
+        return True
+
+
+def can_purchase_disguise(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.disguise].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player)
+        else:
+            return True
+    else:
+        return True
+
+
+def can_purchase_extra_toggle(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.extratoggle].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player)
+        else:
+            return True
+    else:
+        return True
+
+
+def can_purchase_scorex2(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.scorex2].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.trmaw_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.trmaw_rbc, player)
+        else:
+            return state.has(ItemName.trmaw_rbc, player)
+    else:
+        return state.has(ItemName.trmaw_rbc, player)
+
+
+def can_purchase_scorex4(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.scorex4].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.otr_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.otr_rbc, player)
+        else:
+            return state.has(ItemName.otr_rbc, player)
+    else:
+        return state.has(ItemName.otr_rbc, player)
+
+
+def can_purchase_scorex6(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.scorex6].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.gf_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.gf_rbc, player)
+        else:
+            return state.has(ItemName.gf_rbc, player)
+    else:
+        return state.has(ItemName.gf_rbc, player)
+
+
+def can_purchase_scorex8(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.scorex8].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.aet_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.aet_rbc, player)
+        else:
+            return state.has(ItemName.aet_rbc, player)
+    else:
+        return state.has(ItemName.aet_rbc, player)
+
+
+def can_purchase_scorex10(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.scorex10].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.bb_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.bb_rbc, player)
+        else:
+            return state.has(ItemName.bb_rbc, player)
+    else:
+        return state.has(ItemName.bb_rbc, player)
+
+
+def can_purchase_stud_magnet(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.studmagnet].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.rtd_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.rtd_rbc, player)
+        else:
+            return state.has(ItemName.rtd_rbc, player)
+    else:
+        return state.has(ItemName.rtd_rbc, player)
+
+
+def can_purchase_char_studs(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.charstuds].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.sts_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.sts_rbc, player)
+        else:
+            return state.has(ItemName.sts_rbc, player)
+    else:
+        return state.has(ItemName.sts_rbc, player)
+
+
+def can_purchase_minikit_detect(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.minikitdetect].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.hag_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.hag_rbc, player)
+        else:
+            return state.has(ItemName.hag_rbc, player)
+    else:
+        return state.has(ItemName.hag_rbc, player)
+
+
+def can_purchase_powerbrick_detect(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.pwrbrickdetect].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.adr_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.adr_rbc, player)
+        else:
+            return state.has(ItemName.adr_rbc, player)
+    else:
+        return state.has(ItemName.adr_rbc, player)
+
+
+def can_purchase_always_score(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.alwaysscore].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.aw_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.aw_rbc, player)
+        else:
+            return state.has(ItemName.aw_rbc, player)
+    else:
+        return state.has(ItemName.aw_rbc, player)
+
+
+def can_purchase_fast_build(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.fastbuild].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.asftc_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.asftc_rbc, player)
+        else:
+            return state.has(ItemName.asftc_rbc, player)
+    else:
+        return state.has(ItemName.asftc_rbc, player)
+
+
+def can_purchase_immune_freeze(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.immunefreeze].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.bbpl_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.bbpl_rbc, player)
+        else:
+            return state.has(ItemName.bbpl_rbc, player)
+    else:
+        return state.has(ItemName.bbpl_rbc, player)
+
+
+def can_purchase_regen_hearts(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.regenhearts].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.tjm_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.tjm_rbc, player)
+        else:
+            return state.has(ItemName.tjm_rbc, player)
+    else:
+        return state.has(ItemName.tjm_rbc, player)
+
+
+def can_purchase_extra_hearts(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.extrahearts].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.tlotn_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.tlotn_rbc, player)
+        else:
+            return state.has(ItemName.tlotn_rbc, player)
+    else:
+        return state.has(ItemName.tlotn_rbc, player)
+
+
+def can_purchase_invincibility(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.invincibility].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.dol_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.dol_rbc, player)
+        else:
+            return state.has(ItemName.dol_rbc, player)
+    else:
+        return state.has(ItemName.dol_rbc, player)
+
+
+def can_purchase_fast_grapple(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.fastgrapple].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.ycbob_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.ycbob_rbc, player)
+        else:
+            return state.has(ItemName.ycbob_rbc, player)
+    else:
+        return state.has(ItemName.ycbob_rbc, player)
+
+
+def can_purchase_fast_batarang(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.fastbatarang].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.air_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.air_rbc, player)
+        else:
+            return state.has(ItemName.air_rbc, player)
+    else:
+        return state.has(ItemName.air_rbc, player)
+
+
+def can_purchase_more_targets(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.moretargets].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.tfc_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.tfc_rbc, player)
+        else:
+            return state.has(ItemName.tfc_rbc, player)
+    else:
+        return state.has(ItemName.tfc_rbc, player)
+
+
+def can_purchase_flaming_bat(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.flamingbata].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.apa_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.apa_rbc, player)
+        else:
+            return state.has(ItemName.apa_rbc, player)
+    else:
+        return state.has(ItemName.apa_rbc, player)
+
+
+def can_purchase_slam(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.slam].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.tfo_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.tfo_rbc, player)
+        else:
+            return state.has(ItemName.tfo_rbc, player)
+    else:
+        return state.has(ItemName.tfo_rbc, player)
+
+
+def can_purchase_more_det(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.moredet].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.tsga_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.tsga_rbc, player)
+        else:
+            return state.has(ItemName.tsga_rbc, player)
+    else:
+        return state.has(ItemName.tsga_rbc, player)
+
+
+def can_purchase_armor_plating(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.armorplating].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.bbb_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.bbb_rbc, player)
+        else:
+            return state.has(ItemName.bbb_rbc, player)
+    else:
+        return state.has(ItemName.bbb_rbc, player)
+
+
+def can_purchase_sonic_pain(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.sonicpain].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.utc_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.utc_rbc, player)
+        else:
+            return state.has(ItemName.utc_rbc, player)
+    else:
+        return state.has(ItemName.utc_rbc, player)
+
+
+def can_purchase_area_effect(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.areaeffect].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.zc_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.zc_rbc, player)
+        else:
+            return state.has(ItemName.zc_rbc, player)
+    else:
+        return state.has(ItemName.zc_rbc, player)
+
+
+def can_purchase_bats(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.bats].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.pl_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.pl_rbc, player)
+        else:
+            return state.has(ItemName.pl_rbc, player)
+    else:
+        return state.has(ItemName.pl_rbc, player)
+
+
+def can_purchase_freeze_bat(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.freezebatarang].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.jht_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.jht_rbc, player)
+        else:
+            return state.has(ItemName.jht_rbc, player)
+    else:
+        return state.has(ItemName.jht_rbc, player)
+
+
+def can_purchase_decoy(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.decoy].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.lfabt_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.lfabt_rbc, player)
+        else:
+            return state.has(ItemName.lfabt_rbc, player)
+    else:
+        return state.has(ItemName.lfabt_rbc, player)
+
+
+def can_purchase_fast_walk(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.fastwalk].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.fotb_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.fotb_rbc, player)
+        else:
+            return state.has(ItemName.fotb_rbc, player)
+    else:
+        return state.has(ItemName.fotb_rbc, player)
+
+
+def can_purchase_faster_pieces(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.fasterpieces].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.itdn_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.itdn_rbc, player)
+        else:
+            return state.has(ItemName.itdn_rbc, player)
+    else:
+        return state.has(ItemName.itdn_rbc, player)
+
+
+def can_purchase_piece_detect(state: CollectionState, options: LB1Options, player: int):
+    if options.shop_purchases_required_multiplier == 1:
+        price = red_brick_purchase_table[LocationName.piecedetect].price
+        if price >= options.high_multiplier_minimum.value:
+            return has_high_multiplier(state, player) and state.has(ItemName.tttot_rbc, player)
+        elif price >= options.low_multiplier_minimum.value:
+            return has_low_multiplier(state, player) and state.has(ItemName.tttot_rbc, player)
+        else:
+            return state.has(ItemName.tttot_rbc, player)
+    else:
+        return state.has(ItemName.tttot_rbc, player)
+
+
 def can_complete_any_hero_episode(state: CollectionState, options: LB1Options, player: int):
     return (
             (state.has(ItemName.ycbob_lvl, player) and can_beat_ycbob(state, options, player)
@@ -3182,37 +3654,77 @@ def set_red_brick_location_rules(world: MultiWorld, options: LB1Options, player:
     # DOL Red Brick can be obtained in freeplay with nothing additional
 
 
-def set_red_brick_purchase_rules(world: MultiWorld, player: int):
-    set_rule(world.get_location(LocationName.scorex2, player), lambda state: state.has(ItemName.trmaw_rbc, player))
-    set_rule(world.get_location(LocationName.scorex4, player), lambda state: state.has(ItemName.otr_rbc, player))
-    set_rule(world.get_location(LocationName.scorex6, player), lambda state: state.has(ItemName.gf_rbc, player))
-    set_rule(world.get_location(LocationName.scorex8, player), lambda state: state.has(ItemName.aet_rbc, player))
-    set_rule(world.get_location(LocationName.scorex10, player), lambda state: state.has(ItemName.bb_rbc, player))
-    set_rule(world.get_location(LocationName.studmagnet, player), lambda state: state.has(ItemName.rtd_rbc, player))
-    set_rule(world.get_location(LocationName.charstuds, player), lambda state: state.has(ItemName.sts_rbc, player))
-    set_rule(world.get_location(LocationName.minikitdetect, player), lambda state: state.has(ItemName.hag_rbc, player))
-    set_rule(world.get_location(LocationName.pwrbrickdetect, player), lambda state: state.has(ItemName.adr_rbc, player))
-    set_rule(world.get_location(LocationName.alwaysscore, player), lambda state: state.has(ItemName.aw_rbc, player))
-    set_rule(world.get_location(LocationName.fastbuild, player), lambda state: state.has(ItemName.asftc_rbc, player))
-    set_rule(world.get_location(LocationName.immunefreeze, player), lambda state: state.has(ItemName.bbpl_rbc, player))
-    set_rule(world.get_location(LocationName.regenhearts, player), lambda state: state.has(ItemName.tjm_rbc, player))
-    set_rule(world.get_location(LocationName.extrahearts, player), lambda state: state.has(ItemName.tlotn_rbc, player))
-    set_rule(world.get_location(LocationName.invincibility, player), lambda state: state.has(ItemName.dol_rbc, player))
-    set_rule(world.get_location(LocationName.fastgrapple, player), lambda state: state.has(ItemName.ycbob_rbc, player))
-    set_rule(world.get_location(LocationName.fastbatarang, player), lambda state: state.has(ItemName.air_rbc, player))
-    set_rule(world.get_location(LocationName.moretargets, player), lambda state: state.has(ItemName.tfc_rbc, player))
-    set_rule(world.get_location(LocationName.flamingbata, player), lambda state: state.has(ItemName.apa_rbc, player))
-    set_rule(world.get_location(LocationName.slam, player), lambda state: state.has(ItemName.tfo_rbc, player))
-    set_rule(world.get_location(LocationName.moredet, player), lambda state: state.has(ItemName.tsga_rbc, player))
-    set_rule(world.get_location(LocationName.armorplating, player), lambda state: state.has(ItemName.bbb_rbc, player))
-    set_rule(world.get_location(LocationName.sonicpain, player), lambda state: state.has(ItemName.utc_rbc, player))
-    set_rule(world.get_location(LocationName.areaeffect, player), lambda state: state.has(ItemName.zc_rbc, player))
-    set_rule(world.get_location(LocationName.bats, player), lambda state: state.has(ItemName.pl_rbc, player))
-    set_rule(world.get_location(LocationName.freezebatarang, player), lambda state: state.has(ItemName.jht_rbc, player))
-    set_rule(world.get_location(LocationName.decoy, player), lambda state: state.has(ItemName.lfabt_rbc, player))
-    set_rule(world.get_location(LocationName.fastwalk, player), lambda state: state.has(ItemName.fotb_rbc, player))
-    set_rule(world.get_location(LocationName.fasterpieces, player), lambda state: state.has(ItemName.itdn_rbc, player))
-    set_rule(world.get_location(LocationName.piecedetect, player), lambda state: state.has(ItemName.tttot_rbc, player))
+def set_red_brick_purchase_rules(world: MultiWorld, options: LB1Options, player: int):
+    set_rule(world.get_location(LocationName.silhouettes, player),
+             lambda state: can_purchase_silhouettes(state, options, player))
+    set_rule(world.get_location(LocationName.beepbeep, player),
+             lambda state: can_purchase_beepbeep(state, options, player))
+    set_rule(world.get_location(LocationName.icerink, player),
+             lambda state: can_purchase_ice_rink(state, options, player))
+    set_rule(world.get_location(LocationName.disguise, player),
+             lambda state: can_purchase_disguise(state, options, player))
+    set_rule(world.get_location(LocationName.extratoggle, player),
+             lambda state: can_purchase_extra_toggle(state, options, player))
+    set_rule(world.get_location(LocationName.scorex2, player),
+             lambda state: can_purchase_scorex2(state, options, player))
+    set_rule(world.get_location(LocationName.scorex4, player),
+             lambda state: can_purchase_scorex4(state, options, player))
+    set_rule(world.get_location(LocationName.scorex6, player),
+             lambda state: can_purchase_scorex6(state, options, player))
+    set_rule(world.get_location(LocationName.scorex8, player),
+             lambda state: can_purchase_scorex8(state, options, player))
+    set_rule(world.get_location(LocationName.scorex10, player),
+             lambda state: can_purchase_scorex10(state, options, player))
+    set_rule(world.get_location(LocationName.studmagnet, player),
+             lambda state: can_purchase_stud_magnet(state, options, player))
+    set_rule(world.get_location(LocationName.charstuds, player),
+             lambda state: can_purchase_char_studs(state, options, player))
+    set_rule(world.get_location(LocationName.minikitdetect, player),
+             lambda state: can_purchase_minikit_detect(state, options, player))
+    set_rule(world.get_location(LocationName.pwrbrickdetect, player),
+             lambda state: can_purchase_powerbrick_detect(state, options, player))
+    set_rule(world.get_location(LocationName.alwaysscore, player),
+             lambda state: can_purchase_always_score(state, options, player))
+    set_rule(world.get_location(LocationName.fastbuild, player),
+             lambda state: can_purchase_fast_build(state, options, player))
+    set_rule(world.get_location(LocationName.immunefreeze, player),
+             lambda state: can_purchase_immune_freeze(state, options, player))
+    set_rule(world.get_location(LocationName.regenhearts, player),
+             lambda state: can_purchase_regen_hearts(state, options, player))
+    set_rule(world.get_location(LocationName.extrahearts, player),
+             lambda state: can_purchase_extra_hearts(state, options, player))
+    set_rule(world.get_location(LocationName.invincibility, player),
+             lambda state: can_purchase_invincibility(state, options, player))
+    set_rule(world.get_location(LocationName.fastgrapple, player),
+             lambda state: can_purchase_fast_grapple(state, options, player))
+    set_rule(world.get_location(LocationName.fastbatarang, player),
+             lambda state: can_purchase_fast_batarang(state, options, player))
+    set_rule(world.get_location(LocationName.moretargets, player),
+             lambda state: can_purchase_more_targets(state, options, player))
+    set_rule(world.get_location(LocationName.flamingbata, player),
+             lambda state: can_purchase_flaming_bat(state, options, player))
+    set_rule(world.get_location(LocationName.slam, player),
+             lambda state: can_purchase_slam(state, options, player))
+    set_rule(world.get_location(LocationName.moredet, player),
+             lambda state: can_purchase_more_det(state, options, player))
+    set_rule(world.get_location(LocationName.armorplating, player),
+             lambda state: can_purchase_armor_plating(state, options, player))
+    set_rule(world.get_location(LocationName.sonicpain, player),
+             lambda state: can_purchase_sonic_pain(state, options, player))
+    set_rule(world.get_location(LocationName.areaeffect, player),
+             lambda state: can_purchase_area_effect(state, options, player))
+    set_rule(world.get_location(LocationName.bats, player),
+             lambda state: can_purchase_bats(state, options, player))
+    set_rule(world.get_location(LocationName.freezebatarang, player),
+             lambda state: can_purchase_freeze_bat(state, options, player))
+    set_rule(world.get_location(LocationName.decoy, player),
+             lambda state: can_purchase_decoy(state, options, player))
+    set_rule(world.get_location(LocationName.fastwalk, player),
+             lambda state: can_purchase_fast_walk(state, options, player))
+    set_rule(world.get_location(LocationName.fasterpieces, player),
+             lambda state: can_purchase_faster_pieces(state, options, player))
+    set_rule(world.get_location(LocationName.piecedetect, player),
+             lambda state: can_purchase_piece_detect(state, options, player))
 
 
 def set_token_rules(world: MultiWorld, options: LB1Options, player: int):
@@ -3288,7 +3800,7 @@ def set_rules(world: MultiWorld, options: LB1Options, player: int):
     if options.true_status_sanity == 1:
         set_true_status_rules(world, options, player)
     set_red_brick_location_rules(world, options, player)
-    set_red_brick_purchase_rules(world, player)
+    set_red_brick_purchase_rules(world, options, player)
     if options.decouple_character_tokens == 1:
         set_token_rules(world, options, player)
 
