@@ -180,6 +180,46 @@ def has_high_multiplier(state: CollectionState, player: int):
     )
 
 
+def can_complete_any_hero_episode(state: CollectionState, options: LB1Options, player: int):
+    return (
+            (state.has(ItemName.ycbob_lvl, player) and can_beat_ycbob(state, options, player)
+             and state.has(ItemName.air_lvl, player) and can_beat_air(state, options, player)
+             and state.has(ItemName.tfc_lvl, player)
+             and state.has(ItemName.apa_lvl, player) and can_beat_apa(state, player)
+             and state.has(ItemName.tfo_lvl, player) and can_beat_tfo(state, options, player))
+            or (state.has(ItemName.tsga_lvl, player) and can_beat_tsga(state, options, player)
+                and state.has(ItemName.bbb_lvl, player)
+                and state.has(ItemName.utc_lvl, player) and can_beat_utc(state, options, player)
+                and state.has(ItemName.zc_lvl, player) and can_beat_zc(state, options, player)
+                and state.has(ItemName.pl_lvl, player) and can_beat_pl(state, options, player))
+            or (state.has(ItemName.jht_lvl, player) and can_beat_jht(state, options, player)
+                and state.has(ItemName.lfabt_lvl, player) and can_beat_lfabt(state, options, player)
+                and state.has(ItemName.fotb_lvl, player)
+                and state.has(ItemName.itdn_lvl, player) and can_beat_itdn(state, options, player)
+                and state.has(ItemName.tttot_lvl, player) and can_beat_tttot(state, options, player))
+    )
+
+
+def can_complete_all_hero_episode(state: CollectionState, options: LB1Options, player: int):
+    return (
+            state.has(ItemName.ycbob_lvl, player) and can_beat_ycbob(state, options, player)
+            and state.has(ItemName.air_lvl, player) and can_beat_air(state, options, player)
+            and state.has(ItemName.tfc_lvl, player)
+            and state.has(ItemName.apa_lvl, player) and can_beat_apa(state, player)
+            and state.has(ItemName.tfo_lvl, player) and can_beat_tfo(state, options, player)
+            and state.has(ItemName.tsga_lvl, player) and can_beat_tsga(state, options, player)
+            and state.has(ItemName.bbb_lvl, player)
+            and state.has(ItemName.utc_lvl, player) and can_beat_utc(state, options, player)
+            and state.has(ItemName.zc_lvl, player) and can_beat_zc(state, options, player)
+            and state.has(ItemName.pl_lvl, player) and can_beat_pl(state, options, player)
+            and state.has(ItemName.jht_lvl, player) and can_beat_jht(state, options, player)
+            and state.has(ItemName.lfabt_lvl, player) and can_beat_lfabt(state, options, player)
+            and state.has(ItemName.fotb_lvl, player)
+            and state.has(ItemName.itdn_lvl, player) and can_beat_itdn(state, options, player)
+            and state.has(ItemName.tttot_lvl, player) and can_beat_tttot(state, options, player)
+    )
+
+
 def can_beat_ycbob(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
@@ -3150,46 +3190,6 @@ def can_purchase_piece_detect(state: CollectionState, options: LB1Options, playe
         return state.has(ItemName.tttot_rbc, player)
 
 
-def can_complete_any_hero_episode(state: CollectionState, options: LB1Options, player: int):
-    return (
-            (state.has(ItemName.ycbob_lvl, player) and can_beat_ycbob(state, options, player)
-             and state.has(ItemName.air_lvl, player) and can_beat_air(state, options, player)
-             and state.has(ItemName.tfc_lvl, player)
-             and state.has(ItemName.apa_lvl, player) and can_beat_apa(state, player)
-             and state.has(ItemName.tfo_lvl, player) and can_beat_tfo(state, options, player))
-            or (state.has(ItemName.tsga_lvl, player) and can_beat_tsga(state, options, player)
-                and state.has(ItemName.bbb_lvl, player)
-                and state.has(ItemName.utc_lvl, player) and can_beat_utc(state, options, player)
-                and state.has(ItemName.zc_lvl, player) and can_beat_zc(state, options, player)
-                and state.has(ItemName.pl_lvl, player) and can_beat_pl(state, options, player))
-            or (state.has(ItemName.jht_lvl, player) and can_beat_jht(state, options, player)
-                and state.has(ItemName.lfabt_lvl, player) and can_beat_lfabt(state, options, player)
-                and state.has(ItemName.fotb_lvl, player)
-                and state.has(ItemName.itdn_lvl, player) and can_beat_itdn(state, options, player)
-                and state.has(ItemName.tttot_lvl, player) and can_beat_tttot(state, options, player))
-    )
-
-
-def can_complete_all_hero_episode(state: CollectionState, options: LB1Options, player: int):
-    return (
-            state.has(ItemName.ycbob_lvl, player) and can_beat_ycbob(state, options, player)
-            and state.has(ItemName.air_lvl, player) and can_beat_air(state, options, player)
-            and state.has(ItemName.tfc_lvl, player)
-            and state.has(ItemName.apa_lvl, player) and can_beat_apa(state, player)
-            and state.has(ItemName.tfo_lvl, player) and can_beat_tfo(state, options, player)
-            and state.has(ItemName.tsga_lvl, player) and can_beat_tsga(state, options, player)
-            and state.has(ItemName.bbb_lvl, player)
-            and state.has(ItemName.utc_lvl, player) and can_beat_utc(state, options, player)
-            and state.has(ItemName.zc_lvl, player) and can_beat_zc(state, options, player)
-            and state.has(ItemName.pl_lvl, player) and can_beat_pl(state, options, player)
-            and state.has(ItemName.jht_lvl, player) and can_beat_jht(state, options, player)
-            and state.has(ItemName.lfabt_lvl, player) and can_beat_lfabt(state, options, player)
-            and state.has(ItemName.fotb_lvl, player)
-            and state.has(ItemName.itdn_lvl, player) and can_beat_itdn(state, options, player)
-            and state.has(ItemName.tttot_lvl, player) and can_beat_tttot(state, options, player)
-    )
-
-
 def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_entrance(RegionName.bc + " -> " + RegionName.ycbob, player),
              lambda state: state.has(ItemName.ycbob_lvl, player))
@@ -3306,25 +3306,6 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
              lambda state: free_access_tlotn(state, player))
     set_rule(world.get_entrance(RegionName.dol + " -> " + RegionName.dolf, player),
              lambda state: free_access_dol(state, player))
-
-
-def set_level_beaten_rules(world: MultiWorld, options: LB1Options, player: int):
-    set_rule(world.get_location(LocationName.ycbob_beat, player), lambda state: can_beat_ycbob(state, options, player))
-    set_rule(world.get_location(LocationName.air_beat, player), lambda state: can_beat_air(state, options, player))
-    # Two-Face Chase can be beaten in story
-    set_rule(world.get_location(LocationName.apa_beat, player), lambda state: can_beat_apa(state, player))
-    set_rule(world.get_location(LocationName.tfo_beat, player), lambda state: can_beat_tfo(state, options, player))
-    set_rule(world.get_location(LocationName.tsga_beat, player), lambda state: can_beat_tsga(state, options, player))
-    # Batboat Battle can be beaten in story
-    set_rule(world.get_location(LocationName.utc_beat, player), lambda state: can_beat_utc(state, options, player))
-    set_rule(world.get_location(LocationName.zc_beat, player), lambda state: can_beat_zc(state, options, player))
-    set_rule(world.get_location(LocationName.pl_beat, player), lambda state: can_beat_pl(state, options, player))
-    set_rule(world.get_location(LocationName.jht_beat, player), lambda state: can_beat_jht(state, options, player))
-    set_rule(world.get_location(LocationName.lfabt_beat, player), lambda state: can_beat_lfabt(state, options, player))
-    # Flight of the Bat can be beaten in story
-    set_rule(world.get_location(LocationName.itdn_beat, player), lambda state: can_beat_itdn(state, options, player))
-    set_rule(world.get_location(LocationName.tttot_beat, player), lambda state: can_beat_tttot(state, options, player))
-    # All Villain Levels can be beaten in story
 
 
 def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
@@ -3602,6 +3583,25 @@ def set_host_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.dol_host, player), lambda state: can_dol_host(state, player))
 
 
+def set_level_beaten_rules(world: MultiWorld, options: LB1Options, player: int):
+    set_rule(world.get_location(LocationName.ycbob_beat, player), lambda state: can_beat_ycbob(state, options, player))
+    set_rule(world.get_location(LocationName.air_beat, player), lambda state: can_beat_air(state, options, player))
+    # Two-Face Chase can be beaten in story
+    set_rule(world.get_location(LocationName.apa_beat, player), lambda state: can_beat_apa(state, player))
+    set_rule(world.get_location(LocationName.tfo_beat, player), lambda state: can_beat_tfo(state, options, player))
+    set_rule(world.get_location(LocationName.tsga_beat, player), lambda state: can_beat_tsga(state, options, player))
+    # Batboat Battle can be beaten in story
+    set_rule(world.get_location(LocationName.utc_beat, player), lambda state: can_beat_utc(state, options, player))
+    set_rule(world.get_location(LocationName.zc_beat, player), lambda state: can_beat_zc(state, options, player))
+    set_rule(world.get_location(LocationName.pl_beat, player), lambda state: can_beat_pl(state, options, player))
+    set_rule(world.get_location(LocationName.jht_beat, player), lambda state: can_beat_jht(state, options, player))
+    set_rule(world.get_location(LocationName.lfabt_beat, player), lambda state: can_beat_lfabt(state, options, player))
+    # Flight of the Bat can be beaten in story
+    set_rule(world.get_location(LocationName.itdn_beat, player), lambda state: can_beat_itdn(state, options, player))
+    set_rule(world.get_location(LocationName.tttot_beat, player), lambda state: can_beat_tttot(state, options, player))
+    # All Villain Levels can be beaten in story
+
+
 def set_true_status_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.ycbob_ts, player), lambda state: can_beat_ycbob(state, options, player))
     set_rule(world.get_location(LocationName.air_ts, player), lambda state: can_beat_air(state, options, player))
@@ -3787,7 +3787,6 @@ def set_token_rules(world: MultiWorld, options: LB1Options, player: int):
 
 def set_rules(world: MultiWorld, options: LB1Options, player: int):
     set_entrance_rules(world, options, player)
-    set_level_beaten_rules(world, options, player)
     # char rules
     # Hard char Rules
     # Automobile Rules
@@ -3797,6 +3796,7 @@ def set_rules(world: MultiWorld, options: LB1Options, player: int):
     if options.minikit_sanity == 1:
         set_minikit_rules(world, options, player)
     set_host_rules(world, options, player)
+    set_level_beaten_rules(world, options, player)
     if options.true_status_sanity == 1:
         set_true_status_rules(world, options, player)
     set_red_brick_location_rules(world, options, player)
