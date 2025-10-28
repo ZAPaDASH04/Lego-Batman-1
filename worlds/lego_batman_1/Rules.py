@@ -216,6 +216,26 @@ def has_required_multiplier(location: LocationName, state: CollectionState, opti
     return True
 
 
+def can_complete_any_hero_level(state: CollectionState, options: LB1Options, player: int):
+    return (
+            (state.has(ItemName.ycbob_lvl, player) and can_beat_ycbob(state, options, player))
+            or (state.has(ItemName.air_lvl, player) and can_beat_air(state, options, player))
+            or state.has(ItemName.tfc_lvl, player)
+            or (state.has(ItemName.apa_lvl, player) and can_beat_apa(state, player))
+            or (state.has(ItemName.tfo_lvl, player) and can_beat_tfo(state, options, player))
+            or (state.has(ItemName.tsga_lvl, player) and can_beat_tsga(state, options, player))
+            or state.has(ItemName.bbb_lvl, player)
+            or (state.has(ItemName.utc_lvl, player) and can_beat_utc(state, options, player))
+            or (state.has(ItemName.zc_lvl, player) and can_beat_zc(state, options, player))
+            or (state.has(ItemName.pl_lvl, player) and can_beat_pl(state, options, player))
+            or (state.has(ItemName.jht_lvl, player) and can_beat_jht(state, options, player))
+            or (state.has(ItemName.lfabt_lvl, player) and can_beat_lfabt(state, options, player))
+            or (state.has(ItemName.fotb_lvl, player))
+            or (state.has(ItemName.itdn_lvl, player) and can_beat_itdn(state, options, player))
+            or (state.has(ItemName.tttot_lvl, player) and can_beat_tttot(state, options, player))
+    )
+
+
 def can_complete_any_hero_episode(state: CollectionState, options: LB1Options, player: int):
     return (
             (state.has(ItemName.ycbob_lvl, player) and can_beat_ycbob(state, options, player)
@@ -649,6 +669,193 @@ def can_purchase_bat_tank(state: CollectionState, options: LB1Options, player: i
         ItemName.battank_token,
         [lambda: can_complete_all_hero_episode(state, options, player) if
             options.decouple_character_tokens == 0 else True]
+    )
+
+
+def can_purchase_freeze_kart(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.freezekart_collected,
+        state,
+        options,
+        player,
+        [ItemName.otr_lvl],
+        ItemName.freezekart_token,
+    )
+
+
+def can_purchase_iceberg(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.iceberg_collected,
+        state,
+        options,
+        player,
+        [ItemName.otr_lvl],
+        ItemName.iceberg_token,
+    )
+
+
+def can_purchase_scientist(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.scientist_collected,
+        state,
+        options,
+        player,
+        [ItemName.aet_lvl],
+        ItemName.scientist_token,
+    )
+
+
+def can_purchase_armoured_truck(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.armouredtruck_collected,
+        state,
+        options,
+        player,
+        [ItemName.aet_lvl],
+        ItemName.armouredtruck_token,
+    )
+
+
+def can_purchase_swat(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.swat_collected,
+        state,
+        options,
+        player,
+        [ItemName.bb_lvl],
+        ItemName.swat_token,
+    )
+
+
+def can_purchase_riddler_jet(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.riddlerjet_collected,
+        state,
+        options,
+        player,
+        [ItemName.bb_lvl],
+        ItemName.riddlerjet_token,
+    )
+
+
+def can_purchase_sailor(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.sailor_collected,
+        state,
+        options,
+        player,
+        [ItemName.rtd_lvl],
+        ItemName.sailor_token,
+    )
+
+
+def can_purchase_catwoman_classic(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.catwomanclassic_collected,
+        state,
+        options,
+        player,
+        [ItemName.sts_lvl],
+        ItemName.catwomanclassic_token,
+    )
+
+
+def can_purchase_cat_motorcycle(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.catmotorcycle_collected,
+        state,
+        options,
+        player,
+        [ItemName.sts_lvl],
+        ItemName.catmotorcycle_token,
+    )
+
+
+def can_purchase_police_watercraft(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.policewatercraft_collected,
+        state,
+        options,
+        player,
+        [ItemName.hag_lvl],
+        ItemName.policewatercraft_token,
+    )
+
+
+def can_purchase_police_boat(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.policeboat_collected,
+        state,
+        options,
+        player,
+        [ItemName.hag_lvl],
+        ItemName.policeboat_token,
+    )
+
+
+def can_purchase_commissioner(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.commissionergordon_collected,
+        state,
+        options,
+        player,
+        [ItemName.asftc_lvl],
+        ItemName.commissionergordon_token,
+    )
+
+
+def can_purchase_hammer_truck(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.hammertruck_collected,
+        state,
+        options,
+        player,
+        [ItemName.asftc_lvl],
+        ItemName.hammertruck_token,
+    )
+
+
+def can_purchase_police_heli(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.policehelicopter_collected,
+        state,
+        options,
+        player,
+        [ItemName.bbpl_lvl],
+        ItemName.policehelicopter_token,
+    )
+
+
+def can_purchase_goon_heli(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.goonhelicopter_collected,
+        state,
+        options,
+        player,
+        [ItemName.bbpl_lvl],
+        ItemName.goonhelicopter_token,
+    )
+
+
+def can_purchase_police_marksman(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.policemarksman_collected,
+        state,
+        options,
+        player,
+        [ItemName.dol_lvl],
+        ItemName.policemarksman_token,
+    )
+
+
+def can_purchase_joker_tropic(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.jokertropical_collected,
+        state,
+        options,
+        player,
+        [ItemName.dol_lvl],
+        ItemName.jokertropical_token,
     )
 
 
@@ -3425,6 +3632,15 @@ def set_entrance_rules(world: MultiWorld, options: LB1Options, player: int):
              lambda state: free_access_dol(state, player))
 
 
+def set_char_rules(world: MultiWorld, options: LB1Options, player: int):
+    set_rule(world.get_location(LocationName.batman_collected, player),
+             lambda state: can_complete_any_hero_level(state, options, player))
+    set_rule(world.get_location(LocationName.robin_collected, player),
+             lambda state: can_complete_any_hero_level(state, options, player))
+    # Batmobile, Cycle, Boat, Sub, Wing, Copter don't require anything to beat level
+    # Villain levels can be beaten in story
+
+
 def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     # YCBOB Minikits 1 & 2 can be done in story for free
     set_rule(world.get_location(LocationName.ycbob_min3, player), lambda state: can_ycbob_min3(state, options, player))
@@ -3838,6 +4054,40 @@ def set_shop_rules(world: MultiWorld, options: LB1Options, player: int):
              lambda state: can_purchase_security_guard(state, options, player))
     set_rule(world.get_location(LocationName.battank_collected, player),
              lambda state: can_purchase_bat_tank(state, options, player))
+    set_rule(world.get_location(LocationName.freezekart_token, player),
+             lambda state: can_purchase_freeze_kart(state, options, player))
+    set_rule(world.get_location(LocationName.iceberg_token, player),
+             lambda state: can_purchase_iceberg(state, options, player))
+    set_rule(world.get_location(LocationName.scientist_token, player),
+             lambda state: can_purchase_scientist(state, options, player))
+    set_rule(world.get_location(LocationName.armouredtruck_token, player),
+             lambda state: can_purchase_armoured_truck(state, options, player))
+    set_rule(world.get_location(LocationName.swat_token, player),
+             lambda state: can_purchase_swat(state, options, player))
+    set_rule(world.get_location(LocationName.riddlerjet_token, player),
+             lambda state: can_purchase_riddler_jet(state, options, player))
+    set_rule(world.get_location(LocationName.sailor_token, player),
+             lambda state: can_purchase_sailor(state, options, player))
+    set_rule(world.get_location(LocationName.catwomanclassic_token, player),
+             lambda state: can_purchase_catwoman_classic(state, options, player))
+    set_rule(world.get_location(LocationName.catmotorcycle_token, player),
+             lambda state: can_purchase_cat_motorcycle(state, options, player))
+    set_rule(world.get_location(LocationName.policewatercraft_token, player),
+             lambda state: can_purchase_police_watercraft(state, options, player))
+    set_rule(world.get_location(LocationName.policeboat_token, player),
+             lambda state: can_purchase_police_boat(state, options, player))
+    set_rule(world.get_location(LocationName.commissionergordon_token, player),
+             lambda state: can_purchase_commissioner(state, options, player))
+    set_rule(world.get_location(LocationName.hammertruck_token, player),
+             lambda state: can_purchase_hammer_truck(state, options, player))
+    set_rule(world.get_location(LocationName.policehelicopter_token, player),
+             lambda state: can_purchase_police_heli(state, options, player))
+    set_rule(world.get_location(LocationName.goonhelicopter_token, player),
+             lambda state: can_purchase_goon_heli(state, options, player))
+    set_rule(world.get_location(LocationName.policemarksman_token, player),
+             lambda state: can_purchase_police_marksman(state, options, player))
+    set_rule(world.get_location(LocationName.jokertropical_token, player),
+             lambda state: can_purchase_joker_tropic(state, options, player))
 
     set_rule(world.get_location(LocationName.silhouettes, player),
              lambda state: can_purchase_silhouettes(state, options, player))
@@ -3973,9 +4223,6 @@ def set_rules(world: MultiWorld, options: LB1Options, player: int):
     set_entrance_rules(world, options, player)
     # char rules
     # Hard char Rules
-    # Automobile Rules
-    # Watercraft Rules
-    # aircraft Rules
     # Suit Rules
     if options.minikit_sanity == 1:
         set_minikit_rules(world, options, player)
