@@ -1,6 +1,6 @@
 from typing import NamedTuple, Optional, Dict
 
-from BaseClasses import Item, ItemClassification
+from BaseClasses import Item, ItemClassification, Location
 from .Names import ItemName
 from .Options import LB1Options
 
@@ -22,10 +22,21 @@ character_item_table: Dict[str, LB1ItemData] = {
     ItemName.riddlergoon_unlocked: LB1ItemData(base_item_id + 2, ItemClassification.filler),
     ItemName.riddlerhenchman_unlocked: LB1ItemData(base_item_id + 3, ItemClassification.filler),
     ItemName.freezegirl_unlocked: LB1ItemData(base_item_id + 4, ItemClassification.filler),
+    ItemName.batmobile_unlocked: LB1ItemData(base_item_id + 5, ItemClassification.progression),
+    ItemName.batcycle_unlocked: LB1ItemData(base_item_id + 6, ItemClassification.progression),
+    ItemName.policecar_unlocked: LB1ItemData(base_item_id + 7, ItemClassification.progression),
+    ItemName.policebike_unlocked: LB1ItemData(base_item_id + 8, ItemClassification.filler),
+    ItemName.policevan_unlocked: LB1ItemData(base_item_id + 9, ItemClassification.progression),
+    ItemName.jokervan_unlocked: LB1ItemData(base_item_id + 10, ItemClassification.progression),
     ItemName.poisonivygoon_unlocked: LB1ItemData(base_item_id + 11, ItemClassification.filler),
     ItemName.fishmonger_unlocked: LB1ItemData(base_item_id + 12, ItemClassification.filler),
     ItemName.penguingoon_unlocked: LB1ItemData(base_item_id + 13, ItemClassification.filler),
     ItemName.penguinhenchman_unlocked: LB1ItemData(base_item_id + 14, ItemClassification.filler),
+    ItemName.batboat_unlocked: LB1ItemData(base_item_id + 15, ItemClassification.progression),
+    ItemName.robinswatercraft_unlocked: LB1ItemData(base_item_id + 16, ItemClassification.progression),
+    ItemName.robinssubmarine_unlocked: LB1ItemData(base_item_id + 17, ItemClassification.progression),
+    ItemName.penguingoonsub_unlocked: LB1ItemData(base_item_id + 18, ItemClassification.progression),
+    ItemName.harbourhelicopter_unlocked: LB1ItemData(base_item_id + 19, ItemClassification.progression),
     ItemName.zoosweeper_unlocked: LB1ItemData(base_item_id + 20, ItemClassification.filler),
     ItemName.manbat_unlocked: LB1ItemData(base_item_id + 21, ItemClassification.progression),
     ItemName.yeti_unlocked: LB1ItemData(base_item_id + 22, ItemClassification.filler),
@@ -33,7 +44,12 @@ character_item_table: Dict[str, LB1ItemData] = {
     ItemName.madhatter_unlocked: LB1ItemData(base_item_id + 24, ItemClassification.progression),
     ItemName.jokergoon_unlocked: LB1ItemData(base_item_id + 25, ItemClassification.filler),
     ItemName.jokerhenchman_unlocked: LB1ItemData(base_item_id + 26, ItemClassification.filler),
+    ItemName.steamboat_unlocked: LB1ItemData(base_item_id + 27, ItemClassification.filler),
+    ItemName.glider_unlocked: LB1ItemData(base_item_id + 28, ItemClassification.filler),
     ItemName.clowngoon_unlocked: LB1ItemData(base_item_id + 29, ItemClassification.filler),
+    ItemName.batwing_unlocked: LB1ItemData(base_item_id + 30, ItemClassification.progression),
+    ItemName.batcopter_unlocked: LB1ItemData(base_item_id + 31, ItemClassification.progression),
+    ItemName.privatejet_unlocked: LB1ItemData(base_item_id + 32, ItemClassification.filler),
     ItemName.brucewayne_unlocked: LB1ItemData(base_item_id + 33, ItemClassification.filler),
     ItemName.alfred_unlocked: LB1ItemData(base_item_id + 34, ItemClassification.filler),
     ItemName.batgirl_unlocked: LB1ItemData(base_item_id + 35, ItemClassification.progression),
@@ -41,22 +57,38 @@ character_item_table: Dict[str, LB1ItemData] = {
     ItemName.policeofficer_unlocked: LB1ItemData(base_item_id + 37, ItemClassification.filler),
     ItemName.militarypoliceman_unlocked: LB1ItemData(base_item_id + 38, ItemClassification.filler),
     ItemName.securityguard_unlocked: LB1ItemData(base_item_id + 39, ItemClassification.filler),
+    ItemName.battank_unlocked: LB1ItemData(base_item_id + 40, ItemClassification.progression),
     ItemName.clayface_unlocked: LB1ItemData(base_item_id + 41, ItemClassification.progression),
     ItemName.mrfreeze_unlocked: LB1ItemData(base_item_id + 42, ItemClassification.progression),
+    ItemName.freezekart_unlocked: LB1ItemData(base_item_id + 43, ItemClassification.progression),
+    ItemName.iceberg_unlocked: LB1ItemData(base_item_id + 44, ItemClassification.progression),
     ItemName.poisonivy_unlocked: LB1ItemData(base_item_id + 45, ItemClassification.progression),
     ItemName.scientist_unlocked: LB1ItemData(base_item_id + 46, ItemClassification.progression),
+    ItemName.armouredtruck_unlocked: LB1ItemData(base_item_id + 47, ItemClassification.filler),
     ItemName.swat_unlocked: LB1ItemData(base_item_id + 48, ItemClassification.filler),
+    ItemName.riddlerjet_unlocked: LB1ItemData(base_item_id + 49, ItemClassification.progression),
     ItemName.twoface_unlocked: LB1ItemData(base_item_id + 50, ItemClassification.progression),
     ItemName.riddler_unlocked: LB1ItemData(base_item_id + 51, ItemClassification.progression),
     ItemName.sailor_unlocked: LB1ItemData(base_item_id + 52, ItemClassification.filler),
     ItemName.bane_unlocked: LB1ItemData(base_item_id + 53, ItemClassification.progression),
     ItemName.catwomanclassic_unlocked: LB1ItemData(base_item_id + 54, ItemClassification.progression),
+    ItemName.catmotorcycle_unlocked: LB1ItemData(base_item_id + 55, ItemClassification.progression),
+    ItemName.policewatercraft_unlocked: LB1ItemData(base_item_id + 56, ItemClassification.progression),
+    ItemName.policeboat_unlocked: LB1ItemData(base_item_id + 57, ItemClassification.filler),
+    ItemName.penguinsubmarine_unlocked: LB1ItemData(base_item_id + 58, ItemClassification.progression),
+    ItemName.swamprider_unlocked: LB1ItemData(base_item_id + 59, ItemClassification.progression),
     ItemName.killercroc_unlocked: LB1ItemData(base_item_id + 60, ItemClassification.progression),
     ItemName.catwoman_unlocked: LB1ItemData(base_item_id + 61, ItemClassification.progression),
     ItemName.penguin_unlocked: LB1ItemData(base_item_id + 62, ItemClassification.progression),
     ItemName.commissionergordon_unlocked: LB1ItemData(base_item_id + 63, ItemClassification.filler),
+    ItemName.hammertruck_unlocked: LB1ItemData(base_item_id + 64, ItemClassification.progression),
+    ItemName.policehelicopter_unlocked: LB1ItemData(base_item_id + 65, ItemClassification.progression),
+    ItemName.jokerhelicopter_unlocked: LB1ItemData(base_item_id + 66, ItemClassification.progression),
+    ItemName.scarecrowbiplane_unlocked: LB1ItemData(base_item_id + 67, ItemClassification.progression),
+    ItemName.goonhelicopter_unlocked: LB1ItemData(base_item_id + 68, ItemClassification.progression),
     ItemName.scarecrow_unlocked: LB1ItemData(base_item_id + 69, ItemClassification.progression),
     ItemName.killermoth_unlocked: LB1ItemData(base_item_id + 70, ItemClassification.progression),
+    ItemName.garbagetruck_unlocked: LB1ItemData(base_item_id + 71, ItemClassification.progression),
     ItemName.policemarksman_unlocked: LB1ItemData(base_item_id + 72, ItemClassification.filler),
     ItemName.joker_unlocked: LB1ItemData(base_item_id + 73, ItemClassification.progression),
     ItemName.jokertropical_unlocked: LB1ItemData(base_item_id + 74, ItemClassification.progression),
@@ -69,47 +101,6 @@ character_item_table: Dict[str, LB1ItemData] = {
 #     # ItemName.hero1_unlocked: LB1ItemData(base_item_id + 78, ItemClassification.progression),
 #     # ItemName.hero2_unlocked: LB1ItemData(base_item_id + 79, ItemClassification.progression),
 # }
-
-automobile_item_table: Dict[str, LB1ItemData] = {
-    ItemName.batmobile_unlocked: LB1ItemData(base_item_id + 5, ItemClassification.progression),
-    ItemName.batcycle_unlocked: LB1ItemData(base_item_id + 6, ItemClassification.progression),
-    ItemName.policecar_unlocked: LB1ItemData(base_item_id + 7, ItemClassification.progression),
-    ItemName.policebike_unlocked: LB1ItemData(base_item_id + 8, ItemClassification.filler),
-    ItemName.policevan_unlocked: LB1ItemData(base_item_id + 9, ItemClassification.progression),
-    ItemName.jokervan_unlocked: LB1ItemData(base_item_id + 10, ItemClassification.progression),
-    ItemName.battank_unlocked: LB1ItemData(base_item_id + 40, ItemClassification.progression),
-    ItemName.freezekart_unlocked: LB1ItemData(base_item_id + 43, ItemClassification.progression),
-    ItemName.armouredtruck_unlocked: LB1ItemData(base_item_id + 47, ItemClassification.filler),
-    ItemName.catmotorcycle_unlocked: LB1ItemData(base_item_id + 55, ItemClassification.progression),
-    ItemName.hammertruck_unlocked: LB1ItemData(base_item_id + 64, ItemClassification.progression),
-    ItemName.garbagetruck_unlocked: LB1ItemData(base_item_id + 71, ItemClassification.progression),
-}
-
-watercraft_item_table: Dict[str, LB1ItemData] = {
-    ItemName.batboat_unlocked: LB1ItemData(base_item_id + 15, ItemClassification.progression),
-    ItemName.robinswatercraft_unlocked: LB1ItemData(base_item_id + 16, ItemClassification.progression),
-    ItemName.robinssubmarine_unlocked: LB1ItemData(base_item_id + 17, ItemClassification.progression),
-    ItemName.penguingoonsub_unlocked: LB1ItemData(base_item_id + 18, ItemClassification.progression),
-    ItemName.steamboat_unlocked: LB1ItemData(base_item_id + 27, ItemClassification.filler),
-    ItemName.iceberg_unlocked: LB1ItemData(base_item_id + 44, ItemClassification.progression),
-    ItemName.policewatercraft_unlocked: LB1ItemData(base_item_id + 56, ItemClassification.progression),
-    ItemName.policeboat_unlocked: LB1ItemData(base_item_id + 57, ItemClassification.filler),
-    ItemName.penguinsubmarine_unlocked: LB1ItemData(base_item_id + 58, ItemClassification.progression),
-    ItemName.swamprider_unlocked: LB1ItemData(base_item_id + 59, ItemClassification.progression),
-}
-
-aircraft_item_table: Dict[str, LB1ItemData] = {
-    ItemName.harbourhelicopter_unlocked: LB1ItemData(base_item_id + 19, ItemClassification.progression),
-    ItemName.glider_unlocked: LB1ItemData(base_item_id + 28, ItemClassification.filler),
-    ItemName.batwing_unlocked: LB1ItemData(base_item_id + 30, ItemClassification.progression),
-    ItemName.batcopter_unlocked: LB1ItemData(base_item_id + 31, ItemClassification.progression),
-    ItemName.privatejet_unlocked: LB1ItemData(base_item_id + 32, ItemClassification.filler),
-    ItemName.riddlerjet_unlocked: LB1ItemData(base_item_id + 49, ItemClassification.progression),
-    ItemName.policehelicopter_unlocked: LB1ItemData(base_item_id + 65, ItemClassification.progression),
-    ItemName.jokerhelicopter_unlocked: LB1ItemData(base_item_id + 66, ItemClassification.progression),
-    ItemName.scarecrowbiplane_unlocked: LB1ItemData(base_item_id + 67, ItemClassification.progression),
-    ItemName.goonhelicopter_unlocked: LB1ItemData(base_item_id + 68, ItemClassification.progression),
-}
 
 # Currently stored in Batcave because it is sounding like they can be unlocked in multiple levels
 suit_item_table: Dict[str, LB1ItemData] = {
@@ -681,9 +672,6 @@ character_token_received_table: Dict[str, LB1ItemData] = {
 item_data_table = {
     **character_item_table,
     # **hard_character_item_table,
-    **automobile_item_table,
-    **watercraft_item_table,
-    **aircraft_item_table,
     **suit_item_table,
     **minikit_item_table,
     **hostage_item_table,
@@ -697,9 +685,6 @@ item_data_table = {
 item_group_table: Dict[str, Dict[str, LB1ItemData]] = {
     "character": character_item_table,
     # "hard character": hard_character_item_table,
-    "automobile": automobile_item_table,
-    "watercraft": watercraft_item_table,
-    "aircraft": aircraft_item_table,
     "suit": suit_item_table,
     "minikit": minikit_item_table,
     "hostage": hostage_item_table,
@@ -730,9 +715,6 @@ def setup_items(options: LB1Options):
         temp_item_table.update({**true_status_item_table})
     temp_item_table.update({**character_item_table})
     # temp_item_table.update({**hard_character_item_table})
-    temp_item_table.update({**automobile_item_table})
-    temp_item_table.update({**watercraft_item_table})
-    temp_item_table.update({**aircraft_item_table})
     temp_item_table.update({**suit_item_table})
     temp_item_table.update({**hostage_item_table})
     temp_item_table.update({**level_unlocked_item_table})

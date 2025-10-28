@@ -6,7 +6,7 @@ from .Names import LocationName, RegionName
 
 
 class LB1Location(Location):
-    game: str = "Lego Batman: The Videogame"
+    game: str = "Lego Batman The Videogame"
 
 
 class LocationData(NamedTuple):
@@ -23,10 +23,21 @@ character_location_table: Dict[str, LocationData] = {
     LocationName.riddlergoon_collected: LocationData(base_location_id + 2, RegionName.sh, 6000),
     LocationName.riddlerhenchman_collected: LocationData(base_location_id + 3, RegionName.sh, 7000),
     LocationName.freezegirl_collected: LocationData(base_location_id + 4, RegionName.sh, 4000),
+    LocationName.batmobile_collected: LocationData(base_location_id + 5, RegionName.tfc),
+    LocationName.batcycle_collected: LocationData(base_location_id + 6, RegionName.tfc),
+    LocationName.policecar_collected: LocationData(base_location_id + 7, RegionName.sh, 10000),
+    LocationName.policebike_collected: LocationData(base_location_id + 8, RegionName.sh, 11000),
+    LocationName.policevan_collected: LocationData(base_location_id + 9, RegionName.sh, 13000),
+    LocationName.jokervan_collected: LocationData(base_location_id + 10, RegionName.sh, 60000),
     LocationName.poisonivygoon_collected: LocationData(base_location_id + 11, RegionName.sh, 25000),
     LocationName.fishmonger_collected: LocationData(base_location_id + 12, RegionName.sh, 4000),
     LocationName.penguingoon_collected: LocationData(base_location_id + 13, RegionName.sh, 3000),
     LocationName.penguinhenchman_collected: LocationData(base_location_id + 14, RegionName.sh, 5000),
+    LocationName.batboat_collected: LocationData(base_location_id + 15, RegionName.bbb),
+    LocationName.robinswatercraft_collected: LocationData(base_location_id + 16, RegionName.bbb),
+    LocationName.robinssubmarine_collected: LocationData(base_location_id + 17, RegionName.sh, 30000),
+    LocationName.penguingoonsub_collected: LocationData(base_location_id + 18, RegionName.sh, 15000),
+    LocationName.harbourhelicopter_collected: LocationData(base_location_id + 19, RegionName.sh, 16000),
     LocationName.zoosweeper_collected: LocationData(base_location_id + 20, RegionName.sh, 12500),
     LocationName.manbat_collected: LocationData(base_location_id + 21, RegionName.sh, 40000),
     LocationName.yeti_collected: LocationData(base_location_id + 22, RegionName.sh, 9000),
@@ -34,7 +45,12 @@ character_location_table: Dict[str, LocationData] = {
     LocationName.madhatter_collected: LocationData(base_location_id + 24, RegionName.sh, 35000),
     LocationName.jokergoon_collected: LocationData(base_location_id + 25, RegionName.sh, 7000),
     LocationName.jokerhenchman_collected: LocationData(base_location_id + 26, RegionName.sh, 9000),
+    LocationName.steamboat_collected: LocationData(base_location_id + 27, RegionName.sh, 23000),
+    LocationName.glider_collected: LocationData(base_location_id + 28, RegionName.sh, 18000),
     LocationName.clowngoon_collected: LocationData(base_location_id + 29, RegionName.sh, 100000),
+    LocationName.batwing_collected: LocationData(base_location_id + 30, RegionName.fotb),
+    LocationName.batcopter_collected: LocationData(base_location_id + 31, RegionName.fotb),
+    LocationName.privatejet_collected: LocationData(base_location_id + 32, RegionName.sh, 15000),
     LocationName.brucewayne_collected: LocationData(base_location_id + 33, RegionName.sh, 100000),
     LocationName.alfred_collected: LocationData(base_location_id + 34, RegionName.sh, 75000),
     LocationName.batgirl_collected: LocationData(base_location_id + 35, RegionName.sh, 100000),
@@ -42,22 +58,38 @@ character_location_table: Dict[str, LocationData] = {
     LocationName.policeofficer_collected: LocationData(base_location_id + 37, RegionName.sh, 5000),
     LocationName.militarypoliceman_collected: LocationData(base_location_id + 38, RegionName.sh, 17000),
     LocationName.securityguard_collected: LocationData(base_location_id + 39, RegionName.sh, 10000),
+    LocationName.battank_collected: LocationData(base_location_id + 40, RegionName.sh, 200000),
     LocationName.clayface_collected: LocationData(base_location_id + 41, RegionName.trmaw),
     LocationName.mrfreeze_collected: LocationData(base_location_id + 42, RegionName.otr),
+    LocationName.freezekart_collected: LocationData(base_location_id + 43, RegionName.sh, 25000),
+    LocationName.iceberg_collected: LocationData(base_location_id + 44, RegionName.sh, 23000),
     LocationName.poisonivy_collected: LocationData(base_location_id + 45, RegionName.gf),
     LocationName.scientist_collected: LocationData(base_location_id + 46, RegionName.sh, 6000),
+    LocationName.armouredtruck_collected: LocationData(base_location_id + 47, RegionName.sh, 24000),
     LocationName.swat_collected: LocationData(base_location_id + 48, RegionName.sh, 10000),
+    LocationName.riddlerjet_collected: LocationData(base_location_id + 49, RegionName.sh, 17000),
     LocationName.twoface_collected: LocationData(base_location_id + 50, RegionName.aet),
     LocationName.riddler_collected: LocationData(base_location_id + 51, RegionName.aa),
     LocationName.sailor_collected: LocationData(base_location_id + 52, RegionName.sh, 5000),
     LocationName.bane_collected: LocationData(base_location_id + 53, RegionName.rtd),
     LocationName.catwomanclassic_collected: LocationData(base_location_id + 54, RegionName.sh, 67000),
+    LocationName.catmotorcycle_collected: LocationData(base_location_id + 55, RegionName.sh, 23000),
+    LocationName.policewatercraft_collected: LocationData(base_location_id + 56, RegionName.sh, 12000),
+    LocationName.policeboat_collected: LocationData(base_location_id + 57, RegionName.sh, 13000),
+    LocationName.penguinsubmarine_collected: LocationData(base_location_id + 58, RegionName.hag),
+    LocationName.swamprider_collected: LocationData(base_location_id + 59, RegionName.hag),
     LocationName.killercroc_collected: LocationData(base_location_id + 60, RegionName.adr),
     LocationName.catwoman_collected: LocationData(base_location_id + 61, RegionName.sts),
     LocationName.penguin_collected: LocationData(base_location_id + 62, RegionName.aa),
     LocationName.commissionergordon_collected: LocationData(base_location_id + 63, RegionName.sh, 25000),
+    LocationName.hammertruck_collected: LocationData(base_location_id + 64, RegionName.sh, 80000),
+    LocationName.policehelicopter_collected: LocationData(base_location_id + 65, RegionName.sh, 14000),
+    LocationName.jokerhelicopter_collected: LocationData(base_location_id + 66, RegionName.bbpl),
+    LocationName.scarecrowbiplane_collected: LocationData(base_location_id + 67, RegionName.bbpl),
+    LocationName.goonhelicopter_collected: LocationData(base_location_id + 68, RegionName.sh, 11000),
     LocationName.scarecrow_collected: LocationData(base_location_id + 69, RegionName.tjm),
     LocationName.killermoth_collected: LocationData(base_location_id + 70, RegionName.tlotn),
+    LocationName.garbagetruck_collected: LocationData(base_location_id + 71, RegionName.sh, 99000),
     LocationName.policemarksman_collected: LocationData(base_location_id + 72, RegionName.sh, 5000),
     LocationName.joker_collected: LocationData(base_location_id + 73, RegionName.aa),
     LocationName.jokertropical_collected: LocationData(base_location_id + 74, RegionName.sh, 30000),
@@ -71,46 +103,6 @@ character_location_table: Dict[str, LocationData] = {
 #     # LocationName.hero2_collected: LocationData(base_location_id + 79, RegionName.bc),
 # }
 
-automobile_location_table: Dict[str, LocationData] = {
-    LocationName.batmobile_collected: LocationData(base_location_id + 5, RegionName.tfc),
-    LocationName.batcycle_collected: LocationData(base_location_id + 6, RegionName.tfc),
-    LocationName.policecar_collected: LocationData(base_location_id + 7, RegionName.sh, 10000),
-    LocationName.policebike_collected: LocationData(base_location_id + 8, RegionName.sh, 11000),
-    LocationName.policevan_collected: LocationData(base_location_id + 9, RegionName.sh, 13000),
-    LocationName.jokervan_collected: LocationData(base_location_id + 10, RegionName.sh, 60000),
-    LocationName.battank_collected: LocationData(base_location_id + 40, RegionName.sh, 200000),
-    LocationName.freezekart_collected: LocationData(base_location_id + 43, RegionName.sh, 25000),
-    LocationName.armouredtruck_collected: LocationData(base_location_id + 47, RegionName.sh, 24000),
-    LocationName.catmotorcycle_collected: LocationData(base_location_id + 55, RegionName.sh, 23000),
-    LocationName.hammertruck_collected: LocationData(base_location_id + 64, RegionName.sh, 80000),
-    LocationName.garbagetruck_collected: LocationData(base_location_id + 71, RegionName.sh, 99000),
-}
-
-watercraft_location_table: Dict[str, LocationData] = {
-    LocationName.batboat_collected: LocationData(base_location_id + 15, RegionName.bbb),
-    LocationName.robinswatercraft_collected: LocationData(base_location_id + 16, RegionName.bbb),
-    LocationName.robinssubmarine_collected: LocationData(base_location_id + 17, RegionName.sh, 30000),
-    LocationName.penguingoonsub_collected: LocationData(base_location_id + 18, RegionName.sh, 15000),
-    LocationName.steamboat_collected: LocationData(base_location_id + 27, RegionName.sh, 23000),
-    LocationName.iceberg_collected: LocationData(base_location_id + 44, RegionName.sh, 23000),
-    LocationName.policewatercraft_collected: LocationData(base_location_id + 56, RegionName.sh, 12000),
-    LocationName.policeboat_collected: LocationData(base_location_id + 57, RegionName.sh, 13000),
-    LocationName.penguinsubmarine_collected: LocationData(base_location_id + 58, RegionName.hag),
-    LocationName.swamprider_collected: LocationData(base_location_id + 59, RegionName.hag),
-}
-
-aircraft_location_table: Dict[str, LocationData] = {
-    LocationName.harbourhelicopter_collected: LocationData(base_location_id + 19, RegionName.sh, 16000),
-    LocationName.glider_collected: LocationData(base_location_id + 28, RegionName.sh, 18000),
-    LocationName.batwing_collected: LocationData(base_location_id + 30, RegionName.fotb),
-    LocationName.batcopter_collected: LocationData(base_location_id + 31, RegionName.fotb),
-    LocationName.privatejet_collected: LocationData(base_location_id + 32, RegionName.sh, 15000),
-    LocationName.riddlerjet_collected: LocationData(base_location_id + 49, RegionName.sh, 17000),
-    LocationName.policehelicopter_collected: LocationData(base_location_id + 65, RegionName.sh, 14000),
-    LocationName.jokerhelicopter_collected: LocationData(base_location_id + 66, RegionName.bbpl),
-    LocationName.scarecrowbiplane_collected: LocationData(base_location_id + 67, RegionName.bbpl),
-    LocationName.goonhelicopter_collected: LocationData(base_location_id + 68, RegionName.sh, 11000),
-}
 
 # Currently stored in Batcave because it is sounding like they can be unlocked in multiple levels
 suit_location_table: Dict[str, LocationData] = {
@@ -714,11 +706,8 @@ level_beaten_event_location_table = {
 }
 
 all_location_table = {
-    **character_location_table,
+
     # **hard_character_location_table,
-    **automobile_location_table,
-    **watercraft_location_table,
-    **aircraft_location_table,
     **suit_location_table,
     **minikit_location_table,
     **hostage_location_table,
@@ -730,6 +719,12 @@ all_location_table = {
 }
 
 
+purchase_location_table = {
+    **character_location_table,
+    **red_brick_purchase_table,
+}
+
+
 def setup_locations(options: LB1Options):
     temp_location_table = {}
     if options.minikit_sanity == 1:
@@ -738,9 +733,6 @@ def setup_locations(options: LB1Options):
         temp_location_table.update({**true_status_location_table})
     temp_location_table.update({**character_location_table})
     # temp_location_table.update({**hard_character_location_table})
-    temp_location_table.update({**automobile_location_table})
-    temp_location_table.update({**watercraft_location_table})
-    temp_location_table.update({**aircraft_location_table})
     temp_location_table.update({**suit_location_table})
     temp_location_table.update({**hostage_location_table})
     temp_location_table.update({**level_beaten_location_table})

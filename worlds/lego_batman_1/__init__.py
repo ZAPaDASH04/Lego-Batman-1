@@ -46,9 +46,6 @@ class LB1World(World):
     item_name_groups = {
         "Character": item_group_table["character"],
         # "Hard Character": item_group_table["hard character"],
-        "Automobile": item_group_table["automobile"],
-        "Watercraft": item_group_table["watercraft"],
-        "Aircraft": item_group_table["aircraft"],
         "Suit": item_group_table["suit"],
         "Minikit": item_group_table["minikit"],
         "Hostage": item_group_table["hostage"],
