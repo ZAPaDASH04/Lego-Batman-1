@@ -666,8 +666,9 @@ character_token_table: Dict[str, LocationData] = {
     LocationName.hammertruck_token: LocationData(base_location_id + 595, RegionName.asftc),
     LocationName.policehelicopter_token: LocationData(base_location_id + 596, RegionName.bbpl),
     LocationName.goonhelicopter_token: LocationData(base_location_id + 597, RegionName.bbpl),
-    LocationName.policemarksman_token: LocationData(base_location_id + 598, RegionName.dol),
-    LocationName.jokertropical_token: LocationData(base_location_id + 599, RegionName.dol),
+    LocationName.garbagetruck_token: LocationData(base_location_id + 598, RegionName.tlotn),
+    LocationName.policemarksman_token: LocationData(base_location_id + 599, RegionName.dol),
+    LocationName.jokertropical_token: LocationData(base_location_id + 600, RegionName.dol),
     # LocationName.hush_token: LocationData(base_location_id + 600, RegionName.sh),
     # LocationName.rasalghul_token: LocationData(base_location_id + 601, RegionName.sh),
 }

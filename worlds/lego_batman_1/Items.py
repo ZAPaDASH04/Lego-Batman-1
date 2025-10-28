@@ -663,8 +663,9 @@ character_token_received_table: Dict[str, LB1ItemData] = {
     ItemName.hammertruck_token: LB1ItemData(base_item_id + 595, ItemClassification.progression),
     ItemName.policehelicopter_token: LB1ItemData(base_item_id + 596, ItemClassification.progression),
     ItemName.goonhelicopter_token: LB1ItemData(base_item_id + 597, ItemClassification.progression),
-    ItemName.policemarksman_token: LB1ItemData(base_item_id + 598, ItemClassification.progression),
-    ItemName.jokertropical_token: LB1ItemData(base_item_id + 599, ItemClassification.progression),
+    ItemName.garbagetruck_token: LB1ItemData(base_item_id + 598, ItemClassification.progression),
+    ItemName.policemarksman_token: LB1ItemData(base_item_id + 599, ItemClassification.progression),
+    ItemName.jokertropical_token: LB1ItemData(base_item_id + 600, ItemClassification.progression),
     # ItemName.hush_token: LB1ItemData(base_item_id + 600, ItemClassification.progression),
     # ItemName.rasalghul_token: LB1ItemData(base_item_id + 601, ItemClassification.progression),
 }
