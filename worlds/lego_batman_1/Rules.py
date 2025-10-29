@@ -276,6 +276,42 @@ def can_complete_all_hero_episode(state: CollectionState, options: LB1Options, p
     )
 
 
+def can_unlock_two_face(state: CollectionState, player: int):
+    return state.has(ItemName.aet_lvl, player) or state.has(ItemName.bbb_lvl, player)
+
+
+def can_unlock_riddler(state: CollectionState, player: int):
+    return (
+            state.has(ItemName.trmaw_lvl, player) or state.has(ItemName.otr_lvl, player)
+            or state.has(ItemName.gf_lvl, player) or state.has(ItemName.bb_lvl, player)
+            or state.has(ItemName.bbb_lvl, player)
+    )
+
+
+def can_unlock_catwoman(state: CollectionState, player: int):
+    return state.has(ItemName.sts_lvl, player) or state.has(ItemName.aw_lvl, player)
+
+
+def can_unlock_penguin(state: CollectionState, player: int):
+    return (
+            state.has(ItemName.rtd_lvl, player) or state.has(ItemName.sts_lvl, player)
+            or state.has(ItemName.hag_lvl, player) or state.has(ItemName.adr_lvl, player)
+            or state.has(ItemName.aw_lvl, player)
+    )
+
+
+def can_unlock_harley(state: CollectionState, player: int):
+    return state.has(ItemName.asftc_lvl, player) or state.has(ItemName.dol_lvl, player)
+
+
+def can_unlock_joker(state: CollectionState, player: int):
+    return (
+            state.has(ItemName.asftc_lvl, player) or state.has(ItemName.bbpl_lvl, player)
+            or state.has(ItemName.tjm_lvl, player) or state.has(ItemName.tlotn_lvl, player)
+            or state.has(ItemName.dol_lvl, player)
+    )
+
+
 def can_purchase_riddler_goon(state: CollectionState, options: LB1Options, player: int):
     return can_purchase_shop_item(
         LocationName.riddlergoon_collected,
@@ -3649,8 +3685,20 @@ def set_char_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.robin_collected, player),
              lambda state: can_complete_any_hero_level(state, options, player))
     # Batmobile, Cycle, Boat, Sub, Wing, Copter don't require anything to beat level
+    set_rule(world.get_location(LocationName.twoface_collected, player),
+             lambda state: can_unlock_two_face(state, player))
+    set_rule(world.get_location(LocationName.riddler_collected, player),
+             lambda state: can_unlock_riddler(state, player))
+    set_rule(world.get_location(LocationName.catwoman_collected, player),
+             lambda state: can_unlock_catwoman(state, player))
+    set_rule(world.get_location(LocationName.penguin_collected, player),
+             lambda state: can_unlock_penguin(state, player))
+    set_rule(world.get_location(LocationName.harleyquinn_collected, player),
+             lambda state: can_unlock_harley(state, player))
+    set_rule(world.get_location(LocationName.joker_collected, player),
+             lambda state: can_unlock_joker(state, player))
     # Villain levels can be beaten in story
-    # TODO: Add joker/harley/riddler/cat/etc.
+
 
 def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     # YCBOB Minikits 1 & 2 can be done in story for free

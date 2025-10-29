@@ -68,7 +68,7 @@ character_location_table: Dict[str, LocationData] = {
     LocationName.armouredtruck_collected: LocationData(base_location_id + 47, RegionName.sh, 24000),
     LocationName.swat_collected: LocationData(base_location_id + 48, RegionName.sh, 10000),
     LocationName.riddlerjet_collected: LocationData(base_location_id + 49, RegionName.sh, 17000),
-    LocationName.twoface_collected: LocationData(base_location_id + 50, RegionName.aet),
+    LocationName.twoface_collected: LocationData(base_location_id + 50, RegionName.aa),
     LocationName.riddler_collected: LocationData(base_location_id + 51, RegionName.aa),
     LocationName.sailor_collected: LocationData(base_location_id + 52, RegionName.sh, 5000),
     LocationName.bane_collected: LocationData(base_location_id + 53, RegionName.rtd),
@@ -79,7 +79,7 @@ character_location_table: Dict[str, LocationData] = {
     LocationName.penguinsubmarine_collected: LocationData(base_location_id + 58, RegionName.hag),
     LocationName.swamprider_collected: LocationData(base_location_id + 59, RegionName.hag),
     LocationName.killercroc_collected: LocationData(base_location_id + 60, RegionName.adr),
-    LocationName.catwoman_collected: LocationData(base_location_id + 61, RegionName.sts),
+    LocationName.catwoman_collected: LocationData(base_location_id + 61, RegionName.aa),
     LocationName.penguin_collected: LocationData(base_location_id + 62, RegionName.aa),
     LocationName.commissionergordon_collected: LocationData(base_location_id + 63, RegionName.sh, 25000),
     LocationName.hammertruck_collected: LocationData(base_location_id + 64, RegionName.sh, 80000),
@@ -93,12 +93,12 @@ character_location_table: Dict[str, LocationData] = {
     LocationName.policemarksman_collected: LocationData(base_location_id + 72, RegionName.sh, 5000),
     LocationName.joker_collected: LocationData(base_location_id + 73, RegionName.aa),
     LocationName.jokertropical_collected: LocationData(base_location_id + 74, RegionName.sh, 30000),
-    LocationName.harleyquinn_collected: LocationData(base_location_id + 75, RegionName.asftc),
+    LocationName.harleyquinn_collected: LocationData(base_location_id + 75, RegionName.aa),
 }
 
 # hard_character_location_table: Dict[str, LocationData] = {
-#     LocationName.hush_collected: LocationData(base_location_id + 76, RegionName.sh, 1000000),
-#     LocationName.rasalghul_collected: LocationData(base_location_id + 77, RegionName.sh, 1000000),
+#     LocationName.hush_collected: LocationData(base_location_id + 76, RegionName.sh, 150000),
+#     LocationName.rasalghul_collected: LocationData(base_location_id + 77, RegionName.sh, 500000),
 #     # LocationName.hero1_collected: LocationData(base_location_id + 78, RegionName.bc),
 #     # LocationName.hero2_collected: LocationData(base_location_id + 79, RegionName.bc),
 # }
