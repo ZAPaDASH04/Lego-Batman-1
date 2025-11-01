@@ -907,10 +907,64 @@ def can_purchase_joker_tropic(state: CollectionState, options: LB1Options, playe
 
 
 def can_unlock_heat_suit(state: CollectionState, player: int):
+    return can_beat_apa(state, player)
+
+
+def can_unlock_glide_suit(state: CollectionState, options: LB1Options, player: int):
     return (
-            state.has(ItemName.heatprotectsuit, player) and state.has(ItemName.sonicsuit, player)
-            and state.has(ItemName.attractsuit, player) and state.has(ItemName.apa_lvl, player)
+            state.has(ItemName.glidesuit, player)
+            and ((state.has(ItemName.air_lvl, player) and can_beat_air(state, options, player))
+                 or state.has(ItemName.tfo_lvl, player)
+                 or (state.has(ItemName.tsga_lvl, player) and state.has(ItemName.magsuit, player))
+                 or (state.has(ItemName.utc_lvl, player) and can_beat_utc(state, options, player))
+                 or state.has(ItemName.pl_lvl, player)
+                 or (state.has(ItemName.jht_lvl, player) and state.has(ItemName.attractsuit, player))
+                 or (state.has(ItemName.tttot_lvl, player) and can_beat_tttot(state, options, player)))
     )
+
+
+def can_unlock_demo_suit(state: CollectionState, options: LB1Options, player: int):
+    return (
+            state.has(ItemName.demolitionsuit, player)
+            and (state.has(ItemName.ycbob_lvl, player)
+                 or (state.has(ItemName.tsga_lvl, player) and can_beat_tsga(state, options, player))
+                 or (state.has(ItemName.utc_lvl, player) and state.has(ItemName.magsuit, player))
+                 or (state.has(ItemName.zc_lvl, player) and can_beat_zc(state, options, player))
+                 or state.has(ItemName.lfabt_lvl, player)
+                 or state.has(ItemName.itdn_lvl, player)
+                 or state.has(ItemName.tttot_lvl, player))
+    )
+
+
+def can_unlock_mag_suit(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                state.has(ItemName.magsuit, player)
+                and (state.has(ItemName.air_lvl, player)
+                     or state.has(ItemName.tfo_lvl, player) and state.has(ItemName.glidesuit, player)
+                     or state.has(ItemName.tsga_lvl, player)
+                     or state.has(ItemName.utc_lvl, player)
+                     or state.has(ItemName.zc_lvl, player)
+                     or state.has(ItemName.jht_lvl, player and can_beat_jht(state, options, player))
+                     or (state.has(ItemName.lfabt_lvl, player) and state.has(ItemName.demolitionsuit, player)
+                         and state.has(ItemName.sonicsuit, player))
+                     or state.has(ItemName.itdn_lvl, player) and can_beat_itdn(state, options, player)
+                     or state.has(ItemName.tttot_lvl, player) and state.has(ItemName.demolitionsuit, player))
+        )
+    else:
+        return (
+                state.has(ItemName.magsuit, player)
+                and (state.has(ItemName.air_lvl, player)
+                     or state.has(ItemName.tfo_lvl, player) and char_can_glide(state, player)
+                     or state.has(ItemName.tsga_lvl, player)
+                     or state.has(ItemName.utc_lvl, player)
+                     or state.has(ItemName.zc_lvl, player)
+                     or state.has(ItemName.jht_lvl, player and can_beat_jht(state, options, player))
+                     or (state.has(ItemName.lfabt_lvl, player) and char_can_explode(state, player)
+                         and state.has(ItemName.sonicsuit, player))
+                     or state.has(ItemName.itdn_lvl, player) and can_beat_itdn(state, options, player)
+                     or state.has(ItemName.tttot_lvl, player) and char_can_explode(state, player))
+        )
 
 
 def can_unlock_sonic_suit(state: CollectionState, options: LB1Options, player: int):
@@ -971,7 +1025,7 @@ def can_unlock_tech_suit(state: CollectionState, options: LB1Options, player: in
                      or (state.has(ItemName.zc_lvl, player)
                          and (state.has(ItemName.magsuit, player) and char_can_glide(state, player)
                               or char_can_explode(state, player))
-                     or (state.has(ItemName.itdn_lvl, player) and char_can_explode(state, player))))
+                         or (state.has(ItemName.itdn_lvl, player) and char_can_explode(state, player))))
         )
 
 
@@ -3795,12 +3849,18 @@ def set_char_rules(world: MultiWorld, options: LB1Options, player: int):
 def set_suit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.heatprotectsuit, player),
              lambda state: can_unlock_heat_suit(state, player))
+    set_rule(world.get_location(LocationName.glidesuit, player),
+             lambda state: can_unlock_glide_suit(state, options, player))
+    set_rule(world.get_location(LocationName.demosuit, player),
+             lambda state: can_unlock_demo_suit(state, options, player))
     set_rule(world.get_location(LocationName.sonicsuit, player),
              lambda state: can_unlock_sonic_suit(state, options, player))
     set_rule(world.get_location(LocationName.watersuit, player),
              lambda state: can_unlock_water_suit(state, options, player))
     set_rule(world.get_location(LocationName.techsuit, player),
              lambda state: can_unlock_tech_suit(state, options, player))
+    set_rule(world.get_location(LocationName.magsuit, player),
+             lambda state: can_unlock_mag_suit(state, options, player))
     set_rule(world.get_location(LocationName.attractsuit, player),
              lambda state: can_unlock_attract_suit(state, options, player))
 
