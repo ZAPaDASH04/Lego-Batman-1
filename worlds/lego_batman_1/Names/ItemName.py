@@ -481,7 +481,7 @@ tlotn_host = "The Lure of the Night: Hostage"
 dol_host = "Dying of Laughter: Hostage"
 
 # Level Unlocked Definitions
-ycbob_lvl = "You Can Bank On Batman: Level Unlocked"
+ycbob_lvl = "You can Bank on Batman: Level Unlocked"
 air_lvl = "An Icy Reception: Level Unlocked"
 tfc_lvl = "Two-Face Chase: Level Unlocked"
 apa_lvl = "A Poisonous Appointment: Level Unlocked"

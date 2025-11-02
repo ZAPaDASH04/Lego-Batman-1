@@ -124,8 +124,9 @@ class LB1World(World):
 
     def generate_early(self):
         self.validate_yaml()
-        self.multiworld.push_precollected(self.create_item(ItemName.ycbob_lvl))
-        self.multiworld.push_precollected(self.create_item(ItemName.trmaw_lvl))
+        self.choose_starting_levels()
+        # self.multiworld.push_precollected(self.create_item(ItemName.ycbob_lvl))
+        # self.multiworld.push_precollected(self.create_item(ItemName.trmaw_lvl))
         self.multiworld.push_precollected(self.create_item(ItemName.batman_unlocked))
         self.multiworld.push_precollected(self.create_item(ItemName.robin_unlocked))
 
@@ -134,6 +135,10 @@ class LB1World(World):
             raise OptionError("Minikit Win Con Requires Minikit Sanity to be enabled.")
         if self.options.high_multiplier_minimum.value < self.options.low_multiplier_minimum.value:
             raise OptionError("High Multiplier Minimum must be greater than Low Multiplier Minimum.")
+        if self.options.starting_hero_level_count.value > len(self.options.starting_hero_level_options.value):
+            raise OptionError("You want to start with more hero levels than are in the starting pool")
+        if self.options.starting_villain_level_count.value > len(self.options.starting_villain_level_options.value):
+            raise OptionError("You want to start with more villain levels than are in the starting pool")
 
     def create_regions(self):
         self.seed_location_table = setup_locations(self.options)
@@ -183,3 +188,20 @@ class LB1World(World):
             "FreeplayOrStory": self.options.freeplay_or_story.value,
             "DecoupledTokens": self.options.decouple_character_tokens.value,
         }
+
+    def choose_starting_levels(self):
+        hero_levels_pushed: int = 0
+        while hero_levels_pushed < self.options.starting_hero_level_count.value:
+            starting_hero = self.random.choice(self.options.starting_hero_level_options.value)
+            self.options.starting_hero_level_options.value.remove(starting_hero)
+            starting_hero += ": Level Unlocked"
+            self.multiworld.push_precollected(self.create_item(starting_hero))
+            hero_levels_pushed += 1
+
+        villain_levels_pushed: int = 0
+        while villain_levels_pushed < self.options.starting_villain_level_count.value:
+            starting_villain = self.random.choice(self.options.starting_villain_level_options.value)
+            self.options.starting_villain_level_options.value.remove(starting_villain)
+            starting_villain += ": Level Unlocked"
+            self.multiworld.push_precollected(self.create_item(starting_villain))
+            villain_levels_pushed += 1

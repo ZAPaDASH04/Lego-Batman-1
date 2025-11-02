@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from Options import DefaultOnToggle, Range, Choice, PerGameCommonOptions
+from Options import DefaultOnToggle, Range, Choice, PerGameCommonOptions, OptionList
 
 
 class EndGoal(Choice):
@@ -70,6 +70,148 @@ class FreeplayOrStoryUnlocked(DefaultOnToggle):
     display_name = "Unlock Story or Story and Freeplay"
 
 
+class StartingHeroLevelCount(Range):
+    """
+    Determine the number of hero levels you start with.
+    """
+    display_name = "Starting Hero Level Count"
+    range_start = 1
+    range_end = 15
+    default = 1
+
+
+class StartingHeroLevelOptions(OptionList):
+    """
+    Determines which hero levels you can start with.
+
+    Valid Keys:
+    "You can Bank on Batman"
+    "An Icy Reception"
+    "Two-Face Chase"
+    "A Poisonous Appointment"
+    "The Face-Off"
+    "There She Goes Again"
+    "Batboat Battle"
+    "Under the City"
+    "Zoo's Company"
+    "Penguin's Lair"
+    "Joker's Home Turf"
+    "Little Fun at the Big Top"
+    "Flight of the Bat"
+    "In the Dark Night"
+    "To the Top of the Tower"
+    """
+
+    display_name = "Starting Hero Level Options"
+
+    valid_keys = {
+        "You can Bank on Batman",
+        "An Icy Reception",
+        "Two-Face Chase",
+        "A Poisonous Appointment",
+        "The Face-Off",
+        "There She Goes Again",
+        "Batboat Battle",
+        "Under the City",
+        "Zoo's Company",
+        "Penguin's Lair",
+        "Joker's Home Turf",
+        "Little Fun at the Big Top",
+        "Flight of the Bat",
+        "In the Dark Night",
+        "To the Top of the Tower",
+    }
+
+    default = [
+        "You can Bank on Batman",
+        "An Icy Reception",
+        "Two-Face Chase",
+        "A Poisonous Appointment",
+        "The Face-Off",
+        "There She Goes Again",
+        "Batboat Battle",
+        "Under the City",
+        "Zoo's Company",
+        "Penguin's Lair",
+        "Joker's Home Turf",
+        "Little Fun at the Big Top",
+        "Flight of the Bat",
+        "In the Dark Night",
+        "To the Top of the Tower",
+    ]
+
+
+class StartingVillainLevelCount(Range):
+    """
+    Determine the number of villain levels you start with.
+    """
+    display_name = "Starting Villain Level Count"
+    range_start = 1
+    range_end = 15
+    default = 1
+
+
+class StartingVillainLevelOptions(OptionList):
+    """
+    Determines which villain levels you can start with.
+
+    Valid Keys:
+    "The Riddler Makes a Withdrawal"
+    "On the Rocks"
+    "Green Fingers"
+    "An Enterprising Theft"
+    "Breaking Blocks"
+    "Rockin' the Docks"
+    "Stealing the Show"
+    "Harbouring a Grudge"
+    "A Daring Rescue"
+    "Arctic World"
+    "A Surprise for the Commissioner"
+    "Biplane Blast"
+    "The Joker's Masterpiece"
+    "The Lure of the Night"
+    "Dying of Laughter"
+    """
+
+    display_name = "Starting Villain Level Options"
+
+    valid_keys = {
+        "The Riddler Makes a Withdrawal",
+        "On the Rocks",
+        "Green Fingers",
+        "An Enterprising Theft",
+        "Breaking Blocks",
+        "Rockin' the Docks",
+        "Stealing the Show",
+        "Harbouring a Grudge",
+        "A Daring Rescue",
+        "Arctic World",
+        "A Surprise for the Commissioner",
+        "Biplane Blast",
+        "The Joker's Masterpiece",
+        "The Lure of the Night",
+        "Dying of Laughter",
+    }
+
+    default = [
+        "The Riddler Makes a Withdrawal",
+        "On the Rocks",
+        "Green Fingers",
+        "An Enterprising Theft",
+        "Breaking Blocks",
+        "Rockin' the Docks",
+        "Stealing the Show",
+        "Harbouring a Grudge",
+        "A Daring Rescue",
+        "Arctic World",
+        "A Surprise for the Commissioner",
+        "Biplane Blast",
+        "The Joker's Masterpiece",
+        "The Lure of the Night",
+        "Dying of Laughter",
+    ]
+
+
 class ShopPurchasesRequireMultiplier(DefaultOnToggle):
     """
     Determines if shop purchases require a score multiplier.
@@ -110,6 +252,10 @@ class LB1Options(PerGameCommonOptions):
     true_status_sanity: TrueStatusSanity
     decouple_character_tokens: DecoupleCharacterTokens
     freeplay_or_story: FreeplayOrStoryUnlocked
+    starting_hero_level_count: StartingHeroLevelCount
+    starting_hero_level_options: StartingHeroLevelOptions
+    starting_villain_level_count: StartingVillainLevelCount
+    starting_villain_level_options: StartingVillainLevelOptions
     shop_purchases_required_multiplier: ShopPurchasesRequireMultiplier
     low_multiplier_minimum: LowMultiplierPriceMinimum
     high_multiplier_minimum: HighMultiplierMinimum
