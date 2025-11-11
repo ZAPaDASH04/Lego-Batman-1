@@ -2,8 +2,8 @@ from typing import Dict
 
 from BaseClasses import Item, Tutorial, ItemClassification
 from Options import OptionError
-from .Items import LB1Item, all_item_table, minikit_names_set, hostage_names_set
-from .Locations import all_location_table, LocationData, setup_locations
+from .Items import LB1Item, all_item_table, minikit_names_set, hostage_names_set, LB1ItemData
+from .Locations import all_location_table, LocationData, setup_locations, LB1Location
 from .Names import ItemName, RegionName
 from .Options import LB1Options, RasPurchaseRequirements
 from .Regions import create_regions, connect_regions, create_events
@@ -36,8 +36,8 @@ class LB1World(World):
     item_name_to_id = {name: data.code for name, data in all_item_table.items() if data.code is not None}
     location_name_to_id = {name: data.id for name, data in all_location_table.items()}
 
-    seed_location_table: Dict[str, int]
-    seed_item_table: Dict[str, int]
+    seed_location_table: Dict[str, LB1Location]
+    seed_item_table: Dict[str, LB1ItemData]
 
     data_version = 1
     required_client_version = (0, 5, 1)
@@ -132,8 +132,6 @@ class LB1World(World):
         # self.multiworld.push_precollected(self.create_item(ItemName.trmaw_lvl))
         self.multiworld.push_precollected(self.create_item(ItemName.batman_unlocked))
         self.multiworld.push_precollected(self.create_item(ItemName.robin_unlocked))
-        print(f"Hush: {self.options.hush_purchase_requirements.value}")
-        print(f"Ras: {self.options.ras_purchase_requirements.value}")
 
     def validate_yaml(self):
         if self.options.EndGoal.value == 0 and self.options.minikit_sanity.value == 0:
@@ -151,12 +149,10 @@ class LB1World(World):
         create_events(self.multiworld, self.player)
 
     def create_item(self, name: str) -> Item:
-        data = all_item_table[name]
-        item = LB1Item(name, data.classification, data.code, self.player)
+        item = LB1Item(name, self.seed_item_table[name].classification, self.seed_item_table[name].code, self.player)
         return item
 
     def create_items(self):
-        # self.seed_item_table = setup_items(self.options)
         self.multiworld.itempool += [self.create_item(item_name) for item_name in self.seed_item_table]
 
     def set_rules(self):
@@ -249,4 +245,3 @@ class LB1World(World):
                 case "Token":
                     if self.options.decouple_character_tokens.value == 1:
                         self.seed_item_table[name] = data
-        return
