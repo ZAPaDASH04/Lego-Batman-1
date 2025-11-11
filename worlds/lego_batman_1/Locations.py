@@ -96,13 +96,12 @@ character_location_table: Dict[str, LocationData] = {
     LocationName.harleyquinn_collected: LocationData(base_location_id + 75, RegionName.aa),
 }
 
-# hard_character_location_table: Dict[str, LocationData] = {
-#     LocationName.hush_collected: LocationData(base_location_id + 76, RegionName.sh, 150000),
-#     LocationName.rasalghul_collected: LocationData(base_location_id + 77, RegionName.sh, 500000),
-#     # LocationName.hero1_collected: LocationData(base_location_id + 78, RegionName.bc),
-#     # LocationName.hero2_collected: LocationData(base_location_id + 79, RegionName.bc),
-# }
-
+hard_character_location_table: Dict[str, LocationData] = {
+    LocationName.hush_collected: LocationData(base_location_id + 76, RegionName.sh, 150000),
+    LocationName.rasalghul_collected: LocationData(base_location_id + 77, RegionName.sh, 500000),
+    # LocationName.hero1_collected: LocationData(base_location_id + 78, RegionName.bc),
+    # LocationName.hero2_collected: LocationData(base_location_id + 79, RegionName.bc),
+}
 
 # Currently stored in Batcave because it is sounding like they can be unlocked in multiple levels
 suit_location_table: Dict[str, LocationData] = {
@@ -673,7 +672,7 @@ character_token_table: Dict[str, LocationData] = {
     # LocationName.rasalghul_token: LocationData(base_location_id + 601, RegionName.sh),
 }
 
-level_beaten_event_location_table = {
+event_location_table = {
     LocationName.ycbob_token: LocationData(0, RegionName.ycbob),
     LocationName.air_token: LocationData(0, RegionName.air),
     LocationName.tfc_token: LocationData(0, RegionName.tfc),
@@ -707,8 +706,8 @@ level_beaten_event_location_table = {
 }
 
 all_location_table = {
-
-    # **hard_character_location_table,
+    **character_location_table,
+    **hard_character_location_table,
     **suit_location_table,
     **minikit_location_table,
     **hostage_location_table,
@@ -719,10 +718,10 @@ all_location_table = {
     **character_token_table,
 }
 
-
 purchase_location_table = {
     **character_location_table,
     **red_brick_purchase_table,
+    **hard_character_location_table,
 }
 
 
@@ -733,7 +732,8 @@ def setup_locations(options: LB1Options):
     if options.true_status_sanity == 1:
         temp_location_table.update({**true_status_location_table})
     temp_location_table.update({**character_location_table})
-    # temp_location_table.update({**hard_character_location_table})
+    if options.shuffle_hush_and_ras == 1:
+        temp_location_table.update({**hard_character_location_table})
     temp_location_table.update({**suit_location_table})
     temp_location_table.update({**hostage_location_table})
     temp_location_table.update({**level_beaten_location_table})

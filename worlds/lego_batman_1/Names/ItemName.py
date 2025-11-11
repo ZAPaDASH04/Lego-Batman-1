@@ -101,7 +101,7 @@ clowngoon_unlocked = "Clown Goon Unlocked"
 
 # Hard Character Definitions
 hush_unlocked = "Hush Unlocked"
-rasalghul_unlocked = "Rā's al Ghūl Unlocked"
+rasalghul_unlocked = "Ra's al Ghul Unlocked"
 
 # Automobile Definitions
 batmobile_unlocked = "Batmobile Unlocked"

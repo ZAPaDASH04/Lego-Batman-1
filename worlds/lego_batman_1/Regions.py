@@ -1,5 +1,5 @@
 from BaseClasses import MultiWorld, Region, Entrance, Location, ItemClassification
-from .Locations import LB1Location, level_beaten_event_location_table
+from .Locations import LB1Location, event_location_table
 from .Items import LB1Item
 from .Names import RegionName
 
@@ -159,7 +159,7 @@ def create_regions_and_locations(name: str, player: int, world: MultiWorld, seed
 def create_events(world: MultiWorld, player: int) -> int:
     count = 0
 
-    for (name, data) in level_beaten_event_location_table.items():
+    for (name, data) in event_location_table.items():
         item_name = "Level Beaten Token"
         event: Location = create_event(name, item_name, world.get_region(data.region, player), player)
         event.show_in_spoiler = True

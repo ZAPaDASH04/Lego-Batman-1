@@ -242,6 +242,33 @@ class HighMultiplierMinimum(Range):
     default = 100000
 
 
+class ShuffleHushAndRas(DefaultOnToggle):
+    """
+    Determines if the purchases for Hush and Ras are shuffled in the Item Pool.
+    """
+    display_name = "Shuffle Hush and Ra's al Ghul"
+
+
+class HushPurchaseRequirements(Range):
+    """
+    Determine the number of Hostages needed to unlock the Hush Purchase.
+    """
+    display_name = "Hush Purchase Requirements"
+    range_start = 0
+    range_end = 25
+    default = 12
+
+
+class RasPurchaseRequirements(Range):
+    """
+    Determine the number of Minikits needed to unlock the Ra's al Ghul Purchase.
+    """
+    display_name = "Ra's al Ghul Purchase Requirements"
+    range_start = 0
+    range_end = 300
+    default = 150
+
+
 # TODO: look into what option groups are
 @dataclass
 class LB1Options(PerGameCommonOptions):
@@ -259,4 +286,7 @@ class LB1Options(PerGameCommonOptions):
     shop_purchases_required_multiplier: ShopPurchasesRequireMultiplier
     low_multiplier_minimum: LowMultiplierPriceMinimum
     high_multiplier_minimum: HighMultiplierMinimum
+    shuffle_hush_and_ras: ShuffleHushAndRas
+    hush_purchase_requirements: HushPurchaseRequirements
+    ras_purchase_requirements: RasPurchaseRequirements
     # hostage_sanity: HostageSanity

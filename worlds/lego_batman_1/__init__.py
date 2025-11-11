@@ -1,11 +1,11 @@
 from typing import Dict
 
-from BaseClasses import Item, Tutorial
+from BaseClasses import Item, Tutorial, ItemClassification
 from Options import OptionError
-from .Items import LB1Item, item_data_table, minikit_names_set, setup_items, item_group_table
+from .Items import LB1Item, all_item_table, minikit_names_set, hostage_names_set
 from .Locations import all_location_table, LocationData, setup_locations
 from .Names import ItemName, RegionName
-from .Options import LB1Options
+from .Options import LB1Options, RasPurchaseRequirements
 from .Regions import create_regions, connect_regions, create_events
 from .Rules import set_rules, set_event_rules
 from ..AutoWorld import World, WebWorld, CollectionState
@@ -33,7 +33,7 @@ class LB1World(World):
     options: LB1Options
     topology_present = True
 
-    item_name_to_id = {name: data.code for name, data in item_data_table.items() if data.code is not None}
+    item_name_to_id = {name: data.code for name, data in all_item_table.items() if data.code is not None}
     location_name_to_id = {name: data.id for name, data in all_location_table.items()}
 
     seed_location_table: Dict[str, int]
@@ -44,16 +44,18 @@ class LB1World(World):
     web = LB1Web()
 
     item_name_groups = {
-        "Character": item_group_table["character"],
+        "Character": {name: data for name, data in all_item_table.items() if data.type == "Character"},
         # "Hard Character": item_group_table["hard character"],
-        "Suit": item_group_table["suit"],
-        "Minikit": item_group_table["minikit"],
-        "Hostage": item_group_table["hostage"],
-        "Level": item_group_table["level"],
-        "True Status": item_group_table["true status"],
-        "Red Brick Collected": item_group_table["red brick collected"],
-        "Red Brick Unlocked": item_group_table["red brick unlocked"],
-        "Character Token": item_group_table["character token"],
+        "Suit": {name: data for name, data in all_item_table.items() if data.type == "Suit"},
+        "Minikit": {name: data for name, data in all_item_table.items() if data.type == "Minikit"},
+        "Hostage": {name: data for name, data in all_item_table.items() if data.type == "Hostage"},
+        "Level": {name: data for name, data in all_item_table.items() if data.type == "Level"},
+        "True Status": {name: data for name, data in all_item_table.items() if data.type == "True Status"},
+        "Red Brick Collected": {name: data for name, data in all_item_table.items()
+                                if data.type == "Red Brick Collected"},
+        "Red Brick Unlocked": {name: data for name, data in all_item_table.items()
+                               if data.type == "Red Brick Unlocked"},
+        "Token": {name: data for name, data in all_item_table.items() if data.code == "Token"},
     }
 
     location_name_groups = {
@@ -124,11 +126,14 @@ class LB1World(World):
 
     def generate_early(self):
         self.validate_yaml()
+        self.create_item_table()
         self.choose_starting_levels()
         # self.multiworld.push_precollected(self.create_item(ItemName.ycbob_lvl))
         # self.multiworld.push_precollected(self.create_item(ItemName.trmaw_lvl))
         self.multiworld.push_precollected(self.create_item(ItemName.batman_unlocked))
         self.multiworld.push_precollected(self.create_item(ItemName.robin_unlocked))
+        print(f"Hush: {self.options.hush_purchase_requirements.value}")
+        print(f"Ras: {self.options.ras_purchase_requirements.value}")
 
     def validate_yaml(self):
         if self.options.EndGoal.value == 0 and self.options.minikit_sanity.value == 0:
@@ -146,12 +151,12 @@ class LB1World(World):
         create_events(self.multiworld, self.player)
 
     def create_item(self, name: str) -> Item:
-        data = item_data_table[name]
+        data = all_item_table[name]
         item = LB1Item(name, data.classification, data.code, self.player)
         return item
 
     def create_items(self):
-        self.seed_item_table = setup_items(self.options)
+        # self.seed_item_table = setup_items(self.options)
         self.multiworld.itempool += [self.create_item(item_name) for item_name in self.seed_item_table]
 
     def set_rules(self):
@@ -162,20 +167,24 @@ class LB1World(World):
         changed = super().collect(state, item)
         if changed:
             name = item.name
-            if name in minikit_names_set and state.count(name, self.player) == 1 and self.options.EndGoal.value == 0:
+            if name in minikit_names_set and state.count(name, self.player) == 1:
                 # Count was 0 before super().collect().
                 # Increase unique minikit count.
                 state.prog_items[self.player]["UNIQUE_MINIKITS"] += 1
+            if name in hostage_names_set and state.count(name, self.player) == 1:
+                state.prog_items[self.player]["UNIQUE_HOSTAGES"] += 1
         return changed
 
     def remove(self, state: CollectionState, item: Item) -> bool:
         changed = super().remove(state, item)
         if changed:
             name = item.name
-            if name in minikit_names_set and state.count(name, self.player) == 0 and self.options.EndGoal.value == 0:
+            if name in minikit_names_set and state.count(name, self.player) == 0:
                 # Count was 1 before super().remove().
                 # Decrease unique minikit count.
                 state.prog_items[self.player]["UNIQUE_MINIKITS"] -= 1
+            if name in hostage_names_set and state.count(name, self.player) == 0:
+                state.prog_items[self.player]["UNIQUE_HOSTAGES"] -= 1
         return changed
 
     def fill_slot_data(self):
@@ -187,6 +196,9 @@ class LB1World(World):
             "TrueStatusSanity": self.options.true_status_sanity.value,
             "FreeplayOrStory": self.options.freeplay_or_story.value,
             "DecoupledTokens": self.options.decouple_character_tokens.value,
+            "ShuffleHushAndRas": self.options.shuffle_hush_and_ras.value,
+            "HushPurchaseRequirements": self.options.hush_purchase_requirements.value,
+            "RasPurchaseRequirements": self.options.ras_purchase_requirements.value,
         }
 
     def choose_starting_levels(self):
@@ -205,3 +217,36 @@ class LB1World(World):
             starting_villain += ": Level Unlocked"
             self.multiworld.push_precollected(self.create_item(starting_villain))
             villain_levels_pushed += 1
+
+    def create_item_table(self):
+        self.seed_item_table = {}
+        required_minikits = self.options.minikits_to_win.value
+        ras_minikits = self.options.ras_purchase_requirements.value
+        hush_hostages = self.options.hush_purchase_requirements.value
+        for name, data in all_item_table.items():
+            match data.type:
+                case "Character" | "Suit" | "Level" | "Red Brick Collected" | "Red Brick Unlocked":
+                    self.seed_item_table[name] = data
+                case "Hard Character":
+                    if self.options.shuffle_hush_and_ras == 1:
+                        self.seed_item_table[name] = data
+                case "Minikit":
+                    if self.options.minikit_sanity.value == 1:
+                        if ((self.options.EndGoal.value == 0 and required_minikits > 0)
+                                or (self.options.shuffle_hush_and_ras == 1 and ras_minikits > 0)):
+                            data.classification = ItemClassification.progression_deprioritized_skip_balancing
+                            required_minikits -= 1
+                            ras_minikits -= 1
+                        self.seed_item_table[name] = data
+                case "Hostage":
+                    if self.options.shuffle_hush_and_ras == 1 and hush_hostages > 0:
+                        data.classification = ItemClassification.progression_deprioritized_skip_balancing
+                        hush_hostages -= 1
+                    self.seed_item_table[name] = data
+                case "True Status":
+                    if self.options.true_status_sanity.value == 1:
+                        self.seed_item_table[name] = data
+                case "Token":
+                    if self.options.decouple_character_tokens.value == 1:
+                        self.seed_item_table[name] = data
+        return

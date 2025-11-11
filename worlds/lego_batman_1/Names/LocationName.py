@@ -100,8 +100,8 @@ jokertropical_collected = "The Joker (Tropical) Collected"
 harleyquinn_collected = "Harley Quinn Collected"
 
 # Hard Character Definitions
-# hush_collected = "Hush Collected"
-# rasalghul_collected = "Rā's al Ghūl Collected"
+hush_collected = "Hush Collected"
+rasalghul_collected = "Ra's al Ghul Collected"
 # hero1_collected = "Hero 1 Collected"
 # hero2_collected = "Hero 2 Collected"
 

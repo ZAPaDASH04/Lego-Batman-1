@@ -4,7 +4,7 @@ from BaseClasses import MultiWorld, Location
 from worlds.generic.Rules import set_rule
 from worlds.AutoWorld import CollectionState
 
-from .Locations import level_beaten_event_location_table, purchase_location_table
+from .Locations import event_location_table, purchase_location_table
 from .Names import LocationName, ItemName, RegionName
 from .Options import LB1Options, EndGoal
 
@@ -180,6 +180,14 @@ def has_high_multiplier(state: CollectionState, player: int):
             or state.has(ItemName.scorex10_un, player)
             or (state.has(ItemName.scorex2_un, player) and state.has(ItemName.scorex4_un, player))
     )
+
+
+def has_enough_hostages(state: CollectionState, options: LB1Options, player: int):
+    return state.has("UNIQUE_HOSTAGES", player, options.hush_purchase_requirements.value)
+
+
+def has_enough_minikits(state: CollectionState, options: LB1Options, player: int):
+    return state.has("UNIQUE_MINIKITS", player, options.ras_purchase_requirements.value)
 
 
 def can_purchase_shop_item(
@@ -903,6 +911,30 @@ def can_purchase_joker_tropic(state: CollectionState, options: LB1Options, playe
         player,
         [ItemName.dol_lvl],
         ItemName.jokertropical_token,
+    )
+
+
+def can_purchase_hush(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.hush_collected,
+        state,
+        options,
+        player,
+        [],
+        [],
+        [lambda: state.has("UNIQUE_HOSTAGES", player, options.hush_purchase_requirements.value)],
+    )
+
+
+def can_purchase_ras(state: CollectionState, options: LB1Options, player: int):
+    return can_purchase_shop_item(
+        LocationName.rasalghul_collected,
+        state,
+        options,
+        player,
+        [],
+        [],
+        [lambda: state.has("UNIQUE_MINIKITS", player, options.ras_purchase_requirements.value)],
     )
 
 
@@ -4314,6 +4346,10 @@ def set_shop_rules(world: MultiWorld, options: LB1Options, player: int):
              lambda state: can_purchase_police_marksman(state, options, player))
     set_rule(world.get_location(LocationName.jokertropical_collected, player),
              lambda state: can_purchase_joker_tropic(state, options, player))
+    set_rule(world.get_location(LocationName.hush_collected, player),
+             lambda state: can_purchase_hush(state, options, player))
+    set_rule(world.get_location(LocationName.rasalghul_collected, player),
+             lambda state: can_purchase_ras(state, options, player))
 
     set_rule(world.get_location(LocationName.silhouettes, player),
              lambda state: can_purchase_silhouettes(state, options, player))
@@ -4470,7 +4506,7 @@ def set_rules(world: MultiWorld, options: LB1Options, player: int):
 
 
 def set_event_rules(world: MultiWorld, player: int):
-    for (name, data) in level_beaten_event_location_table.items():
+    for (name, data) in event_location_table.items():
         event: Location = world.get_location(name, player)
         level_beaten_name = name.removesuffix(" Event")
         set_rule(event, world.get_location(level_beaten_name, player).access_rule)
