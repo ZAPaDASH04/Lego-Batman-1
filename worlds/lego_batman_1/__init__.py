@@ -193,8 +193,8 @@ class LB1World(World):
             "FreeplayOrStory": self.options.freeplay_or_story.value,
             "DecoupledTokens": self.options.decouple_character_tokens.value,
             "ShuffleHushAndRas": self.options.shuffle_hush_and_ras.value,
-            "HushPurchaseRequirements": self.options.hush_purchase_requirements.value,
-            "RasPurchaseRequirements": self.options.ras_purchase_requirements.value,
+            "HushUnlockCondition": self.options.hush_purchase_requirements.value,
+            "RasUnlockCondition": self.options.ras_purchase_requirements.value,
         }
 
     def choose_starting_levels(self):
