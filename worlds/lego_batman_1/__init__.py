@@ -193,6 +193,7 @@ class LB1World(World):
             "FreeplayOrStory": self.options.freeplay_or_story.value,
             "DecoupledTokens": self.options.decouple_character_tokens.value,
             "ShuffleHushAndRas": self.options.shuffle_hush_and_ras.value,
+            "DecoupleShuffleHushAndRasToken": self.options.decouple_hush_and_ras_token.value,
             "HushUnlockCondition": self.options.hush_purchase_requirements.value,
             "RasUnlockCondition": self.options.ras_purchase_requirements.value,
         }
@@ -246,4 +247,7 @@ class LB1World(World):
                         self.seed_item_table[name] = data
                 case "Token":
                     if self.options.decouple_character_tokens.value == 1:
+                        self.seed_item_table[name] = data
+                case "Hard Token":
+                    if self.options.decouple_hush_and_ras_token == 1:
                         self.seed_item_table[name] = data

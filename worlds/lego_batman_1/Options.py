@@ -249,6 +249,13 @@ class ShuffleHushAndRas(DefaultOnToggle):
     display_name = "Shuffle Hush and Ra's al Ghul"
 
 
+class DecoupleShuffleHushAndRasToken(DefaultOnToggle):
+    """
+    Determines if the Character Token for Hush and Ras are shuffled in the Item Pool.
+    """
+    display_name = "Decouple Hush and Ra's al Ghul's Character Token"
+
+
 class HushPurchaseRequirements(Range):
     """
     Determine the number of Hostages needed to unlock the Hush Purchase.
@@ -287,6 +294,7 @@ class LB1Options(PerGameCommonOptions):
     low_multiplier_minimum: LowMultiplierPriceMinimum
     high_multiplier_minimum: HighMultiplierMinimum
     shuffle_hush_and_ras: ShuffleHushAndRas
+    decouple_hush_and_ras_token: DecoupleShuffleHushAndRasToken
     hush_purchase_requirements: HushPurchaseRequirements
     ras_purchase_requirements: RasPurchaseRequirements
     # hostage_sanity: HostageSanity

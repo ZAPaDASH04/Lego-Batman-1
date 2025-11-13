@@ -50,8 +50,8 @@ goonhelicopter_token = "Goon Helicopter Token"
 garbagetruck_token = "Garbage Truck Token"
 policemarksman_token = "Police Marksman Token"
 jokertropical_token = "Joker (Tropical) Token"
-# hush_token = "Hush Token"
-# rasalghul_token = "Ra's al Ghul Token"
+hush_token = "Hush Token"
+rasalghul_token = "Ra's al Ghul Token"
 
 # Character Purchase Definitions
 batman_collected = "Batman Collected"

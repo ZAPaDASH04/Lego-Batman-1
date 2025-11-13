@@ -50,8 +50,8 @@ goonhelicopter_token = "Goon Helicopter Token Received"
 garbagetruck_token = "Garbage Truck Token Received"
 policemarksman_token = "Police Marksman Token Received"
 jokertropical_token = "Joker (Tropical) Token Received"
-# hush_token = "Hush Token Received"
-# rasalghul_token = "Ra's al Ghul Token Received"
+hush_token = "Hush Token Received"
+rasalghul_token = "Ra's al Ghul Token Received"
 
 # Character Definitions
 batman_unlocked = "Batman Unlocked"

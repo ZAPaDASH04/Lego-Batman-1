@@ -921,8 +921,9 @@ def can_purchase_hush(state: CollectionState, options: LB1Options, player: int):
         options,
         player,
         [],
-        [],
-        [lambda: state.has("UNIQUE_HOSTAGES", player, options.hush_purchase_requirements.value)],
+        ItemName.hush_token,
+        [lambda: state.has("UNIQUE_HOSTAGES", player, options.hush_purchase_requirements.value) if
+            options.decouple_hush_and_ras_token.value == 0 else True],
     )
 
 
@@ -933,8 +934,9 @@ def can_purchase_ras(state: CollectionState, options: LB1Options, player: int):
         options,
         player,
         [],
-        [],
-        [lambda: state.has("UNIQUE_MINIKITS", player, options.ras_purchase_requirements.value)],
+        ItemName.rasalghul_token,
+        [lambda: state.has("UNIQUE_MINIKITS", player, options.ras_purchase_requirements.value) if
+            options.decouple_hush_and_ras_token.value == 0 else True],
     )
 
 
@@ -4478,6 +4480,10 @@ def set_token_rules(world: MultiWorld, options: LB1Options, player: int):
              lambda state: can_complete_any_hero_episode(state, options, player))
     set_rule(world.get_location(LocationName.battank_token, player),
              lambda state: can_complete_all_hero_episode(state, options, player))
+    set_rule(world.get_location(LocationName.hush_token, player),
+             lambda state: state.has("UNIQUE_HOSTAGES", player, options.hush_purchase_requirements.value))
+    set_rule(world.get_location(LocationName.rasalghul_token, player),
+             lambda state: state.has("UNIQUE_MINIKITS", player, options.hush_purchase_requirements.value))
     # All villain levels can be completed in story - no additional logic needed besides region
 
 
