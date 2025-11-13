@@ -55,7 +55,7 @@ class LB1World(World):
                                 if data.type == "Red Brick Collected"},
         "Red Brick Unlocked": {name: data for name, data in all_item_table.items()
                                if data.type == "Red Brick Unlocked"},
-        "Token": {name: data for name, data in all_item_table.items() if data.code == "Token"},
+        "Token": {name: data for name, data in all_item_table.items() if data.type == "Token"},
     }
 
     location_name_groups = {
@@ -149,7 +149,7 @@ class LB1World(World):
         create_events(self.multiworld, self.player)
 
     def create_item(self, name: str) -> Item:
-        item = LB1Item(name, self.seed_item_table[name].classification, self.seed_item_table[name].code, self.player)
+        item = LB1Item(name, all_item_table[name].classification, all_item_table[name].code, self.player)
         return item
 
     def create_items(self):
@@ -230,13 +230,15 @@ class LB1World(World):
                     if self.options.minikit_sanity.value == 1:
                         if ((self.options.EndGoal.value == 0 and required_minikits > 0)
                                 or (self.options.shuffle_hush_and_ras == 1 and ras_minikits > 0)):
-                            data.classification = ItemClassification.progression_deprioritized_skip_balancing
+                            all_item_table[name].classification \
+                                = ItemClassification.progression_deprioritized_skip_balancing
                             required_minikits -= 1
                             ras_minikits -= 1
                         self.seed_item_table[name] = data
                 case "Hostage":
                     if self.options.shuffle_hush_and_ras == 1 and hush_hostages > 0:
-                        data.classification = ItemClassification.progression_deprioritized_skip_balancing
+                        all_item_table[name].classification \
+                            = ItemClassification.progression_deprioritized_skip_balancing
                         hush_hostages -= 1
                     self.seed_item_table[name] = data
                 case "True Status":
