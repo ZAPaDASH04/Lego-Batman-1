@@ -291,7 +291,7 @@ def can_unlock_two_face(state: CollectionState, player: int):
 def can_unlock_riddler(state: CollectionState, player: int):
     return (
             state.has(ItemName.trmaw_lvl, player) or state.has(ItemName.otr_lvl, player)
-            or state.has(ItemName.gf_lvl, player) or state.has(ItemName.bb_lvl, player)
+            or state.has(ItemName.gf_lvl, player) or state.has(ItemName.aet_lvl, player)
             or state.has(ItemName.bbb_lvl, player)
     )
 
@@ -303,8 +303,7 @@ def can_unlock_catwoman(state: CollectionState, player: int):
 def can_unlock_penguin(state: CollectionState, player: int):
     return (
             state.has(ItemName.rtd_lvl, player) or state.has(ItemName.sts_lvl, player)
-            or state.has(ItemName.hag_lvl, player) or state.has(ItemName.adr_lvl, player)
-            or state.has(ItemName.aw_lvl, player)
+            or state.has(ItemName.adr_lvl, player) or state.has(ItemName.aw_lvl, player)
     )
 
 
@@ -314,9 +313,8 @@ def can_unlock_harley(state: CollectionState, player: int):
 
 def can_unlock_joker(state: CollectionState, player: int):
     return (
-            state.has(ItemName.asftc_lvl, player) or state.has(ItemName.bbpl_lvl, player)
-            or state.has(ItemName.tjm_lvl, player) or state.has(ItemName.tlotn_lvl, player)
-            or state.has(ItemName.dol_lvl, player)
+            state.has(ItemName.asftc_lvl, player) or state.has(ItemName.tjm_lvl, player)
+            or state.has(ItemName.tlotn_lvl, player) or state.has(ItemName.dol_lvl, player)
     )
 
 
