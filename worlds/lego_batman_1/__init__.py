@@ -203,7 +203,7 @@ class LB1World(World):
         while hero_levels_pushed < self.options.starting_hero_level_count.value:
             starting_hero = self.random.choice(self.options.starting_hero_level_options.value)
             self.options.starting_hero_level_options.value.remove(starting_hero)
-            starting_hero += ": Level Unlocked"
+            starting_hero = "Level Unlocked (" + starting_hero + ")"
             self.multiworld.push_precollected(self.create_item(starting_hero))
             hero_levels_pushed += 1
 
@@ -211,7 +211,7 @@ class LB1World(World):
         while villain_levels_pushed < self.options.starting_villain_level_count.value:
             starting_villain = self.random.choice(self.options.starting_villain_level_options.value)
             self.options.starting_villain_level_options.value.remove(starting_villain)
-            starting_villain += ": Level Unlocked"
+            starting_villain = "Level Unlocked (" + starting_villain + ")"
             self.multiworld.push_precollected(self.create_item(starting_villain))
             villain_levels_pushed += 1
 
