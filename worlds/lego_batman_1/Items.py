@@ -19,8 +19,8 @@ class LB1ItemData:
 
 
 character_item_table: Dict[str, LB1ItemData] = {
-    ItemName.batman_unlocked: LB1ItemData(base_item_id + 0, ItemClassification.progression, "Character"),
-    ItemName.robin_unlocked: LB1ItemData(base_item_id + 1, ItemClassification.progression, "Character"),
+    # ItemName.batman_unlocked: LB1ItemData(base_item_id + 0, ItemClassification.progression, "Character"),
+    # ItemName.robin_unlocked: LB1ItemData(base_item_id + 1, ItemClassification.progression, "Character"),
     ItemName.brucewayne_unlocked: LB1ItemData(base_item_id + 2, ItemClassification.filler, "Character"),
     ItemName.alfred_unlocked: LB1ItemData(base_item_id + 3, ItemClassification.filler, "Character"),
     ItemName.batgirl_unlocked: LB1ItemData(base_item_id + 4, ItemClassification.progression, "Character"),

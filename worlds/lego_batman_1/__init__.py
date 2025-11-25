@@ -130,8 +130,8 @@ class LB1World(World):
         self.choose_starting_levels()
         # self.multiworld.push_precollected(self.create_item(ItemName.ycbob_lvl))
         # self.multiworld.push_precollected(self.create_item(ItemName.trmaw_lvl))
-        self.multiworld.push_precollected(self.create_item(ItemName.batman_unlocked))
-        self.multiworld.push_precollected(self.create_item(ItemName.robin_unlocked))
+        # self.multiworld.push_precollected(self.create_item(ItemName.batman_unlocked))
+        # self.multiworld.push_precollected(self.create_item(ItemName.robin_unlocked))
 
     def validate_yaml(self):
         if self.options.EndGoal.value == 0 and self.options.minikit_sanity.value == 0:
@@ -249,5 +249,6 @@ class LB1World(World):
                     if self.options.decouple_character_tokens.value == 1:
                         self.seed_item_table[name] = data
                 case "Hard Token":
-                    if self.options.decouple_hush_and_ras_token == 1:
+                    if (self.options.decouple_hush_and_ras_token == 1
+                            and self.options.decouple_character_tokens.value == 1):
                         self.seed_item_table[name] = data
