@@ -284,7 +284,6 @@ class LB1Options(PerGameCommonOptions):
     minikits_to_win: MinikitsToWin
     levels_to_win: LevelsToWin
     true_status_sanity: TrueStatusSanity
-    decouple_character_tokens: DecoupleCharacterTokens
     freeplay_or_story: FreeplayOrStoryUnlocked
     starting_hero_level_count: StartingHeroLevelCount
     starting_hero_level_options: StartingHeroLevelOptions
@@ -293,6 +292,7 @@ class LB1Options(PerGameCommonOptions):
     shop_purchases_required_multiplier: ShopPurchasesRequireMultiplier
     low_multiplier_minimum: LowMultiplierPriceMinimum
     high_multiplier_minimum: HighMultiplierMinimum
+    decouple_character_tokens: DecoupleCharacterTokens
     shuffle_hush_and_ras: ShuffleHushAndRas
     decouple_hush_and_ras_token: DecoupleShuffleHushAndRasToken
     hush_purchase_requirements: HushPurchaseRequirements

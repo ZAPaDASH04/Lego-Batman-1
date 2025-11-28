@@ -142,6 +142,10 @@ class LB1World(World):
             raise OptionError("You want to start with more hero levels than are in the starting pool")
         if self.options.starting_villain_level_count.value > len(self.options.starting_villain_level_options.value):
             raise OptionError("You want to start with more villain levels than are in the starting pool")
+        if self.options.shuffle_hush_and_ras.value == 1 and self.options.minikit_sanity.value == 0:
+            raise OptionError("Shuffling Hush & Ras requires Minikit Sanity to be enabled.")
+        if self.options.decouple_hush_and_ras_token.value == 1 and self.options.minikit_sanity.value == 0:
+            raise OptionError("Shuffling Hush & Ras Token requires Minikit Sanity to be enabled.")
 
     def create_regions(self):
         self.seed_location_table = setup_locations(self.options)
@@ -249,6 +253,5 @@ class LB1World(World):
                     if self.options.decouple_character_tokens.value == 1:
                         self.seed_item_table[name] = data
                 case "Hard Token":
-                    if (self.options.decouple_hush_and_ras_token == 1
-                            and self.options.decouple_character_tokens.value == 1):
+                    if self.options.decouple_hush_and_ras_token == 1:
                         self.seed_item_table[name] = data

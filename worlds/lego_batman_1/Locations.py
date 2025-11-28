@@ -663,8 +663,6 @@ character_token_table: Dict[str, LocationData] = {
     LocationName.jokergoon_collected: LocationData(base_location_id + 591, RegionName.jht),
     LocationName.jokerhenchman_collected: LocationData(base_location_id + 592, RegionName.jht),
     LocationName.clowngoon_collected: LocationData(base_location_id + 593, RegionName.lfabt),
-    LocationName.hush_collected: LocationData(base_location_id + 594, RegionName.tjm),
-    LocationName.rasalghul_collected: LocationData(base_location_id + 595, RegionName.tjm),
     # LocationName.hero1_collected: LocationData(base_location_id + 596, RegionName.tjm),
     # LocationName.hero2_collected: LocationData(base_location_id + 597, RegionName.tjm),
     # LocationName.batmobile_collected: LocationData(base_location_id + 598, RegionName.tfc),
@@ -699,6 +697,11 @@ character_token_table: Dict[str, LocationData] = {
     LocationName.goonhelicopter_collected: LocationData(base_location_id + 627, RegionName.bbpl),
     LocationName.riddlerjet_collected: LocationData(base_location_id + 628, RegionName.bb),
     LocationName.glider_collected: LocationData(base_location_id + 629, RegionName.jht),
+}
+
+hard_character_token_table: Dict[str, LocationData] = {
+    LocationName.hush_collected: LocationData(base_location_id + 594, RegionName.tjm),
+    LocationName.rasalghul_collected: LocationData(base_location_id + 595, RegionName.tjm),
 }
 
 event_location_table = {
@@ -745,6 +748,7 @@ all_location_table = {
     **red_brick_location_table,
     **red_brick_purchase_table,
     **character_token_table,
+    **hard_character_token_table,
 }
 
 purchase_location_table = {
@@ -770,4 +774,6 @@ def setup_locations(options: LB1Options):
     temp_location_table.update({**red_brick_purchase_table})
     if options.decouple_character_tokens == 1:
         temp_location_table.update({**character_token_table})
+    if options.decouple_hush_and_ras_token == 1:
+        temp_location_table.update({**hard_character_token_table})
     return temp_location_table
