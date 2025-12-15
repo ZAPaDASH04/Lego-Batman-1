@@ -1395,7 +1395,7 @@ def free_access_tttot(state: CollectionState, player: int):
 
 def free_access_trmaw(state: CollectionState, player: int):
     return (
-            char_can_explode(state, player)
+            char_can_hypno(state, player)
             and char_is_strong(state, player)
     )
 
