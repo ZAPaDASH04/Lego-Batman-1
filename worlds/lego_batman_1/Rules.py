@@ -1171,7 +1171,7 @@ def can_beat_utc(state: CollectionState, options: LB1Options, player: int):
     else:
         return (
                 char_can_glide(state, player)
-                and state.has(ItemName.magsuit, player)
+                # and state.has(ItemName.magsuit, player)
                 and char_can_sink(state, player)
                 and char_can_explode(state, player)
         )
