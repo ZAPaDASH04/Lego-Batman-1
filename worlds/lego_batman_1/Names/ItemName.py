@@ -142,14 +142,14 @@ riddlerjet_unlocked = "Playable Character (Riddler's jet)"
 glider_unlocked = "Playable Character (Mad Hatter's Glider)"
 
 # Suit Definitions
-heatprotectsuit = "Playable Suit (Heat Protection)"
-glidesuit = "Playable Suit (Glide)"
-demolitionsuit = "Playable Suit (Demolition)"
-sonicsuit = "Playable Suit (Sonic)"
-watersuit = "Playable Suit (Water)"
-techsuit = "Playable Suit (Technology)"
-magsuit = "Playable Suit (Magnet)"
-attractsuit = "Playable Suit (Attract)"
+heatprotectsuit = "Wearable Suit (Heat Protection)"
+glidesuit = "Wearable Suit (Glide)"
+demolitionsuit = "Wearable Suit (Demolition)"
+sonicsuit = "Wearable Suit (Sonic)"
+watersuit = "Wearable Suit (Water)"
+techsuit = "Wearable Suit (Technology)"
+magsuit = "Wearable Suit (Magnet)"
+attractsuit = "Wearable Suit (Attract)"
 
 # Minikit Definitions
 ycbob_min1 = "You can Bank on Batman: Minikit 1"
