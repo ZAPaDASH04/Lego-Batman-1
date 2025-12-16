@@ -2129,9 +2129,15 @@ def can_zc_min3(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_zc(state, options, player)
                 and state.has(ItemName.attractsuit, player)
+                and (char_can_access_female_room(state, player)
+                     or (char_can_cross_toxic(state, player) and char_can_explode(state, player)))
         )
     else:
-        return state.has(ItemName.attractsuit, player)
+        return (
+                state.has(ItemName.attractsuit, player)
+                and (char_can_access_female_room(state, player)
+                     or (char_can_cross_toxic(state, player) and char_can_explode(state, player)))
+        )
 
 
 def can_zc_min4(state: CollectionState, options: LB1Options, player: int):
