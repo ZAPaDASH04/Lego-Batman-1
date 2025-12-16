@@ -4497,7 +4497,7 @@ def set_token_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.hush_collected, player),
              lambda state: state.has("UNIQUE_HOSTAGES", player, options.hush_purchase_requirements.value))
     set_rule(world.get_location(LocationName.rasalghul_collected, player),
-             lambda state: state.has("UNIQUE_MINIKITS", player, options.hush_purchase_requirements.value))
+             lambda state: state.has("UNIQUE_MINIKITS", player, options.ras_purchase_requirements.value))
     # All villain levels can be completed in story - no additional logic needed besides region
 
 
