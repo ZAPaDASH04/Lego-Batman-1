@@ -2075,7 +2075,7 @@ def can_utc_min8(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return can_beat_utc(state, options, player)
     else:
-        return True
+        return state.has(ItemName.magsuit, player)
 
 
 def can_utc_min9(state: CollectionState, options: LB1Options, player: int):
@@ -3011,6 +3011,7 @@ def can_adr_min5(state: CollectionState, player: int):
     return (
             state.has(ItemName.attractsuit, player)
             and state.has(ItemName.penguin_unlocked, player)
+            and (state.has(ItemName.sonicsuit, player) or char_can_hypno(state, player))
     )
 
 

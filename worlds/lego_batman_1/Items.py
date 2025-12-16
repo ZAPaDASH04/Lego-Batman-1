@@ -59,7 +59,7 @@ character_item_table: Dict[str, LB1ItemData] = {
     ItemName.riddlerhenchman_unlocked: LB1ItemData(base_item_id + 37, ItemClassification.filler, "Character"),
     ItemName.penguingoon_unlocked: LB1ItemData(base_item_id + 38, ItemClassification.filler, "Character"),
     ItemName.penguinhenchman_unlocked: LB1ItemData(base_item_id + 39, ItemClassification.filler, "Character"),
-    ItemName.penguinminion_unlocked: LB1ItemData(base_item_id + 40, ItemClassification.filler, "Character"),
+    ItemName.penguinminion_unlocked: LB1ItemData(base_item_id + 40, ItemClassification.useful, "Character"),
     ItemName.jokergoon_unlocked: LB1ItemData(base_item_id + 41, ItemClassification.progression, "Character"),
     ItemName.jokerhenchman_unlocked: LB1ItemData(base_item_id + 42, ItemClassification.filler, "Character"),
     ItemName.clowngoon_unlocked: LB1ItemData(base_item_id + 43, ItemClassification.filler, "Character"),
