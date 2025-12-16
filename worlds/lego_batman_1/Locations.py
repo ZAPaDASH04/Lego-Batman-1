@@ -700,8 +700,8 @@ character_token_table: Dict[str, LocationData] = {
 }
 
 hard_character_token_table: Dict[str, LocationData] = {
-    LocationName.hush_collected: LocationData(base_location_id + 594, RegionName.tjm),
-    LocationName.rasalghul_collected: LocationData(base_location_id + 595, RegionName.tjm),
+    LocationName.hush_collected: LocationData(base_location_id + 594, RegionName.bc),
+    LocationName.rasalghul_collected: LocationData(base_location_id + 595, RegionName.bc),
 }
 
 event_location_table = {
