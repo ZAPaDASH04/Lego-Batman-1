@@ -3146,7 +3146,7 @@ def can_tjm_min3(state: CollectionState, player: int):
 
 
 def can_tjm_min4(state: CollectionState, player: int):
-    return char_can_double_jump(state, player)
+    return True
 
 
 def can_tjm_min5(state: CollectionState, player: int):
