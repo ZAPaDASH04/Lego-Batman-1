@@ -1029,7 +1029,7 @@ def can_unlock_sonic_suit(state: CollectionState, options: LB1Options, player: i
                 state.has(ItemName.sonicsuit, player)
                 and ((state.has(ItemName.apa_lvl, player))
                      or (state.has(ItemName.zc_lvl, player)
-                         and (state.has(ItemName.magsuit, player) and state.has(ItemName.glidesuit, player))
+                         and (state.has(ItemName.magsuit, player) and char_can_glide(state, player))
                          or char_can_explode(state, player))
                      or (state.has(ItemName.lfabt_lvl, player) and char_can_explode(state, player)))
         )
