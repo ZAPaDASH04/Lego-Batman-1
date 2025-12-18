@@ -285,7 +285,7 @@ def can_complete_all_hero_episode(state: CollectionState, options: LB1Options, p
 
 
 def can_unlock_two_face(state: CollectionState, player: int):
-    return state.has(ItemName.aet_lvl, player) or state.has(ItemName.bbb_lvl, player)
+    return state.has(ItemName.aet_lvl, player) or state.has(ItemName.bb_lvl, player)
 
 
 def can_unlock_riddler(state: CollectionState, player: int):
@@ -1016,23 +1016,36 @@ def can_unlock_mag_suit(state: CollectionState, options: LB1Options, player: int
 
 
 def can_unlock_sonic_suit(state: CollectionState, options: LB1Options, player: int):
+    has_suit = state.has(ItemName.sonicsuit, player)
+    apa_path = state.has(ItemName.apa_lvl, player)
+
     if options.freeplay_or_story == 0:
-        return (
-                state.has(ItemName.sonicsuit, player)
-                and ((state.has(ItemName.apa_lvl, player))
-                     or (state.has(ItemName.zc_lvl, player) and state.has(ItemName.magsuit, player)
-                         and state.has(ItemName.glidesuit, player))
-                     or (state.has(ItemName.lfabt_lvl, player) and state.has(ItemName.demolitionsuit, player)))
+
+        zc_path = (
+            state.has(ItemName.zc_lvl, player)
+            and state.has(ItemName.magsuit, player)
+            and state.has(ItemName.glidesuit, player)
+            and state.has(ItemName.techsuit, player)
         )
+        lfabt_path = (
+            state.has(ItemName.lfabt_lvl, player)
+            and state.has(ItemName.demolitionsuit, player)
+        )
+        return has_suit and (apa_path or zc_path or lfabt_path)
+
     else:
-        return (
-                state.has(ItemName.sonicsuit, player)
-                and ((state.has(ItemName.apa_lvl, player))
-                     or (state.has(ItemName.zc_lvl, player)
-                         and (state.has(ItemName.magsuit, player) and char_can_glide(state, player))
-                         or char_can_explode(state, player))
-                     or (state.has(ItemName.lfabt_lvl, player) and char_can_explode(state, player)))
+        zc_path = (
+            state.has(ItemName.zc_lvl, player)
+            and (
+                (state.has(ItemName.magsuit, player) and char_can_glide(state, player))
+                or char_can_explode(state, player)
+            )
         )
+        lfabt_path = (
+            state.has(ItemName.lfabt_lvl, player)
+            and char_can_explode(state, player)
+        )
+        return has_suit and (apa_path or zc_path or lfabt_path)
 
 
 def can_unlock_water_suit(state: CollectionState, options: LB1Options, player: int):
