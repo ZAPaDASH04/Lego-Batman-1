@@ -1718,6 +1718,7 @@ def can_apa_min4(state: CollectionState, options: LB1Options, player: int):
         return (
                 char_is_strong(state, player)
                 and char_can_double_jump(state, player)
+                and state.has(ItemName.sonicsuit, player)
         )
 
 
