@@ -410,7 +410,7 @@ minikit_location_table: Dict[str, LocationData] = {
     # Biplane Blast
     LocationName.bbpl_min1: LocationData(base_location_id + 360, RegionName.bbplf),
     LocationName.bbpl_min2: LocationData(base_location_id + 361, RegionName.bbpl),
-    LocationName.bbpl_min3: LocationData(base_location_id + 362, RegionName.bbplf),
+    LocationName.bbpl_min3: LocationData(base_location_id + 362, RegionName.bbpl),
     LocationName.bbpl_min4: LocationData(base_location_id + 363, RegionName.bbpl),
     LocationName.bbpl_min5: LocationData(base_location_id + 364, RegionName.bbpl),
     LocationName.bbpl_min6: LocationData(base_location_id + 365, RegionName.bbpl),

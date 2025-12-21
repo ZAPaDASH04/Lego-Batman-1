@@ -1470,6 +1470,7 @@ def free_access_bbpl(state: CollectionState, player: int):
     return (
             air_has_cable(state, player)
             and state.has(ItemName.batwing_unlocked, player)
+            and state.has(ItemName.scarecrowbiplane_unlocked, player)
     )
 
 
@@ -3159,6 +3160,10 @@ def can_asftc_min9(state: CollectionState, player: int):
     )
 
 
+def can_bbpl_min3(state: CollectionState, player: int):
+    return state.has(ItemName.batwing_unlocked, player)
+
+
 def can_tjm_min3(state: CollectionState, player: int):
     return char_can_double_jump(state, player)
 
@@ -4152,7 +4157,8 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.asftc_min7, player), lambda state: can_asftc_min7(state, player))
     set_rule(world.get_location(LocationName.asftc_min8, player), lambda state: can_asftc_min8(state, player))
     set_rule(world.get_location(LocationName.asftc_min9, player), lambda state: can_asftc_min9(state, player))
-    # BBPL Minikits can be done in story or with freeplay region access
+    # BBPL Minikits can be done in story or with freeplay region access except min 3
+    set_rule(world.get_location(LocationName.bbpl_min3, player), lambda state: can_bbpl_min3(state, player))
     # TJM Minikits 1, 2, and 10 can be done in story
     set_rule(world.get_location(LocationName.tjm_min3, player), lambda state: can_tjm_min3(state, player))
     set_rule(world.get_location(LocationName.tjm_min4, player), lambda state: can_tjm_min4(state, player))
