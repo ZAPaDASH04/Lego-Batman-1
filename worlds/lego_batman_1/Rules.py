@@ -1165,11 +1165,15 @@ def can_beat_tsga(state: CollectionState, options: LB1Options, player: int):
         return (
                 state.has(ItemName.demolitionsuit, player)
                 and state.has(ItemName.techsuit, player)
+                and state.has(ItemName.magsuit, player)
+                and state.has(ItemName.glidesuit, player)
         )
     else:
         return (
                 char_can_explode(state, player)
                 and char_can_techno(state, player)
+                and state.has(ItemName.magsuit, player)
+                and state.has(ItemName.glidesuit, player)
         )
 
 

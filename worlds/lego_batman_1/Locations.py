@@ -487,7 +487,7 @@ level_beaten_location_table: Dict[str, LocationData] = {
     LocationName.tfc_beat: LocationData(base_location_id + 427, RegionName.tfc),
     LocationName.apa_beat: LocationData(base_location_id + 428, RegionName.apa),
     LocationName.tfo_beat: LocationData(base_location_id + 429, RegionName.tfo),
-    LocationName.tsga_beat: LocationData(base_location_id + 430, RegionName.tsgaf),
+    LocationName.tsga_beat: LocationData(base_location_id + 430, RegionName.tsga),
     LocationName.bbb_beat: LocationData(base_location_id + 431, RegionName.bbb),
     LocationName.utc_beat: LocationData(base_location_id + 432, RegionName.utc),
     LocationName.zc_beat: LocationData(base_location_id + 433, RegionName.zc),
