@@ -3557,7 +3557,7 @@ def can_tttot_rb(state: CollectionState, options: LB1Options, player: int):
 def can_trmaw_rb(state: CollectionState, player: int):
     return (
             char_can_double_jump(state, player)
-            and state.has(ItemName.sonicsuit, player)
+            and state.has(ItemName.magsuit, player)
     )
 
 
