@@ -3618,7 +3618,7 @@ def can_adr_rb(state: CollectionState, player: int):
 
 
 def can_aw_rb(state: CollectionState, player: int):
-    return char_can_cross_toxic(state, player)
+    return char_can_cross_toxic(state, player) and state.has(ItemName.attractsuit, player)
 
 
 def can_asftc_rb(state: CollectionState, player: int):
