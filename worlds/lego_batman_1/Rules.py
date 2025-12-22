@@ -2644,11 +2644,13 @@ def can_itdn_min10(state: CollectionState, options: LB1Options, player: int):
                 can_beat_itdn(state, options, player)
                 and char_joker(state, player)
                 and state.has(ItemName.sonicsuit, player)
+                and char_can_double_jump(state, player)
         )
     else:
         return (
                 char_joker(state, player)
                 and state.has(ItemName.sonicsuit, player)
+                and char_can_double_jump(state, player)
         )
 
 
