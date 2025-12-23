@@ -2267,6 +2267,19 @@ def can_pl_min3(state: CollectionState, options: LB1Options, player: int):
         )
 
 
+def can_pl_min5(state: CollectionState, options: LB1Options, player: int):
+    if options.freeplay_or_story == 0:
+        return (
+                state.has(ItemName.glidesuit, player)
+                and state.has(ItemName.watersuit, player)
+        )
+    else:
+        return (
+                state.has(ItemName.glidesuit, player)
+                and char_can_sink(state, player)
+        )
+
+
 def can_pl_min7(state: CollectionState, player: int):
     return char_can_double_jump(state, player)
 
@@ -4029,6 +4042,7 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.pl_min1, player), lambda state: can_pl_min1(state, options, player))
     set_rule(world.get_location(LocationName.pl_min2, player), lambda state: can_pl_min2(state, options, player))
     set_rule(world.get_location(LocationName.pl_min3, player), lambda state: can_pl_min3(state, options, player))
+    set_rule(world.get_location(LocationName.pl_min5, player), lambda state: can_pl_min5(state, options, player))
     set_rule(world.get_location(LocationName.pl_min7, player), lambda state: can_pl_min7(state, player))
     set_rule(world.get_location(LocationName.pl_min8, player), lambda state: can_pl_min8(state, player))
     set_rule(world.get_location(LocationName.pl_min10, player), lambda state: can_pl_min10(state, player))

@@ -225,7 +225,7 @@ minikit_location_table: Dict[str, LocationData] = {
     LocationName.pl_min2: LocationData(base_location_id + 191, RegionName.pl),
     LocationName.pl_min3: LocationData(base_location_id + 192, RegionName.pl),
     LocationName.pl_min4: LocationData(base_location_id + 193, RegionName.plf),
-    LocationName.pl_min5: LocationData(base_location_id + 194, RegionName.plf),
+    LocationName.pl_min5: LocationData(base_location_id + 194, RegionName.pl),
     LocationName.pl_min6: LocationData(base_location_id + 195, RegionName.plf),
     LocationName.pl_min7: LocationData(base_location_id + 196, RegionName.plf),
     LocationName.pl_min8: LocationData(base_location_id + 197, RegionName.plf),
