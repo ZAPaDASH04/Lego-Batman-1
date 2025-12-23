@@ -4161,7 +4161,7 @@ def set_minikit_rules(world: MultiWorld, options: LB1Options, player: int):
     set_rule(world.get_location(LocationName.aw_min4, player), lambda state: can_aw_min4(state, player))
     set_rule(world.get_location(LocationName.aw_min5, player), lambda state: can_aw_min5(state, player))
     set_rule(world.get_location(LocationName.aw_min6, player), lambda state: can_aw_min6(state, player))
-    set_rule(world.get_location(LocationName.aw_min8, player), lambda state: can_aw_min8(state, player))
+    # set_rule(world.get_location(LocationName.aw_min8, player), lambda state: can_aw_min8(state, player))
     set_rule(world.get_location(LocationName.aw_min9, player), lambda state: can_aw_min9(state, player))
     set_rule(world.get_location(LocationName.aw_min10, player), lambda state: can_aw_min10(state, player))
     # ASFTC Minikit 6 and 10 can be done in story
