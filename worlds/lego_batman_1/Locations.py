@@ -108,7 +108,7 @@ hard_character_location_table: Dict[str, LocationData] = {
 # Currently stored in Batcave because it is sounding like they can be unlocked in multiple levels
 suit_location_table: Dict[str, LocationData] = {
     # LocationName.batsuit_collected: LocationData(base_location_id + 80, RegionName.bc),
-    LocationName.heatprotectsuit: LocationData(base_location_id + 81, RegionName.bc),
+    LocationName.heatprotectsuit: LocationData(base_location_id + 81, RegionName.apa),
     LocationName.glidesuit: LocationData(base_location_id + 82, RegionName.bc),
     LocationName.demosuit: LocationData(base_location_id + 83, RegionName.bc),
     LocationName.sonicsuit: LocationData(base_location_id + 84, RegionName.bc),
