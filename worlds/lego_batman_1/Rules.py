@@ -1394,9 +1394,9 @@ def free_access_pl(state: CollectionState, options: LB1Options, player: int):
 
 def free_access_lfabt(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
-        return state.has(ItemName.demolitionsuit, player)
+        return state.has(ItemName.demolitionsuit, player) and state.has(ItemName.sonicsuit, player)
     else:
-        return char_can_explode(state, player)
+        return char_can_explode(state, player) and state.has(ItemName.sonicsuit, player)
 
 
 def free_access_itdn(state: CollectionState, options: LB1Options, player: int):
@@ -2457,12 +2457,9 @@ def can_lfabt_min4(state: CollectionState, options: LB1Options, player: int):
 
 def can_lfabt_min5(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
-        return state.has(ItemName.sonicsuit, player)
+        return True
     else:
-        return (
-                char_can_explode(state, player)
-                and state.has(ItemName.sonicsuit, player)
-        )
+        return char_can_explode(state, player)
 
 
 def can_lfabt_min6(state: CollectionState, options: LB1Options, player: int):
@@ -2474,7 +2471,6 @@ def can_lfabt_min6(state: CollectionState, options: LB1Options, player: int):
     else:
         return (
                 char_joker(state, player)
-                and state.has(ItemName.sonicsuit, player)
                 and state.has(ItemName.magsuit, player)
         )
 
