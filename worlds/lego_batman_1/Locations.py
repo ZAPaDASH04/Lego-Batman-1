@@ -548,7 +548,7 @@ true_status_location_table: Dict[str, LocationData] = {
 }
 
 red_brick_location_table: Dict[str, LocationData] = {
-    LocationName.ycbob_rb: LocationData(base_location_id + 485, RegionName.ycbobf),
+    LocationName.ycbob_rb: LocationData(base_location_id + 485, RegionName.ycbob),
     LocationName.air_rb: LocationData(base_location_id + 486, RegionName.airf),
     LocationName.tfc_rb: LocationData(base_location_id + 487, RegionName.tfc),
     LocationName.apa_rb: LocationData(base_location_id + 488, RegionName.apaf),

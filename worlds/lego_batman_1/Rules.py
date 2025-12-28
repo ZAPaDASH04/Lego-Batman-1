@@ -3434,9 +3434,9 @@ def can_dol_host(state: CollectionState, player: int):
 
 def can_ycbob_rb(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
-        return state.has(ItemName.techsuit, player)
+        return state.has(ItemName.techsuit, player) and state.has(ItemName.demolitionsuit, player)
     else:
-        return char_can_techno(state, player)
+        return char_can_techno(state, player) and char_can_explode(state, player)
 
 
 def can_air_rb(state: CollectionState, options: LB1Options, player: int):
