@@ -1422,7 +1422,7 @@ def free_access_otr(state: CollectionState, player: int):
 
 
 def free_access_gf(state: CollectionState, player: int):
-    return char_can_hypno(state, player)
+    return char_can_hypno(state, player) and state.has(ItemName.poisonivy_unlocked, player)
 
 
 def free_access_bb(state: CollectionState, player: int):
