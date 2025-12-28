@@ -2801,10 +2801,7 @@ def can_gf_min2(state: CollectionState, player: int):
 
 
 def can_gf_min4(state: CollectionState, player: int):
-    return (
-            char_can_cross_toxic(state, player)
-            and char_can_explode(state, player)
-    )
+    return char_can_explode(state, player)
 
 
 def can_gf_min5(state: CollectionState, player: int):
@@ -2826,30 +2823,22 @@ def can_gf_min7(state: CollectionState, player: int):
             char_can_explode(state, player)
             and char_is_strong(state, player)
             and state.has(ItemName.magsuit, player)
-            and char_can_cross_toxic(state, player)
     )
 
 
 def can_gf_min8(state: CollectionState, player: int):
-    return (
-            char_can_cross_toxic(state, player)
-            and state.has(ItemName.heatprotectsuit, player)
-    )
+    return state.has(ItemName.heatprotectsuit, player)
 
 
 def can_gf_min9(state: CollectionState, player: int):
     return (
             char_can_sink(state, player)
             and state.has(ItemName.sonicsuit, player)
-            and char_can_cross_toxic(state, player)
     )
 
 
 def can_gf_min10(state: CollectionState, player: int):
-    return (
-            char_can_explode(state, player)
-            and state.has(ItemName.poisonivy_unlocked, player)
-    )
+    return char_can_explode(state, player)
 
 
 def can_aet_min1(state: CollectionState, player: int):
