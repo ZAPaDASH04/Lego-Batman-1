@@ -45,7 +45,7 @@ class LB1World(World):
 
     item_name_groups = {
         "Character": {name: data for name, data in all_item_table.items() if data.type == "Character"},
-        # "Hard Character": item_group_table["hard character"],
+        "Hard Character": {name: data for name, data in all_item_table.items() if data.type == "hard character"},
         "Suit": {name: data for name, data in all_item_table.items() if data.type == "Suit"},
         "Minikit": {name: data for name, data in all_item_table.items() if data.type == "Minikit"},
         "Hostage": {name: data for name, data in all_item_table.items() if data.type == "Hostage"},
@@ -159,6 +159,13 @@ class LB1World(World):
     def create_items(self):
         self.multiworld.itempool += [self.create_item(item_name) for item_name in self.seed_item_table]
 
+        filler = []
+        extra_locations = len(self.seed_location_table) - len(self.seed_item_table)
+        while extra_locations > 0:
+            filler += [self.create_item("Nothing")]
+            extra_locations -= 1
+        self.multiworld.itempool.extend(filler)
+
     def set_rules(self):
         set_rules(self.multiworld, self.options, self.player)
         set_event_rules(self.multiworld, self.player)
@@ -210,6 +217,7 @@ class LB1World(World):
             starting_hero = "Level Unlocked (" + starting_hero + ")"
             self.multiworld.push_precollected(self.create_item(starting_hero))
             hero_levels_pushed += 1
+            del self.seed_item_table[starting_hero]
 
         villain_levels_pushed: int = 0
         while villain_levels_pushed < self.options.starting_villain_level_count.value:
@@ -218,6 +226,7 @@ class LB1World(World):
             starting_villain = "Level Unlocked (" + starting_villain + ")"
             self.multiworld.push_precollected(self.create_item(starting_villain))
             villain_levels_pushed += 1
+            del self.seed_item_table[starting_villain]
 
     def create_item_table(self):
         self.seed_item_table = {}

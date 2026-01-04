@@ -133,6 +133,10 @@ suit_item_table: Dict[str, LB1ItemData] = {
     ItemName.attractsuit: LB1ItemData(base_item_id + 89, ItemClassification.progression, "Suit"),
 }
 
+filler_item_table: Dict[str, LB1ItemData] = {
+    "Nothing": LB1ItemData(base_item_id + 90, ItemClassification.filler, "Nothing"),
+}
+
 minikit_item_table: Dict[str, LB1ItemData] = {
     ItemName.ycbob_min1: LB1ItemData(base_item_id + 100),
     ItemName.ycbob_min2: LB1ItemData(base_item_id + 101),
@@ -724,6 +728,7 @@ all_item_table = {
     **red_brick_item_table,
     **red_brick_unlocked_table,
     **character_token_received_table,
+    **filler_item_table,
 }
 
 minikit_names_set = set(minikit_item_table.keys())
