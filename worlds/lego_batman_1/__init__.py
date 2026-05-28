@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Any
 
 from BaseClasses import Item, Tutorial, ItemClassification
 from Options import OptionError
@@ -45,7 +45,7 @@ class LB1World(World):
 
     item_name_groups = {
         "Character": {name: data for name, data in all_item_table.items() if data.type == "Character"},
-        "Hard Character": {name: data for name, data in all_item_table.items() if data.type == "hard character"},
+        # "Hard Character": {name: data for name, data in all_item_table.items() if data.type == "hard character"},
         # "Suit": {name: data for name, data in all_item_table.items() if data.type == "Suit"},
         "Minikit": {name: data for name, data in all_item_table.items() if data.type == "Minikit"},
         "Hostage": {name: data for name, data in all_item_table.items() if data.type == "Hostage"},
@@ -124,6 +124,13 @@ class LB1World(World):
         RegionName.aa: {name for name, data in all_location_table.items() if data.region == RegionName.aa},
     }
 
+    # Universal Tracker
+    @staticmethod
+    def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
+        return slot_data
+
+    ut_can_gen_without_yaml = True
+
     def generate_early(self):
         self.validate_yaml()
         self.create_item_table()
@@ -132,6 +139,25 @@ class LB1World(World):
         # self.multiworld.push_precollected(self.create_item(ItemName.trmaw_lvl))
         # self.multiworld.push_precollected(self.create_item(ItemName.batman_unlocked))
         # self.multiworld.push_precollected(self.create_item(ItemName.robin_unlocked))
+
+        if hasattr(self.multiworld, "generation_is_fake"):
+            if hasattr(self.multiworld, "re_gen_passthrough"):
+                if "Lego Batman The Video Game" in self.multiworld.re_gen_passthrough:
+                    slot_data = self.multiworld.re_gen_passthrough["Lego Batman The Video Game"]
+                    self.options.EndGoal.value = slot_data["EndGoal"]
+                    self.options.minikit_sanity.value = slot_data["MinikitSanity"]
+                    self.options.minikits_to_win.value = slot_data["MinikitsToWin"]
+                    self.options.levels_to_win.value = slot_data["LevelsToWin"]
+                    self.options.true_status_sanity.value = slot_data["TrueStatusSanity"]
+                    self.options.freeplay_or_story.value = slot_data["FreeplayOrStory"]
+                    self.options.decouple_character_tokens.value = slot_data["DecoupledTokens"]
+                    self.options.shuffle_hush_and_ras.value = slot_data["ShuffleHushAndRas"]
+                    self.options.decouple_hush_and_ras_token.value = slot_data["DecoupleShuffleHushAndRasToken"]
+                    self.options.hush_purchase_requirements.value = slot_data["HushUnlockCondition"]
+                    self.options.ras_purchase_requirements.value = slot_data["RasUnlockCondition"]
+                    self.options.shop_purchases_required_multiplier.value = slot_data["ShopPurchasesRequireMultiplier"]
+                    self.options.low_multiplier_minimum.value = slot_data["LowMultiplierPriceMinimum"]
+                    self.options.high_multiplier_minimum.value = slot_data["HighMultiplierMinimum"]
 
     def validate_yaml(self):
         if self.options.EndGoal.value == 0 and self.options.minikit_sanity.value == 0:
@@ -207,6 +233,9 @@ class LB1World(World):
             "DecoupleShuffleHushAndRasToken": self.options.decouple_hush_and_ras_token.value,
             "HushUnlockCondition": self.options.hush_purchase_requirements.value,
             "RasUnlockCondition": self.options.ras_purchase_requirements.value,
+            "ShopPurchasesRequireMultiplier": self.options.shop_purchases_required_multiplier.value,
+            "LowMultiplierPriceMinimum": self.options.low_multiplier_minimum.value,
+            "HighMultiplierMinimum": self.options.high_multiplier_minimum.value,
         }
 
     def choose_starting_levels(self):
