@@ -9,6 +9,9 @@ from .Names import LocationName, ItemName, RegionName
 from .Options import LB1Options, EndGoal
 
 
+# With suits getting pushed back to 0.4, I know this is messy, cause a lot got changed to True instead of evaluating
+# the suit, but I will clean it up in 0.4 when we switch to rule builder
+
 def char_can_cross_toxic(state: CollectionState, player: int):
     return (
             state.has(ItemName.mrfreeze_unlocked, player)
@@ -68,7 +71,7 @@ def char_is_strong(state: CollectionState, player: int):
 
 def char_can_glide(state: CollectionState, player: int):
     return (
-            state.has(ItemName.glidesuit, player)
+            True
             or state.has(ItemName.manbat_unlocked, player)
             or state.has(ItemName.penguin_unlocked, player)
             or state.has(ItemName.killermoth_unlocked, player)
@@ -84,21 +87,21 @@ def char_can_long_jump(state: CollectionState, player: int):
 
 def char_can_sink(state: CollectionState, player: int):
     return (
-            state.has(ItemName.watersuit, player)
+            True
             or state.has(ItemName.killercroc_unlocked, player)
     )
 
 
 def char_can_explode(state: CollectionState, player: int):
     return (
-            state.has(ItemName.demolitionsuit, player)
+            True
             or state.has(ItemName.penguin_unlocked, player)
     )
 
 
 def char_can_techno(state: CollectionState, player: int):
     return (
-            state.has(ItemName.techsuit, player)
+            True
             or state.has(ItemName.scientist_unlocked, player)
     )
 
@@ -1040,23 +1043,23 @@ def can_unlock_heat_suit(state: CollectionState, player: int):
 
 def can_unlock_glide_suit(state: CollectionState, options: LB1Options, player: int):
     return (
-            state.has(ItemName.glidesuit, player)
+            True
             and ((state.has(ItemName.air_lvl, player) and can_beat_air(state, options, player))
                  or state.has(ItemName.tfo_lvl, player)
-                 or (state.has(ItemName.tsga_lvl, player) and state.has(ItemName.magsuit, player))
+                 or (True)
                  or (state.has(ItemName.utc_lvl, player) and can_beat_utc(state, options, player))
                  or state.has(ItemName.pl_lvl, player)
-                 or (state.has(ItemName.jht_lvl, player) and state.has(ItemName.attractsuit, player))
+                 or (True)
                  or (state.has(ItemName.tttot_lvl, player) and can_beat_tttot(state, options, player)))
     )
 
 
 def can_unlock_demo_suit(state: CollectionState, options: LB1Options, player: int):
     return (
-            state.has(ItemName.demolitionsuit, player)
+            True
             and (state.has(ItemName.ycbob_lvl, player)
                  or (state.has(ItemName.tsga_lvl, player) and can_beat_tsga(state, options, player))
-                 or (state.has(ItemName.utc_lvl, player) and state.has(ItemName.magsuit, player))
+                 or (True)
                  or (state.has(ItemName.zc_lvl, player) and can_beat_zc(state, options, player))
                  or state.has(ItemName.lfabt_lvl, player)
                  or state.has(ItemName.itdn_lvl, player)
@@ -1067,21 +1070,21 @@ def can_unlock_demo_suit(state: CollectionState, options: LB1Options, player: in
 def can_unlock_mag_suit(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.magsuit, player)
+                True
                 and (state.has(ItemName.air_lvl, player)
-                     or (state.has(ItemName.tfo_lvl, player) and state.has(ItemName.glidesuit, player))
+                     or (True)
                      or state.has(ItemName.tsga_lvl, player)
                      or state.has(ItemName.utc_lvl, player)
                      or state.has(ItemName.zc_lvl, player)
                      or state.has(ItemName.jht_lvl, player) and can_beat_jht(state, options, player)
-                     or (state.has(ItemName.lfabt_lvl, player) and state.has(ItemName.demolitionsuit, player)
-                         and state.has(ItemName.sonicsuit, player))
+                     or (True
+                         and True)
                      or state.has(ItemName.itdn_lvl, player) and can_beat_itdn(state, options, player)
-                     or state.has(ItemName.tttot_lvl, player) and state.has(ItemName.demolitionsuit, player))
+                     or True)
         )
     else:
         return (
-                state.has(ItemName.magsuit, player)
+                True
                 and (state.has(ItemName.air_lvl, player)
                      or (state.has(ItemName.tfo_lvl, player) and char_can_glide(state, player))
                      or state.has(ItemName.tsga_lvl, player)
@@ -1089,27 +1092,27 @@ def can_unlock_mag_suit(state: CollectionState, options: LB1Options, player: int
                      or state.has(ItemName.zc_lvl, player)
                      or state.has(ItemName.jht_lvl, player) and can_beat_jht(state, options, player)
                      or (state.has(ItemName.lfabt_lvl, player) and char_can_explode(state, player)
-                         and state.has(ItemName.sonicsuit, player))
+                         and True)
                      or state.has(ItemName.itdn_lvl, player) and can_beat_itdn(state, options, player)
                      or state.has(ItemName.tttot_lvl, player) and char_can_explode(state, player))
         )
 
 
 def can_unlock_sonic_suit(state: CollectionState, options: LB1Options, player: int):
-    has_suit = state.has(ItemName.sonicsuit, player)
+    has_suit = True
     apa_path = state.has(ItemName.apa_lvl, player)
 
     if options.freeplay_or_story == 0:
 
         zc_path = (
                 state.has(ItemName.zc_lvl, player)
-                and state.has(ItemName.magsuit, player)
-                and state.has(ItemName.glidesuit, player)
-                and state.has(ItemName.techsuit, player)
+                and True
+                and True
+                and True
         )
         lfabt_path = (
                 state.has(ItemName.lfabt_lvl, player)
-                and state.has(ItemName.demolitionsuit, player)
+                and True
         )
         return has_suit and (apa_path or zc_path or lfabt_path)
 
@@ -1117,7 +1120,7 @@ def can_unlock_sonic_suit(state: CollectionState, options: LB1Options, player: i
         zc_path = (
                 state.has(ItemName.zc_lvl, player)
                 and (
-                        (state.has(ItemName.magsuit, player) and char_can_glide(state, player))
+                        (True and char_can_glide(state, player))
                         or char_can_explode(state, player)
                 )
         )
@@ -1131,16 +1134,16 @@ def can_unlock_sonic_suit(state: CollectionState, options: LB1Options, player: i
 def can_unlock_water_suit(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.watersuit, player)
-                and ((state.has(ItemName.utc_lvl, player) and state.has(ItemName.magsuit, player)
-                      and state.has(ItemName.demolitionsuit, player))
-                     or state.has(ItemName.zc_lvl, player) and state.has(ItemName.glidesuit, player))
+                True
+                and ((True
+                      and True)
+                     or True)
         )
     else:
         return (
-                state.has(ItemName.watersuit, player)
+                True
                 and ((state.has(ItemName.utc_lvl, player)
-                      and (state.has(ItemName.magsuit, player) and state.has(ItemName.demolitionsuit, player))
+                      and (True and True)
                       or char_can_explode(state, player))
                      or state.has(ItemName.zc_lvl, player) and char_can_glide(state, player))
         )
@@ -1149,22 +1152,22 @@ def can_unlock_water_suit(state: CollectionState, options: LB1Options, player: i
 def can_unlock_tech_suit(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.techsuit, player)
-                and (((state.has(ItemName.ycbob_lvl, player) and state.has(ItemName.demolitionsuit, player))
+                True
+                and (((True)
                       or (state.has(ItemName.tsga_lvl, player)
-                          and state.has(ItemName.magsuit, player) and state.has(ItemName.glidesuit, player))
+                          and True and True)
                       or (state.has(ItemName.zc_lvl, player)
-                          and state.has(ItemName.magsuit, player) and state.has(ItemName.glidesuit, player))
-                      or (state.has(ItemName.itdn_lvl, player) and state.has(ItemName.demolitionsuit, player))))
+                          and True and True)
+                      or (True)))
         )
     else:
         return (
-                state.has(ItemName.techsuit, player)
+                True
                 and ((state.has(ItemName.ycbob_lvl, player) and char_can_explode(state, player))
                      or (state.has(ItemName.tsga_lvl, player)
-                         and state.has(ItemName.magsuit, player) and char_can_glide(state, player))
+                         and True and char_can_glide(state, player))
                      or (state.has(ItemName.zc_lvl, player)
-                         and (state.has(ItemName.magsuit, player) and char_can_glide(state, player)
+                         and (True and char_can_glide(state, player)
                               or char_can_explode(state, player))
                          or (state.has(ItemName.itdn_lvl, player) and char_can_explode(state, player))))
         )
@@ -1173,31 +1176,31 @@ def can_unlock_tech_suit(state: CollectionState, options: LB1Options, player: in
 def can_unlock_attract_suit(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.attractsuit, player)
-                and ((state.has(ItemName.apa_lvl, player) and state.has(ItemName.sonicsuit, player))
+                True
+                and ((True)
                      or (state.has(ItemName.tfo_lvl, player)
-                         and state.has(ItemName.magsuit, player) and state.has(ItemName.glidesuit, player))
+                         and True and True)
                      or (state.has(ItemName.jht_lvl, player))
-                     or (state.has(ItemName.lfabt_lvl, player) and state.has(ItemName.demolitionsuit, player)
-                         and state.has(ItemName.magsuit, player) and state.has(ItemName.sonicsuit, player)))
+                     or (True
+                         and True and True))
         )
     else:
         return (
-                state.has(ItemName.attractsuit, player)
-                and ((state.has(ItemName.apa_lvl, player) and state.has(ItemName.sonicsuit, player))
+                True
+                and ((True)
                      or (state.has(ItemName.tfo_lvl, player)
-                         and state.has(ItemName.magsuit, player) and char_can_glide(state, player))
+                         and True and char_can_glide(state, player))
                      or (state.has(ItemName.jht_lvl, player))
                      or (state.has(ItemName.lfabt_lvl, player) and char_can_explode(state, player)
-                         and state.has(ItemName.magsuit, player) and state.has(ItemName.sonicsuit, player)))
+                         and True and True))
         )
 
 
 def can_beat_ycbob(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.demolitionsuit, player)
-                and state.has(ItemName.techsuit, player)
+                True
+                and True
         )
     else:
         return (
@@ -1209,50 +1212,50 @@ def can_beat_ycbob(state: CollectionState, options: LB1Options, player: int):
 def can_beat_air(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.magsuit, player)
-                and state.has(ItemName.glidesuit, player)
+                True
+                and True
         )
     else:
         return (
-                state.has(ItemName.magsuit, player)
+                True
                 and char_can_glide(state, player)
         )
 
 
 def can_beat_apa(state: CollectionState, player: int):
     return (
-            state.has(ItemName.attractsuit, player)
-            and state.has(ItemName.sonicsuit, player)
-            and state.has(ItemName.heatprotectsuit, player)
+            True
+            and True
+            and True
     )
 
 
 def can_beat_tfo(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.magsuit, player)
-                and state.has(ItemName.attractsuit, player)
+                True
+                and True
         )
     else:
         return (
-                state.has(ItemName.magsuit, player)
-                and (state.has(ItemName.attractsuit, player) or char_can_cross_toxic(state, player))
+                True
+                and (True or char_can_cross_toxic(state, player))
         )
 
 
 def can_beat_tsga(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.demolitionsuit, player)
-                and state.has(ItemName.techsuit, player)
-                and state.has(ItemName.magsuit, player)
-                and state.has(ItemName.glidesuit, player)
+                True
+                and True
+                and True
+                and True
         )
     else:
         return (
                 char_can_explode(state, player)
                 and char_can_techno(state, player)
-                and state.has(ItemName.magsuit, player)
+                and True
                 and char_can_glide(state, player)
         )
 
@@ -1260,15 +1263,15 @@ def can_beat_tsga(state: CollectionState, options: LB1Options, player: int):
 def can_beat_utc(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.glidesuit, player)
-                and state.has(ItemName.magsuit, player)
-                and state.has(ItemName.watersuit, player)
-                and state.has(ItemName.demolitionsuit, player)
+                True
+                and True
+                and True
+                and True
         )
     else:
         return (
                 char_can_glide(state, player)
-                # and state.has(ItemName.magsuit, player)
+                # and True
                 and char_can_sink(state, player)
                 and char_can_explode(state, player)
         )
@@ -1277,26 +1280,26 @@ def can_beat_utc(state: CollectionState, options: LB1Options, player: int):
 def can_beat_zc(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.glidesuit, player)
-                and state.has(ItemName.magsuit, player)
-                and state.has(ItemName.techsuit, player)
-                and state.has(ItemName.demolitionsuit, player)
-                and state.has(ItemName.sonicsuit, player)
+                True
+                and True
+                and True
+                and True
+                and True
         )
     else:
         return (
                 char_can_glide(state, player)
-                and state.has(ItemName.magsuit, player)
+                and True
                 and char_can_explode(state, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
         )
 
 
 def can_beat_pl(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.glidesuit, player)
-                and state.has(ItemName.watersuit, player)
+                True
+                and True
         )
     else:
         return (
@@ -1308,44 +1311,44 @@ def can_beat_pl(state: CollectionState, options: LB1Options, player: int):
 def can_beat_jht(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.glidesuit, player)
-                and state.has(ItemName.magsuit, player)
-                and state.has(ItemName.attractsuit, player)
+                True
+                and True
+                and True
         )
     else:
         return (
                 char_can_glide(state, player)
-                and state.has(ItemName.magsuit, player)
-                and state.has(ItemName.attractsuit, player)
+                and True
+                and True
         )
 
 
 def can_beat_lfabt(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.demolitionsuit, player)
-                and state.has(ItemName.magsuit, player)
-                and state.has(ItemName.sonicsuit, player)
-                and state.has(ItemName.attractsuit, player)
+                True
+                and True
+                and True
+                and True
         )
     else:
         return (
                 char_can_explode(state, player)
-                and state.has(ItemName.magsuit, player)
-                and state.has(ItemName.attractsuit, player)
+                and True
+                and True
         )
 
 
 def can_beat_itdn(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.magsuit, player)
-                and state.has(ItemName.demolitionsuit, player)
-                and state.has(ItemName.techsuit, player)
+                True
+                and True
+                and True
         )
     else:
         return (
-                state.has(ItemName.magsuit, player)
+                True
                 and char_can_explode(state, player)
                 and char_can_techno(state, player)
         )
@@ -1354,13 +1357,13 @@ def can_beat_itdn(state: CollectionState, options: LB1Options, player: int):
 def can_beat_tttot(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.magsuit, player)
-                and state.has(ItemName.demolitionsuit, player)
-                and state.has(ItemName.glidesuit, player)
+                True
+                and True
+                and True
         )
     else:
         return (
-                state.has(ItemName.magsuit, player)
+                True
                 and char_can_glide(state, player)
         )
 
@@ -1369,7 +1372,7 @@ def can_beat_tttot(state: CollectionState, options: LB1Options, player: int):
 def level_access_tfo(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.glidesuit, player)
+                True
                 and state.has(ItemName.tfo_lvl, player)
         )
     else:
@@ -1383,14 +1386,14 @@ def level_access_tfo(state: CollectionState, options: LB1Options, player: int):
 def level_access_jht(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.glidesuit, player)
-                and state.has(ItemName.attractsuit, player)
+                True
+                and True
                 and state.has(ItemName.jht_lvl, player)
         )
     else:
         return (
                 char_can_glide(state, player)
-                and state.has(ItemName.attractsuit, player)
+                and True
                 and state.has(ItemName.jht_lvl, player)
         )
 
@@ -1402,7 +1405,7 @@ def free_access_ycbob(state: CollectionState, player: int):
 
 def free_access_air(state: CollectionState, player: int):
     return (
-            state.has(ItemName.magsuit, player)
+            True
             and char_can_glide(state, player)
     )
 
@@ -1413,25 +1416,25 @@ def free_access_tfc(state: CollectionState, player: int):
 
 def free_access_apa(state: CollectionState, player: int):
     return (
-            state.has(ItemName.sonicsuit, player)
-            and state.has(ItemName.attractsuit, player)
+            True
+            and True
     )
 
 
 def free_access_tfo(state: CollectionState, player: int):
-    return state.has(ItemName.magsuit, player)
+    return True
 
 
 def free_access_tsga(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.magsuit, player)
-                and state.has(ItemName.glidesuit, player)
+                True
+                and True
         )
     else:
         return (
                 char_can_glide(state, player)
-                and state.has(ItemName.magsuit, player)
+                and True
         )
 
 
@@ -1443,27 +1446,27 @@ def free_access_utc(state: CollectionState, player: int):
     return (
             char_can_explode(state, player)
             and char_can_sink(state, player)
-            and (state.has(ItemName.magsuit, player) or char_can_glide(state, player))
+            and (True or char_can_glide(state, player))
     )
 
 
 def free_access_zc(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.magsuit, player)
-                and state.has(ItemName.glidesuit, player)
+                True
+                and True
         )
     return (
             char_can_explode(state, player)
-            or (state.has(ItemName.magsuit, player) and char_can_glide(state, player))
+            or (True and char_can_glide(state, player))
     )
 
 
 def free_access_pl(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.glidesuit, player)
-                and state.has(ItemName.watersuit, player)
+                True
+                and True
         )
     else:
         return (
@@ -1474,20 +1477,20 @@ def free_access_pl(state: CollectionState, options: LB1Options, player: int):
 
 def free_access_lfabt(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
-        return state.has(ItemName.demolitionsuit, player) and state.has(ItemName.sonicsuit, player)
+        return True and True
     else:
-        return char_can_explode(state, player) and state.has(ItemName.sonicsuit, player)
+        return char_can_explode(state, player) and True
 
 
 def free_access_itdn(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
-        return state.has(ItemName.demolitionsuit, player)
+        return True
     else:
         return char_can_explode(state, player)
 
 
 def free_access_tttot(state: CollectionState, player: int):
-    return state.has(ItemName.magsuit, player)
+    return True
 
 
 def free_access_trmaw(state: CollectionState, player: int):
@@ -1576,10 +1579,10 @@ def can_ycbob_min3(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 can_beat_ycbob(state, options, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
         )
     else:
-        return state.has(ItemName.sonicsuit, player)
+        return True
 
 
 def can_ycbob_min4(state: CollectionState, options: LB1Options, player: int):
@@ -1632,13 +1635,13 @@ def can_ycbob_min8(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 can_beat_ycbob(state, options, player)
-                and state.has(ItemName.attractsuit, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
+                and True
         )
     else:
         return (
-                state.has(ItemName.attractsuit, player)
-                and state.has(ItemName.sonicsuit, player)
+                True
+                and True
         )
 
 
@@ -1658,7 +1661,7 @@ def can_ycbob_min9(state: CollectionState, options: LB1Options, player: int):
 
 def can_ycbob_min10(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
-        return state.has(ItemName.attractsuit, player)
+        return True
     else:
         return char_can_techno(state, player)
 
@@ -1799,8 +1802,8 @@ def can_apa_min3(state: CollectionState, options: LB1Options, player: int):
         )
     else:
         return (
-                state.has(ItemName.sonicsuit, player)
-                and state.has(ItemName.heatprotectsuit, player)
+                True
+                and True
                 and char_can_techno(state, player)
         )
 
@@ -1816,12 +1819,12 @@ def can_apa_min4(state: CollectionState, options: LB1Options, player: int):
         return (
                 char_is_strong(state, player)
                 and char_can_double_jump(state, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
         )
 
 
 def can_apa_min5(state: CollectionState, player: int):
-    return state.has(ItemName.sonicsuit, player)
+    return True
 
 
 def can_apa_min6(state: CollectionState, options: LB1Options, player: int):
@@ -1838,12 +1841,12 @@ def can_apa_min7(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 can_beat_apa(state, player)
-                and state.has(ItemName.magsuit, player)
+                and True
                 and char_can_explode(state, player)
         )
     else:
         return (
-                state.has(ItemName.magsuit, player)
+                True
                 and char_can_explode(state, player)
         )
 
@@ -1852,22 +1855,22 @@ def can_apa_min8(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 can_beat_apa(state, player)
-                and state.has(ItemName.heatprotectsuit, player)
+                and True
                 and char_can_double_jump(state, player)
         )
     else:
         return (
-                state.has(ItemName.heatprotectsuit, player)
+                True
                 and char_can_double_jump(state, player)
         )
 
 
 def can_apa_min9(state: CollectionState, player: int):
-    return state.has(ItemName.heatprotectsuit, player)
+    return True
 
 
 def can_apa_min10(state: CollectionState, player: int):
-    return state.has(ItemName.heatprotectsuit, player)
+    return True
 
 
 def can_tfo_min4(state: CollectionState, options: LB1Options, player: int):
@@ -1889,7 +1892,7 @@ def can_tfo_min5(state: CollectionState, options: LB1Options, player: int):
     else:
         return (
                 char_can_double_jump(state, player)
-                and state.has(ItemName.attractsuit, player)
+                and True
         )
 
 
@@ -1929,28 +1932,28 @@ def can_tfo_min8(state: CollectionState, options: LB1Options, player: int):
 
 def can_tfo_min9(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
-        return state.has(ItemName.attractsuit, player)
+        return True
     else:
-        return state.has(ItemName.attractsuit, player) or char_can_cross_toxic(state, player)
+        return True or char_can_cross_toxic(state, player)
 
 
 def can_tfo_min10(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
-        return state.has(ItemName.attractsuit, player)
+        return True
     else:
-        return state.has(ItemName.attractsuit, player) or char_can_cross_toxic(state, player)
+        return True or char_can_cross_toxic(state, player)
 
 
 def can_tsga_min1(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 can_beat_tsga(state, options, player)
-                and state.has(ItemName.magsuit, player)
+                and True
                 and char_can_access_female_room(state, player)
         )
     else:
         return (
-                state.has(ItemName.magsuit, player)
+                True
                 and char_can_access_female_room(state, player)
         )
 
@@ -2037,7 +2040,7 @@ def can_tsga_min8(state: CollectionState, options: LB1Options, player: int):
 def can_tsga_min9(state: CollectionState, options: LB1Options, player: int):
     return (
             can_beat_tsga(state, options, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
@@ -2045,7 +2048,7 @@ def can_tsga_min10(state: CollectionState, options: LB1Options, player: int):
     return (
             can_beat_tsga(state, options, player)
             and char_can_sink(state, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
@@ -2114,7 +2117,7 @@ def can_utc_min3(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 can_beat_utc(state, options, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
                 and char_is_strong(state, player)
         )
     else:
@@ -2122,7 +2125,7 @@ def can_utc_min3(state: CollectionState, options: LB1Options, player: int):
                 char_can_explode(state, player)
                 and char_can_sink(state, player)
                 and char_is_strong(state, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
         )
 
 
@@ -2144,10 +2147,10 @@ def can_utc_min5(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 can_beat_utc(state, options, player)
-                and state.has(ItemName.attractsuit, player)
+                and True
         )
     else:
-        return state.has(ItemName.attractsuit, player)
+        return True
 
 
 def can_utc_min6(state: CollectionState, options: LB1Options, player: int):
@@ -2174,7 +2177,7 @@ def can_utc_min8(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return can_beat_utc(state, options, player)
     else:
-        return state.has(ItemName.magsuit, player)
+        return True
 
 
 def can_utc_min9(state: CollectionState, options: LB1Options, player: int):
@@ -2227,13 +2230,13 @@ def can_zc_min3(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 can_beat_zc(state, options, player)
-                and state.has(ItemName.attractsuit, player)
+                and True
                 and (char_can_access_female_room(state, player)
                      or (char_can_cross_toxic(state, player) and char_is_strong(state, player)))
         )
     else:
         return (
-                state.has(ItemName.attractsuit, player)
+                True
                 and (char_can_access_female_room(state, player)
                      or (char_can_cross_toxic(state, player) and char_is_strong(state, player)))
         )
@@ -2272,13 +2275,13 @@ def can_zc_min6(state: CollectionState, options: LB1Options, player: int):
 def can_zc_min8(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.techsuit, player)
-                and state.has(ItemName.sonicsuit, player)
+                True
+                and True
         )
     else:
         return (
                 char_can_glide(state, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
         )
 
 
@@ -2291,7 +2294,7 @@ def can_zc_min9(state: CollectionState, options: LB1Options, player: int):
     else:
         return (
                 char_can_glide(state, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
                 and state.has(ItemName.mrfreeze_unlocked, player)
         )
 
@@ -2305,7 +2308,7 @@ def can_zc_min10(state: CollectionState, options: LB1Options, player: int):
     else:
         return (
                 char_can_glide(state, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
                 and char_is_strong(state, player)
         )
 
@@ -2314,10 +2317,10 @@ def can_pl_min1(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 can_beat_zc(state, options, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
         )
     else:
-        return state.has(ItemName.sonicsuit, player)
+        return True
 
 
 def can_pl_min2(state: CollectionState, options: LB1Options, player: int):
@@ -2350,12 +2353,12 @@ def can_pl_min3(state: CollectionState, options: LB1Options, player: int):
 def can_pl_min5(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.glidesuit, player)
-                and state.has(ItemName.watersuit, player)
+                True
+                and True
         )
     else:
         return (
-                state.has(ItemName.glidesuit, player)
+                True
                 and char_can_sink(state, player)
         )
 
@@ -2373,8 +2376,8 @@ def can_pl_min8(state: CollectionState, player: int):
 
 def can_pl_min10(state: CollectionState, player: int):
     return (
-            state.has(ItemName.heatprotectsuit, player)
-            and state.has(ItemName.sonicsuit, player)
+            True
+            and True
     )
 
 
@@ -2394,13 +2397,13 @@ def can_jht_min3(state: CollectionState, options: LB1Options, player: int):
                 can_beat_jht(state, options, player)
                 and char_can_hypno(state, player)
                 and char_can_explode(state, player)
-                and state.has(ItemName.heatprotectsuit, player)
+                and True
         )
     else:
         return (
                 char_can_hypno(state, player)
                 and char_can_explode(state, player)
-                and state.has(ItemName.heatprotectsuit, player)
+                and True
         )
 
 
@@ -2471,7 +2474,7 @@ def can_jht_min9(state: CollectionState, options: LB1Options, player: int):
     else:
         return (
                 char_joker(state, player)
-                and state.has(ItemName.magsuit, player)
+                and True
         )
 
 
@@ -2484,7 +2487,7 @@ def can_jht_min10(state: CollectionState, options: LB1Options, player: int):
     else:
         return (
                 char_can_explode(state, player)
-                and state.has(ItemName.magsuit, player)
+                and True
         )
 
 
@@ -2511,7 +2514,7 @@ def can_lfabt_min2(state: CollectionState, options: LB1Options, player: int):
     else:
         return (
                 char_can_long_jump(state, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
         )
 
 
@@ -2551,7 +2554,7 @@ def can_lfabt_min6(state: CollectionState, options: LB1Options, player: int):
     else:
         return (
                 char_joker(state, player)
-                and state.has(ItemName.magsuit, player)
+                and True
         )
 
 
@@ -2560,8 +2563,8 @@ def can_lfabt_min7(state: CollectionState, options: LB1Options, player: int):
         return can_beat_lfabt(state, options, player)
     else:
         return (
-                state.has(ItemName.magsuit, player)
-                and state.has(ItemName.attractsuit, player)
+                True
+                and True
         )
 
 
@@ -2574,8 +2577,8 @@ def can_lfabt_min8(state: CollectionState, options: LB1Options, player: int):
         )
     else:
         return (
-                state.has(ItemName.attractsuit, player)
-                and state.has(ItemName.magsuit, player)
+                True
+                and True
                 and char_can_techno(state, player)
                 and char_can_cross_toxic(state, player)
         )
@@ -2589,8 +2592,8 @@ def can_lfabt_min9(state: CollectionState, options: LB1Options, player: int):
         )
     else:
         return (
-                state.has(ItemName.attractsuit, player)
-                and state.has(ItemName.magsuit, player)
+                True
+                and True
                 and char_is_strong(state, player)
         )
 
@@ -2603,8 +2606,8 @@ def can_lfabt_min10(state: CollectionState, options: LB1Options, player: int):
         )
     else:
         return (
-                state.has(ItemName.attractsuit, player)
-                and state.has(ItemName.magsuit, player)
+                True
+                and True
                 and char_can_cross_toxic(state, player)
         )
 
@@ -2630,12 +2633,12 @@ def can_itdn_min1(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_itdn(state, options, player)
                 and char_is_strong(state, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
         )
     else:
         return (
                 char_is_strong(state, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
         )
 
 
@@ -2688,11 +2691,11 @@ def can_itdn_min5(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_itdn(state, options, player)
                 and char_can_techno(state, player)
-                and state.has(ItemName.attractsuit, player)
+                and True
         )
     else:
         return (
-                state.has(ItemName.attractsuit, player)
+                True
                 and char_can_techno(state, player)
         )
 
@@ -2723,7 +2726,7 @@ def can_itdn_min9(state: CollectionState, options: LB1Options, player: int):
     return (
             can_beat_itdn(state, options, player)
             and char_joker(state, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
@@ -2732,13 +2735,13 @@ def can_itdn_min10(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_itdn(state, options, player)
                 and char_joker(state, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
                 and char_can_double_jump(state, player)
         )
     else:
         return (
                 char_joker(state, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
                 and char_can_double_jump(state, player)
         )
 
@@ -2757,20 +2760,20 @@ def can_tttot_min3(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 can_beat_tttot(state, options, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
         )
     else:
-        return state.has(ItemName.sonicsuit, player)
+        return True
 
 
 def can_tttot_min4(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
                 can_beat_tttot(state, options, player)
-                and state.has(ItemName.attractsuit, player)
+                and True
         )
     else:
-        return state.has(ItemName.attractsuit, player)
+        return True
 
 
 def can_tttot_min5(state: CollectionState, options: LB1Options, player: int):
@@ -2822,8 +2825,8 @@ def can_trmaw_min4(state: CollectionState, player: int):
 
 def can_trmaw_min6_and_9(state: CollectionState, player: int):
     return (
-            (char_can_explode(state, player) and state.has(ItemName.sonicsuit, player))
-            or (char_can_double_jump(state, player) and state.has(ItemName.sonicsuit, player))
+            (char_can_explode(state, player) and True)
+            or (char_can_double_jump(state, player) and True)
     )
 
 
@@ -2831,7 +2834,7 @@ def can_otr_min2(state: CollectionState, player: int):
     return (
             char_is_strong(state, player)
             and char_can_hypno(state, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
@@ -2840,13 +2843,13 @@ def can_otr_min4(state: CollectionState, player: int):
 
 
 def can_otr_min5(state: CollectionState, player: int):
-    return state.has(ItemName.magsuit, player)
+    return True
 
 
 def can_otr_min7(state: CollectionState, player: int):
     return (
             char_can_hypno(state, player)
-            and state.has(ItemName.attractsuit, player)
+            and True
     )
 
 
@@ -2860,7 +2863,7 @@ def can_otr_min8(state: CollectionState, player: int):
 def can_otr_min9(state: CollectionState, player: int):
     return (
             char_can_hypno(state, player)
-            and state.has(ItemName.magsuit, player)
+            and True
             and char_can_glide(state, player)
     )
 
@@ -2883,14 +2886,14 @@ def can_gf_min4(state: CollectionState, player: int):
 def can_gf_min5(state: CollectionState, player: int):
     return (
             char_can_sink(state, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
 def can_gf_min6(state: CollectionState, player: int):
     return (
-            state.has(ItemName.magsuit, player)
-            and state.has(ItemName.sonicsuit, player)
+            True
+            and True
     )
 
 
@@ -2898,18 +2901,18 @@ def can_gf_min7(state: CollectionState, player: int):
     return (
             char_can_explode(state, player)
             and char_is_strong(state, player)
-            and state.has(ItemName.magsuit, player)
+            and True
     )
 
 
 def can_gf_min8(state: CollectionState, player: int):
-    return state.has(ItemName.heatprotectsuit, player)
+    return True
 
 
 def can_gf_min9(state: CollectionState, player: int):
     return (
             char_can_sink(state, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
@@ -2920,14 +2923,14 @@ def can_gf_min10(state: CollectionState, player: int):
 def can_aet_min1(state: CollectionState, player: int):
     return (
             char_can_double_jump(state, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
 def can_aet_min2(state: CollectionState, player: int):
     return (
             char_can_techno(state, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
@@ -2936,7 +2939,7 @@ def can_aet_min3(state: CollectionState, player: int):
 
 
 def can_aet_min4(state: CollectionState, player: int):
-    return state.has(ItemName.sonicsuit, player)
+    return True
 
 
 def can_aet_min5(state: CollectionState, player: int):
@@ -2955,14 +2958,14 @@ def can_aet_min7(state: CollectionState, player: int):
 
 def can_aet_min8(state: CollectionState, player: int):
     return (
-            state.has(ItemName.sonicsuit, player)
+            True
             and char_can_cross_toxic(state, player)
     )
 
 
 def can_aet_min9(state: CollectionState, player: int):
     return (
-            state.has(ItemName.heatprotectsuit, player)
+            True
             and char_can_cross_toxic(state, player)
     )
 
@@ -2973,9 +2976,9 @@ def can_bb_min2(state: CollectionState, player: int):
 
 def can_bb_min4(state: CollectionState, player: int):
     return (
-            state.has(ItemName.sonicsuit, player)
-            and state.has(ItemName.attractsuit, player)
-            and state.has(ItemName.magsuit, player)
+            True
+            and True
+            and True
     )
 
 
@@ -3003,8 +3006,8 @@ def can_bb_min8(state: CollectionState, player: int):
 
 def can_bb_min9(state: CollectionState, player: int):
     return (
-            state.has(ItemName.sonicsuit, player)
-            and state.has(ItemName.magsuit, player)
+            True
+            and True
             and char_can_cross_toxic(state, player)
     )
 
@@ -3018,7 +3021,7 @@ def can_bb_min10(state: CollectionState, player: int):
 
 def can_rtd_min1(state: CollectionState, player: int):
     return (
-            state.has(ItemName.sonicsuit, player)
+            True
             and char_can_double_jump(state, player)
     )
 
@@ -3042,7 +3045,7 @@ def can_rtd_min7(state: CollectionState, player: int):
 def can_rtd_min9(state: CollectionState, player: int):
     return (
             char_can_access_female_room(state, player)
-            and state.has(ItemName.attractsuit, player)
+            and True
             and char_can_cross_toxic(state, player)
     )
 
@@ -3050,7 +3053,7 @@ def can_rtd_min9(state: CollectionState, player: int):
 def can_sts_min1(state: CollectionState, player: int):
     return (
             char_is_strong(state, player)
-            and state.has(ItemName.magsuit, player)
+            and True
     )
 
 
@@ -3062,19 +3065,19 @@ def can_sts_min3(state: CollectionState, player: int):
 
 
 def can_sts_min6(state: CollectionState, player: int):
-    return state.has(ItemName.magsuit, player)
+    return True
 
 
 def can_sts_min7(state: CollectionState, player: int):
     return (
-            state.has(ItemName.sonicsuit, player)
+            True
             and char_is_strong(state, player)
     )
 
 
 def can_sts_min9(state: CollectionState, player: int):
     return (
-            state.has(ItemName.sonicsuit, player)
+            True
             and state.has(ItemName.penguin_unlocked, player)
     )
 
@@ -3103,14 +3106,14 @@ def can_adr_min2(state: CollectionState, player: int):
 
 
 def can_adr_min3(state: CollectionState, player: int):
-    return state.has(ItemName.heatprotectsuit, player)
+    return True
 
 
 def can_adr_min5(state: CollectionState, player: int):
     return (
-            state.has(ItemName.attractsuit, player)
+            True
             and state.has(ItemName.penguin_unlocked, player)
-            and (state.has(ItemName.sonicsuit, player) or char_can_hypno(state, player))
+            and (True or char_can_hypno(state, player))
     )
 
 
@@ -3123,12 +3126,12 @@ def can_adr_min6(state: CollectionState, player: int):
 
 
 def can_adr_min7(state: CollectionState, player: int):
-    return state.has(ItemName.sonicsuit, player)
+    return True
 
 
 def can_adr_min9(state: CollectionState, player: int):
     return (
-            state.has(ItemName.magsuit, player)
+            True
             and state.has(ItemName.penguin_unlocked, player)
     )
 
@@ -3139,8 +3142,8 @@ def can_aw_min1(state: CollectionState, player: int):
 
 def can_aw_min2(state: CollectionState, player: int):
     return (
-            state.has(ItemName.sonicsuit, player)
-            and state.has(ItemName.magsuit, player)
+            True
+            and True
             and char_joker(state, player)
             and char_is_strong(state, player)
             and char_can_double_jump(state, player)
@@ -3149,7 +3152,7 @@ def can_aw_min2(state: CollectionState, player: int):
 
 def can_aw_min3(state: CollectionState, player: int):
     return (
-            state.has(ItemName.sonicsuit, player)
+            True
             and char_can_double_jump(state, player)
     )
 
@@ -3164,7 +3167,7 @@ def can_aw_min4(state: CollectionState, player: int):
 
 
 def can_aw_min5(state: CollectionState, player: int):
-    return state.has(ItemName.sonicsuit, player)
+    return True
 
 
 def can_aw_min6(state: CollectionState, player: int):
@@ -3200,7 +3203,7 @@ def can_asftc_min1(state: CollectionState, player: int):
 
 
 def can_asftc_min2(state: CollectionState, player: int):
-    return state.has(ItemName.sonicsuit, player)
+    return True
 
 
 def can_asftc_min3(state: CollectionState, player: int):
@@ -3215,12 +3218,12 @@ def can_asftc_min4(state: CollectionState, player: int):
 
 
 def can_asftc_min5(state: CollectionState, player: int):
-    return state.has(ItemName.magsuit, player)
+    return True
 
 
 def can_asftc_min7(state: CollectionState, player: int):
     return (
-            state.has(ItemName.magsuit, player)
+            True
             and char_can_explode(state, player)
     )
 
@@ -3234,7 +3237,7 @@ def can_asftc_min8(state: CollectionState, player: int):
 
 def can_asftc_min9(state: CollectionState, player: int):
     return (
-            state.has(ItemName.attractsuit, player)
+            True
             and char_joker(state, player)
             and char_can_techno(state, player)
     )
@@ -3253,7 +3256,7 @@ def can_tjm_min4(state: CollectionState, player: int):
 
 
 def can_tjm_min5(state: CollectionState, player: int):
-    return state.has(ItemName.sonicsuit, player)
+    return True
 
 
 def can_tjm_min6(state: CollectionState, player: int):
@@ -3262,9 +3265,9 @@ def can_tjm_min6(state: CollectionState, player: int):
 
 def can_tjm_min7(state: CollectionState, player: int):
     return (
-            state.has(ItemName.heatprotectsuit, player)
+            True
             and char_can_explode(state, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
@@ -3303,7 +3306,7 @@ def can_tlotn_min4(state: CollectionState, player: int):
 
 def can_tlotn_min5(state: CollectionState, player: int):
     return (
-            state.has(ItemName.magsuit, player)
+            True
             and (char_can_glide(state, player) or char_can_double_jump(state, player))
     )
 
@@ -3318,7 +3321,7 @@ def can_tlotn_min9(state: CollectionState, player: int):
 def can_tlotn_min10(state: CollectionState, player: int):
     return (
             char_can_sink(state, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
             and (char_can_glide(state, player) or char_can_double_jump(state, player))
     )
 
@@ -3330,7 +3333,7 @@ def can_dol_min1(state: CollectionState, player: int):
 def can_dol_min2(state: CollectionState, player: int):
     return (
             char_can_double_jump(state, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
@@ -3343,7 +3346,7 @@ def can_dol_min4(state: CollectionState, player: int):
 
 
 def can_dol_min5(state: CollectionState, player: int):
-    return state.has(ItemName.magsuit, player)
+    return True
 
 
 def can_dol_min7(state: CollectionState, player: int):
@@ -3369,7 +3372,7 @@ def can_air_host(state: CollectionState, options: LB1Options, player: int):
 
 
 def can_apa_host(state: CollectionState, player: int):
-    return state.has(ItemName.sonicsuit, player)
+    return True
 
 
 def can_tfo_host(state: CollectionState, options: LB1Options, player: int):
@@ -3380,7 +3383,7 @@ def can_tfo_host(state: CollectionState, options: LB1Options, player: int):
         )
     else:
         return (
-                state.has(ItemName.attractsuit, player)
+                True
                 and char_can_double_jump(state, player)
         )
 
@@ -3388,8 +3391,8 @@ def can_tfo_host(state: CollectionState, options: LB1Options, player: int):
 def can_utc_host(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.magsuit, player)
-                and state.has(ItemName.demolitionsuit, player)
+                True
+                and True
         )
     else:
         return char_can_explode(state, player)
@@ -3397,10 +3400,10 @@ def can_utc_host(state: CollectionState, options: LB1Options, player: int):
 
 def can_zc_host(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
-        return state.has(ItemName.techsuit, player)
+        return True
     else:
         return (
-                state.has(ItemName.sonicsuit, player)
+                True
                 or (char_can_techno(state, player) and char_can_glide(state, player))
         )
 
@@ -3415,18 +3418,18 @@ def can_jht_host(state: CollectionState, options: LB1Options, player: int):
 def can_lfabt_host(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.magsuit, player)
-                and state.has(ItemName.sonicsuit, player)
+                True
+                and True
         )
     else:
-        return state.has(ItemName.magsuit, player)
+        return True
 
 
 def can_itdn_host(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
         return (
-                state.has(ItemName.demolitionsuit, player)
-                and state.has(ItemName.techsuit, player)
+                True
+                and True
         )
     else:
         return (
@@ -3436,7 +3439,7 @@ def can_itdn_host(state: CollectionState, options: LB1Options, player: int):
 
 
 def can_trmaw_host(state: CollectionState, player: int):
-    return state.has(ItemName.sonicsuit, player)
+    return True
 
 
 def can_otr_host(state: CollectionState, player: int):
@@ -3451,7 +3454,7 @@ def can_gf_host(state: CollectionState, player: int):
 
 
 def can_aet_host(state: CollectionState, player: int):
-    return state.has(ItemName.sonicsuit, player)
+    return True
 
 
 def can_bb_host(state: CollectionState, player: int):
@@ -3459,12 +3462,12 @@ def can_bb_host(state: CollectionState, player: int):
 
 
 def can_rtd_host(state: CollectionState, player: int):
-    return state.has(ItemName.sonicsuit, player)
+    return True
 
 
 def can_sts_host(state: CollectionState, player: int):
     return (
-            state.has(ItemName.magsuit, player)
+            True
             and char_is_strong(state, player)
     )
 
@@ -3485,7 +3488,7 @@ def can_tjm_host(state: CollectionState, player: int):
     return (
             char_joker(state, player)
             and char_can_explode(state, player)
-            and state.has(ItemName.heatprotectsuit, player)
+            and True
     )
 
 
@@ -3499,7 +3502,7 @@ def can_dol_host(state: CollectionState, player: int):
 
 def can_ycbob_rb(state: CollectionState, options: LB1Options, player: int):
     if options.freeplay_or_story == 0:
-        return state.has(ItemName.techsuit, player) and state.has(ItemName.demolitionsuit, player)
+        return True and True
     else:
         return char_can_techno(state, player) and char_can_explode(state, player)
 
@@ -3525,7 +3528,7 @@ def can_apa_rb(state: CollectionState, options: LB1Options, player: int):
         return (
                 char_can_explode(state, player)
                 and char_joker(state, player)
-                and state.has(ItemName.heatprotectsuit, player)
+                and True
         )
 
 
@@ -3542,7 +3545,7 @@ def can_tfo_rb(state: CollectionState, options: LB1Options, player: int):
 def can_tsga_rb(state: CollectionState, options: LB1Options, player: int):
     return (
             can_beat_tsga(state, options, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
@@ -3578,7 +3581,7 @@ def can_zc_rb(state: CollectionState, options: LB1Options, player: int):
 
 
 def can_pl_rb(state: CollectionState, player: int):
-    return state.has(ItemName.sonicsuit, player)
+    return True
 
 
 def can_jht_rb(state: CollectionState, options: LB1Options, player: int):
@@ -3586,13 +3589,13 @@ def can_jht_rb(state: CollectionState, options: LB1Options, player: int):
         return (
                 can_beat_jht(state, options, player)
                 and state.has(ItemName.mrfreeze_unlocked, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
                 and char_can_double_jump(state, player)
         )
     else:
         return (
                 state.has(ItemName.mrfreeze_unlocked, player)
-                and state.has(ItemName.sonicsuit, player)
+                and True
                 and char_can_double_jump(state, player)
         )
 
@@ -3623,7 +3626,7 @@ def can_itdn_rb(state: CollectionState, options: LB1Options, player: int):
     return (
             can_beat_itdn(state, options, player)
             and char_can_glide(state, player)
-            and state.has(ItemName.heatprotectsuit, player)
+            and True
     )
 
 
@@ -3637,7 +3640,7 @@ def can_tttot_rb(state: CollectionState, options: LB1Options, player: int):
 def can_trmaw_rb(state: CollectionState, player: int):
     return (
             char_can_double_jump(state, player)
-            and state.has(ItemName.magsuit, player)
+            and True
     )
 
 
@@ -3648,7 +3651,7 @@ def can_otr_rb(state: CollectionState, player: int):
 def can_gf_rb(state: CollectionState, player: int):
     return (
             char_can_explode(state, player)
-            and state.has(ItemName.attractsuit, player)
+            and True
             and char_can_techno(state, player)
             and state.has(ItemName.poisonivy_unlocked, player)
     )
@@ -3664,7 +3667,7 @@ def can_aet_rb(state: CollectionState, player: int):
 def can_bb_rb(state: CollectionState, player: int):
     return (
             char_can_explode(state, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
@@ -3678,7 +3681,7 @@ def can_rtd_rb(state: CollectionState, player: int):
 
 def can_sts_rb(state: CollectionState, player: int):
     return (
-            state.has(ItemName.attractsuit, player)
+            True
             and char_can_techno(state, player)
             and state.has(ItemName.penguin_unlocked, player)
             and char_can_explode(state, player)
@@ -3693,12 +3696,12 @@ def can_adr_rb(state: CollectionState, player: int):
     return (
             char_can_techno(state, player)
             and state.has(ItemName.penguin_unlocked, player)
-            and state.has(ItemName.sonicsuit, player)
+            and True
     )
 
 
 def can_aw_rb(state: CollectionState, player: int):
-    return char_can_cross_toxic(state, player) and state.has(ItemName.attractsuit, player)
+    return char_can_cross_toxic(state, player) and True
 
 
 def can_asftc_rb(state: CollectionState, player: int):
@@ -3713,7 +3716,7 @@ def can_tjm_rb(state: CollectionState, player: int):
     return (
             char_joker(state, player)
             and char_can_explode(state, player)
-            and state.has(ItemName.heatprotectsuit, player)
+            and True
     )
 
 
@@ -3721,7 +3724,7 @@ def can_tlotn_rb(state: CollectionState, player: int):
     return (
             state.has(ItemName.poisonivy_unlocked, player)
             and char_can_double_jump(state, player)
-            and state.has(ItemName.attractsuit, player)
+            and True
     )
 
 
@@ -4619,7 +4622,7 @@ def set_rules(world: MultiWorld, options: LB1Options, player: int):
     set_entrance_rules(world, options, player)
     set_char_rules(world, options, player)
     # Hard char Rules
-    set_suit_rules(world, options, player)
+    # set_suit_rules(world, options, player)
     if options.minikit_sanity == 1:
         set_minikit_rules(world, options, player)
     set_host_rules(world, options, player)

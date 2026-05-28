@@ -120,18 +120,18 @@ character_item_table: Dict[str, LB1ItemData] = {
 }
 
 # Currently stored in Batcave because it is sounding like they can be unlocked in multiple levels
-suit_item_table: Dict[str, LB1ItemData] = {
-    # "Batsuit": LB1ItemData(base_item_id + 80, ItemClassification.progression),
-    ItemName.heatprotectsuit: LB1ItemData(base_item_id + 81, ItemClassification.progression, "Suit"),
-    ItemName.glidesuit: LB1ItemData(base_item_id + 82, ItemClassification.progression, "Suit"),
-    ItemName.demolitionsuit: LB1ItemData(base_item_id + 83, ItemClassification.progression, "Suit"),
-    ItemName.sonicsuit: LB1ItemData(base_item_id + 84, ItemClassification.progression, "Suit"),
-    # "Robinsuit": LB1ItemData(base_item_id + 85, ItemClassification.progression),
-    ItemName.watersuit: LB1ItemData(base_item_id + 86, ItemClassification.progression, "Suit"),
-    ItemName.techsuit: LB1ItemData(base_item_id + 87, ItemClassification.progression, "Suit"),
-    ItemName.magsuit: LB1ItemData(base_item_id + 88, ItemClassification.progression, "Suit"),
-    ItemName.attractsuit: LB1ItemData(base_item_id + 89, ItemClassification.progression, "Suit"),
-}
+# suit_item_table: Dict[str, LB1ItemData] = {
+#     # "Batsuit": LB1ItemData(base_item_id + 80, ItemClassification.progression),
+#     ItemName.heatprotectsuit: LB1ItemData(base_item_id + 81, ItemClassification.progression, "Suit"),
+#     ItemName.glidesuit: LB1ItemData(base_item_id + 82, ItemClassification.progression, "Suit"),
+#     ItemName.demolitionsuit: LB1ItemData(base_item_id + 83, ItemClassification.progression, "Suit"),
+#     ItemName.sonicsuit: LB1ItemData(base_item_id + 84, ItemClassification.progression, "Suit"),
+#     # "Robinsuit": LB1ItemData(base_item_id + 85, ItemClassification.progression),
+#     ItemName.watersuit: LB1ItemData(base_item_id + 86, ItemClassification.progression, "Suit"),
+#     ItemName.techsuit: LB1ItemData(base_item_id + 87, ItemClassification.progression, "Suit"),
+#     ItemName.magsuit: LB1ItemData(base_item_id + 88, ItemClassification.progression, "Suit"),
+#     ItemName.attractsuit: LB1ItemData(base_item_id + 89, ItemClassification.progression, "Suit"),
+# }
 
 filler_item_table: Dict[str, LB1ItemData] = {
     "Nothing": LB1ItemData(base_item_id + 90, ItemClassification.filler, "Nothing"),
@@ -720,7 +720,7 @@ character_token_received_table: Dict[str, LB1ItemData] = {
 all_item_table = {
     **character_item_table,
     # **hard_character_item_table,
-    **suit_item_table,
+    # **suit_item_table,
     **minikit_item_table,
     **hostage_item_table,
     **level_unlocked_item_table,

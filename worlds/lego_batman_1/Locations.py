@@ -106,18 +106,18 @@ hard_character_location_table: Dict[str, LocationData] = {
 }
 
 # Currently stored in Batcave because it is sounding like they can be unlocked in multiple levels
-suit_location_table: Dict[str, LocationData] = {
-    # LocationName.batsuit_collected: LocationData(base_location_id + 80, RegionName.bc),
-    LocationName.heatprotectsuit: LocationData(base_location_id + 81, RegionName.apa),
-    LocationName.glidesuit: LocationData(base_location_id + 82, RegionName.bc),
-    LocationName.demosuit: LocationData(base_location_id + 83, RegionName.bc),
-    LocationName.sonicsuit: LocationData(base_location_id + 84, RegionName.bc),
-    # LocationName.robinsuit_collected: LocationData(base_location_id + 85, RegionName.bc),
-    LocationName.watersuit: LocationData(base_location_id + 86, RegionName.bc),
-    LocationName.techsuit: LocationData(base_location_id + 87, RegionName.bc),
-    LocationName.magsuit: LocationData(base_location_id + 88, RegionName.bc),
-    LocationName.attractsuit: LocationData(base_location_id + 89, RegionName.bc),
-}
+# suit_location_table: Dict[str, LocationData] = {
+#     # LocationName.batsuit_collected: LocationData(base_location_id + 80, RegionName.bc),
+#     LocationName.heatprotectsuit: LocationData(base_location_id + 81, RegionName.apa),
+#     LocationName.glidesuit: LocationData(base_location_id + 82, RegionName.bc),
+#     LocationName.demosuit: LocationData(base_location_id + 83, RegionName.bc),
+#     LocationName.sonicsuit: LocationData(base_location_id + 84, RegionName.bc),
+#     # LocationName.robinsuit_collected: LocationData(base_location_id + 85, RegionName.bc),
+#     LocationName.watersuit: LocationData(base_location_id + 86, RegionName.bc),
+#     LocationName.techsuit: LocationData(base_location_id + 87, RegionName.bc),
+#     LocationName.magsuit: LocationData(base_location_id + 88, RegionName.bc),
+#     LocationName.attractsuit: LocationData(base_location_id + 89, RegionName.bc),
+# }
 
 minikit_location_table: Dict[str, LocationData] = {
     # You can Bank on Batman
@@ -740,7 +740,7 @@ event_location_table = {
 all_location_table = {
     **character_location_table,
     **hard_character_location_table,
-    **suit_location_table,
+    # **suit_location_table,
     **minikit_location_table,
     **hostage_location_table,
     **level_beaten_location_table,
@@ -767,7 +767,7 @@ def setup_locations(options: LB1Options):
     temp_location_table.update({**character_location_table})
     if options.shuffle_hush_and_ras == 1:
         temp_location_table.update({**hard_character_location_table})
-    temp_location_table.update({**suit_location_table})
+    # temp_location_table.update({**suit_location_table})
     temp_location_table.update({**hostage_location_table})
     temp_location_table.update({**level_beaten_location_table})
     temp_location_table.update({**red_brick_location_table})

@@ -46,7 +46,7 @@ class LB1World(World):
     item_name_groups = {
         "Character": {name: data for name, data in all_item_table.items() if data.type == "Character"},
         "Hard Character": {name: data for name, data in all_item_table.items() if data.type == "hard character"},
-        "Suit": {name: data for name, data in all_item_table.items() if data.type == "Suit"},
+        # "Suit": {name: data for name, data in all_item_table.items() if data.type == "Suit"},
         "Minikit": {name: data for name, data in all_item_table.items() if data.type == "Minikit"},
         "Hostage": {name: data for name, data in all_item_table.items() if data.type == "Hostage"},
         "Level": {name: data for name, data in all_item_table.items() if data.type == "Level"},
@@ -235,7 +235,7 @@ class LB1World(World):
         hush_hostages = self.options.hush_purchase_requirements.value
         for name, data in all_item_table.items():
             match data.type:
-                case "Character" | "Suit" | "Level" | "Red Brick Collected" | "Red Brick Unlocked":
+                case "Character" | "Level" | "Red Brick Collected" | "Red Brick Unlocked":
                     self.seed_item_table[name] = data
                 case "Hard Character":
                     if self.options.shuffle_hush_and_ras == 1:
