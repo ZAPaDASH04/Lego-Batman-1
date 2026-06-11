@@ -1,4 +1,7 @@
-from typing import Dict, Any
+import settings
+
+from typing import Dict, Any, ClassVar, Union
+from settings import FilePath
 
 from BaseClasses import Item, Tutorial, ItemClassification
 from Options import OptionError
@@ -9,6 +12,14 @@ from .Options import LB1Options, RasPurchaseRequirements
 from .Regions import create_regions, connect_regions, create_events
 from .Rules import set_rules, set_event_rules
 from ..AutoWorld import World, WebWorld, CollectionState
+
+
+class UTPackPath(FilePath):
+    required = False
+
+
+class LB1Settings(settings.Group):
+    ut_pack_path: Union[UTPackPath, str] = UTPackPath()
 
 
 class LB1Web(WebWorld):
@@ -130,6 +141,16 @@ class LB1World(World):
         return slot_data
 
     ut_can_gen_without_yaml = True
+
+    settings_key = "lb1_settings"
+    settings: ClassVar[LB1Settings]
+
+    tracker_world: ClassVar = {
+        "external_pack_key": "ut_pack_path",
+        "map_page_maps": ["maps/maps.json"],
+        "map_page_locations": ["locations/levels.json", "locations/characters.json"],
+        "map_page_layouts": ["layouts/tabs.json"],
+    }
 
     def generate_early(self):
         self.validate_yaml()
